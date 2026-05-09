@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>AI Chatbot Integration – Website Creator</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .svc-hero{min-height:62vh;background:#0a0a1a;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;padding:130px 20px 80px;overflow:hidden}
+    .svc-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(255,101,132,0.18) 0%,transparent 65%)}
+    .svc-hero-content{position:relative;z-index:1;max-width:720px}
+    .svc-back{display:inline-flex;align-items:center;gap:6px;color:var(--text-muted);font-size:0.88rem;margin-bottom:28px;transition:color .2s}
+    .svc-back:hover{color:var(--white)}
+    .svc-icon-wrap{width:88px;height:88px;border-radius:22px;background:rgba(255,101,132,0.15);border:1px solid rgba(255,101,132,0.3);display:flex;align-items:center;justify-content:center;font-size:2.2rem;color:#ff6584;margin:0 auto 28px}
+    .svc-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,6vw,3.4rem);font-weight:800;color:var(--white);margin-bottom:16px;line-height:1.15}
+    .svc-tagline{font-size:1.05rem;color:rgba(255,255,255,0.72);max-width:580px;margin:0 auto 36px;line-height:1.75}
+    .svc-hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .svc-section{padding:80px 0}
+    .svc-section.dark{background:var(--bg)}
+    .svc-section.mid{background:var(--bg2)}
+    .svc-section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--white);text-align:center;margin-bottom:14px}
+    .svc-section-sub{color:var(--text-muted);text-align:center;font-size:0.95rem;max-width:540px;margin:0 auto 48px;line-height:1.7}
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+    .feature-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;transition:var(--transition)}
+    .feature-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .feature-icon{width:50px;height:50px;border-radius:12px;background:rgba(255,101,132,0.12);display:flex;align-items:center;justify-content:center;color:#ff6584;font-size:1.2rem;margin-bottom:16px}
+    .feature-card h4{font-weight:700;color:var(--white);margin-bottom:8px;font-size:1rem}
+    .feature-card p{color:var(--text-muted);font-size:0.88rem;line-height:1.6}
+    .steps{display:flex;flex-direction:column;gap:0;max-width:680px;margin:0 auto}
+    .step{display:flex;gap:22px;align-items:flex-start;padding-bottom:36px;position:relative}
+    .step:not(:last-child)::before{content:'';position:absolute;left:21px;top:46px;width:2px;height:calc(100% - 12px);background:rgba(255,101,132,0.25)}
+    .step-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#ff6584,#f59e0b);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:#fff;flex-shrink:0}
+    .step-body h4{font-weight:700;color:var(--white);margin-bottom:6px}
+    .step-body p{color:var(--text-muted);font-size:0.9rem;line-height:1.6}
+    .svc-cta{padding:80px 20px;text-align:center;background:var(--bg2)}
+    .svc-cta h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--white);margin-bottom:12px}
+    .svc-cta p{color:var(--text-muted);margin-bottom:32px;font-size:0.95rem}
+    .svc-cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    @media(max-width:600px){.svc-hero-btns,.svc-cta-btns{flex-direction:column;align-items:center}.btn{width:100%;max-width:280px;justify-content:center}}
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo">
+          <span class="logo-icon">MI</span>
+          <span class="logo-text">Website <span class="logo-accent">Creator</span></span>
+        </a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#home" class="nav-link">Home</a></li>
+        <li><a href="index.html#services" class="nav-link">Services</a></li>
+        <li><a href="index.html#pricing" class="nav-link">Pricing</a></li>
+        <li><a href="index.html#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="index.html#contact" class="nav-link nav-cta">Get Started</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="svc-hero">
+    <div class="svc-video-wrap">
+      <video class="svc-video" autoplay muted loop playsinline preload="auto">
+        <source src="0.1.mp4" type="video/mp4" />
+      </video>
+      <div class="svc-video-overlay"></div>
+    </div>
+    <div class="svc-hero-content">
+      <a href="index.html#services" class="svc-back"><i class="fas fa-arrow-left"></i> Back to Services</a>
+      <div class="svc-icon-wrap"><i class="fas fa-robot"></i></div>
+      <h1 class="svc-title">AI Chatbot <span class="gradient-text">Integration</span></h1>
+      <p class="svc-tagline">Add a smart AI-powered chatbot to your website that handles customer queries, captures leads, and books appointments 24/7 — automatically.</p>
+      <div class="svc-hero-btns">
+        <a href="index.html#contact" class="btn btn-primary"><i class="fas fa-rocket"></i> Add a Chatbot</a>
+        <a href="index.html#pricing" class="btn btn-outline"><i class="fas fa-tag"></i> View Pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-section mid">
+    <div class="container">
+      <h2 class="svc-section-title">What's <span class="gradient-text">Included</span></h2>
+      <p class="svc-section-sub">A fully functional AI chatbot trained on your business data — ready to handle customers while you sleep.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-clock"></i></div>
+          <h4>24/7 Availability</h4>
+          <p>Your chatbot never sleeps. It answers customer questions, captures leads, and handles inquiries around the clock.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-brain"></i></div>
+          <h4>ChatGPT / Gemini Powered</h4>
+          <p>Powered by the latest AI models — GPT-4, Gemini Flash, or Claude — for natural, human-like conversations.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-database"></i></div>
+          <h4>Custom Trained on Your Data</h4>
+          <p>The chatbot is trained on your products, services, FAQs, and business info — giving accurate, relevant answers.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-funnel-dollar"></i></div>
+          <h4>Lead Capture &amp; Booking</h4>
+          <p>Collects visitor names, emails, and phone numbers. Can integrate with your calendar for appointment booking.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-language"></i></div>
+          <h4>Multi-Language Support</h4>
+          <p>Automatically detects and responds in the visitor's language — Urdu, Arabic, English, and more.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-plug"></i></div>
+          <h4>Any Website Compatible</h4>
+          <p>Works on any website — HTML, WordPress, Shopify, Wix, or custom-built. Simple one-line integration.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-section dark">
+    <div class="container">
+      <h2 class="svc-section-title">How It <span class="gradient-text">Works</span></h2>
+      <p class="svc-section-sub">From setup to live chatbot in just a few days.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Data Collection</h4>
+            <p>You share your business info — services, FAQs, pricing, contact details. This becomes the chatbot's knowledge base.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>AI Training &amp; Prompt Engineering</h4>
+            <p>I craft a custom system prompt and train the AI on your specific data so it responds accurately as your brand's assistant.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Design &amp; Integration</h4>
+            <p>The chat widget is designed to match your brand colors and integrated seamlessly into your website.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Test &amp; Go Live</h4>
+            <p>We test all conversation flows together, fine-tune responses, and launch — your chatbot is live and working.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-cta">
+    <h2>Ready to Automate Your <span class="gradient-text">Customer Support?</span></h2>
+    <p>Let an AI chatbot handle your visitors while you focus on growing your business.</p>
+    <div class="svc-cta-btns">
+      <a href="index.html#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Get My Chatbot</a>
+      <a href="index.html#pricing" class="btn btn-outline"><i class="fas fa-tag"></i> See Pricing Plans</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 WebsiteCreator. All rights reserved.</p>
+        <p><a href="index.html" style="color:var(--primary)">← Back to Home</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => { navToggle.classList.toggle('active'); navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => { navToggle.classList.remove('active'); navLinks.classList.remove('open'); }));
+  </script>
+</body>
+</html>

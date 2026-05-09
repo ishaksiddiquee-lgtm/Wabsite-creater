@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Business Website – Website Creator</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root{--clr:#10b981;--clr-low:rgba(16,185,129,0.13);--clr-border:rgba(16,185,129,0.3)}
+
+    .svc-hero{min-height:62vh;background:#0a0a1a;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;padding:130px 20px 80px;overflow:hidden}
+    .svc-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(16,185,129,0.18) 0%,transparent 65%)}
+    .svc-hero-content{position:relative;z-index:1;max-width:720px}
+    .svc-back{display:inline-flex;align-items:center;gap:6px;color:var(--text-muted);font-size:0.88rem;margin-bottom:28px;transition:color .2s}
+    .svc-back:hover{color:var(--white)}
+    .svc-icon-wrap{width:88px;height:88px;border-radius:22px;background:var(--clr-low);border:1px solid var(--clr-border);display:flex;align-items:center;justify-content:center;font-size:2.2rem;color:var(--clr);margin:0 auto 28px}
+    .svc-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,6vw,3.4rem);font-weight:800;color:var(--white);margin-bottom:16px;line-height:1.15}
+    .svc-tagline{font-size:1.05rem;color:rgba(255,255,255,0.72);max-width:580px;margin:0 auto 36px;line-height:1.75}
+    .svc-hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+    .svc-section{padding:80px 0}
+    .svc-section.dark{background:var(--bg)}
+    .svc-section.mid{background:var(--bg2)}
+    .svc-section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--white);text-align:center;margin-bottom:14px}
+    .svc-section-sub{color:var(--text-muted);text-align:center;font-size:0.95rem;max-width:540px;margin:0 auto 48px;line-height:1.7}
+
+    .agent-plans{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;align-items:start;max-width:820px;margin:0 auto}
+    .agent-plan{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:36px 28px;position:relative;transition:var(--transition)}
+    .agent-plan:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+    .agent-plan.popular{border-color:var(--clr);box-shadow:0 0 0 1px var(--clr),0 20px 60px rgba(16,185,129,0.2)}
+    .popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#10b981,#2563eb);color:#fff;font-size:0.75rem;font-weight:700;padding:5px 18px;border-radius:50px;letter-spacing:0.06em;white-space:nowrap}
+    .plan-tier{font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--clr);margin-bottom:10px}
+    .plan-name-lg{font-family:'Space Grotesk',sans-serif;font-size:1.55rem;font-weight:800;color:var(--white);margin-bottom:6px}
+    .plan-tagline{font-size:0.85rem;color:var(--text-muted);margin-bottom:24px;line-height:1.5;min-height:48px}
+    .plan-price-wrap{display:flex;align-items:flex-end;gap:4px;margin-bottom:6px}
+    .plan-currency{font-size:1.3rem;font-weight:700;color:var(--white);line-height:1;margin-bottom:6px}
+    .plan-amount{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:900;color:var(--white);line-height:1}
+    .plan-per{font-size:0.82rem;color:var(--text-muted);margin-bottom:6px}
+    .plan-divider{height:1px;background:var(--card-border);margin:22px 0}
+    .plan-features-list{list-style:none;padding:0;margin:0 0 28px;display:flex;flex-direction:column;gap:11px}
+    .plan-features-list li{display:flex;align-items:flex-start;gap:10px;font-size:0.87rem;color:var(--text-muted);line-height:1.4}
+    .plan-features-list li .fi{font-size:0.82rem;margin-top:2px;flex-shrink:0}
+    .plan-features-list li .fi.yes{color:#22c55e}
+    .plan-features-list li .fi.no{color:#475569}
+    .plan-features-list li.dim{opacity:.45}
+    .plan-cta{display:block;text-align:center;padding:13px;border-radius:50px;font-weight:700;font-size:0.9rem;transition:var(--transition)}
+    .plan-cta.outline{border:1.5px solid var(--clr);color:var(--clr)}
+    .plan-cta.outline:hover{background:var(--clr-low)}
+    .plan-cta.filled{background:linear-gradient(135deg,#10b981,#2563eb);color:#fff;box-shadow:0 6px 24px rgba(16,185,129,0.3)}
+    .plan-cta.filled:hover{opacity:.9;transform:translateY(-1px)}
+    .compare-note{margin-top:36px;text-align:center;color:var(--text-muted);font-size:0.85rem}
+    .compare-note span{color:var(--clr);font-weight:600}
+
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+    .feature-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;transition:var(--transition);position:relative;overflow:hidden}
+    .feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#10b981,#2563eb);opacity:0;transition:var(--transition)}
+    .feature-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(16,185,129,0.15)}
+    .feature-card:hover::before{opacity:1}
+    .feature-icon{width:50px;height:50px;border-radius:12px;background:var(--clr-low);display:flex;align-items:center;justify-content:center;color:var(--clr);font-size:1.2rem;margin-bottom:16px}
+    .feature-card h4{font-weight:700;color:var(--white);margin-bottom:8px;font-size:1rem}
+    .feature-card p{color:var(--text-muted);font-size:0.88rem;line-height:1.6}
+
+    .steps{display:flex;flex-direction:column;gap:0;max-width:680px;margin:0 auto}
+    .step{display:flex;gap:22px;align-items:flex-start;padding-bottom:36px;position:relative}
+    .step:not(:last-child)::before{content:'';position:absolute;left:21px;top:46px;width:2px;height:calc(100% - 12px);background:var(--clr-border)}
+    .step-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#10b981,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:#fff;flex-shrink:0}
+    .step-body h4{font-weight:700;color:var(--white);margin-bottom:6px}
+    .step-body p{color:var(--text-muted);font-size:0.9rem;line-height:1.6}
+
+    .svc-cta{padding:80px 20px;text-align:center;background:var(--bg2)}
+    .svc-cta h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--white);margin-bottom:12px}
+    .svc-cta p{color:var(--text-muted);margin-bottom:32px;font-size:0.95rem}
+    .svc-cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+    @media(max-width:768px){.agent-plans{grid-template-columns:1fr}}
+    @media(max-width:600px){.svc-hero-btns,.svc-cta-btns{flex-direction:column;align-items:center}.btn{width:100%;max-width:280px;justify-content:center}}
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo">
+          <span class="logo-icon">MI</span>
+          <span class="logo-text">Website <span class="logo-accent">Creator</span></span>
+        </a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#home" class="nav-link">Home</a></li>
+        <li><a href="index.html#services" class="nav-link">Services</a></li>
+        <li><a href="index.html#pricing" class="nav-link">Pricing</a></li>
+        <li><a href="index.html#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="index.html#contact" class="nav-link nav-cta">Get Started</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="svc-hero">
+    <div class="svc-video-wrap">
+      <video class="svc-video" autoplay muted loop playsinline preload="auto">
+        <source src="0.1.mp4" type="video/mp4" />
+      </video>
+      <div class="svc-video-overlay"></div>
+    </div>
+    <div class="svc-hero-content">
+      <a href="index.html#services" class="svc-back"><i class="fas fa-arrow-left"></i> Back to Services</a>
+      <div class="svc-icon-wrap"><i class="fas fa-building"></i></div>
+      <h1 class="svc-title">Business <span class="gradient-text">Website</span></h1>
+      <p class="svc-tagline">Professional, trust-building business websites designed to attract clients, showcase your services, and grow your brand online — fast, modern, and conversion-focused. Choose the package that fits your goals.</p>
+      <div class="svc-hero-btns">
+        <a href="index.html#contact" class="btn btn-primary"><i class="fas fa-rocket"></i> Build My Business Site</a>
+        <a href="#plans" class="btn btn-outline"><i class="fas fa-tag"></i> See Plans</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING PLANS ===== -->
+  <section class="svc-section dark" id="plans">
+    <div class="container">
+      <h2 class="svc-section-title">Choose Your <span class="gradient-text">Business Plan</span></h2>
+      <p class="svc-section-sub">Two packages for businesses of every size — from a sharp, fast starter site to a full-featured platform that generates leads, books appointments, and scales with you.</p>
+
+      <div class="agent-plans">
+
+        <!-- STARTER -->
+        <div class="agent-plan">
+          <div class="plan-tier">Plan 1</div>
+          <div class="plan-name-lg">Starter</div>
+          <div class="plan-tagline">A clean, professional online presence that builds instant trust and gets your business found — live in days, not weeks.</div>
+          <div class="plan-price-wrap">
+            <div class="plan-currency">$</div>
+            <div class="plan-amount">200</div>
+          </div>
+          <div class="plan-per">one-time build fee</div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features-list">
+            <li><i class="fas fa-check fi yes"></i> Up to 3 pages (Home, About, Contact)</li>
+            <li><i class="fas fa-check fi yes"></i> Professional corporate design</li>
+            <li><i class="fas fa-check fi yes"></i> Mobile responsive &amp; fast loading</li>
+            <li><i class="fas fa-check fi yes"></i> Lead generation contact form</li>
+            <li><i class="fas fa-check fi yes"></i> Google Maps embed</li>
+            <li><i class="fas fa-check fi yes"></i> Business hours &amp; location display</li>
+            <li><i class="fas fa-check fi yes"></i> Basic on-page SEO (titles, meta tags)</li>
+            <li><i class="fas fa-check fi yes"></i> Social media links</li>
+            <li><i class="fas fa-check fi yes"></i> 1-day delivery · 1 revision (often faster)</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> AI chatbot</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Blog / news section</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Booking / appointment system</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Full SEO package</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Google Analytics setup</li>
+          </ul>
+          <a href="#" class="plan-cta outline" onclick="orderPlan(this);return false;"
+             data-name="Business Website – Starter Plan"
+             data-price="$200 (one-time build fee)"
+             data-features="Up to 3 pages (Home, About, Contact)|Professional corporate design|Mobile responsive &amp; fast loading|Lead generation contact form|Google Maps embed|Business hours &amp; location display|Basic on-page SEO (titles, meta tags)|Social media links|1-day delivery · 1 revision (often faster)">
+            Order Now <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- FULL PROFESSIONAL -->
+        <div class="agent-plan popular">
+          <div class="popular-badge">⭐ Full Package</div>
+          <div class="plan-tier">Plan 2</div>
+          <div class="plan-name-lg">Full Professional</div>
+          <div class="plan-tagline">A complete business platform — unlimited pages, AI lead capture, booking system, full SEO, and analytics — built to convert visitors into paying clients at scale.</div>
+          <div class="plan-price-wrap">
+            <div class="plan-currency">$</div>
+            <div class="plan-amount">5,000</div>
+          </div>
+          <div class="plan-per">one-time build fee</div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features-list">
+            <li><i class="fas fa-check fi yes"></i> Unlimited pages — full website build</li>
+            <li><i class="fas fa-check fi yes"></i> Premium corporate design (custom, no templates)</li>
+            <li><i class="fas fa-check fi yes"></i> Mobile responsive &amp; performance optimised</li>
+            <li><i class="fas fa-check fi yes"></i> Lead generation forms with email &amp; CRM delivery</li>
+            <li><i class="fas fa-check fi yes"></i> AI chatbot for lead capture &amp; FAQ answering</li>
+            <li><i class="fas fa-check fi yes"></i> Booking &amp; appointment system (Google Calendar sync)</li>
+            <li><i class="fas fa-check fi yes"></i> Blog / news section — build authority &amp; drive traffic</li>
+            <li><i class="fas fa-check fi yes"></i> Google Maps, reviews &amp; business hours widget</li>
+            <li><i class="fas fa-check fi yes"></i> Full SEO package — on-page, technical &amp; sitemap</li>
+            <li><i class="fas fa-check fi yes"></i> Google Analytics &amp; Search Console setup</li>
+            <li><i class="fas fa-check fi yes"></i> Email newsletter signup integration</li>
+            <li><i class="fas fa-check fi yes"></i> Social media links &amp; live feed integration</li>
+            <li><i class="fas fa-check fi yes"></i> WhatsApp click-to-chat button</li>
+            <li><i class="fas fa-check fi yes"></i> Speed &amp; Core Web Vitals optimisation</li>
+            <li><i class="fas fa-check fi yes"></i> 2 months post-launch support &amp; updates</li>
+            <li><i class="fas fa-check fi yes"></i> 3-day delivery · Unlimited revisions (often faster)</li>
+          </ul>
+          <a href="#" class="plan-cta filled" onclick="orderPlan(this);return false;"
+             data-name="Business Website – Full Professional Plan"
+             data-price="$5,000 (one-time build fee)"
+             data-features="Unlimited pages — full website build|Premium corporate design (custom, no templates)|Mobile responsive &amp; performance optimised|Lead generation forms with email &amp; CRM delivery|AI chatbot for lead capture &amp; FAQ answering|Booking &amp; appointment system (Google Calendar sync)|Blog / news section — build authority &amp; drive traffic|Google Maps, reviews &amp; business hours widget|Full SEO package — on-page, technical &amp; sitemap|Google Analytics &amp; Search Console setup|Email newsletter signup integration|Social media links &amp; live feed integration|WhatsApp click-to-chat button|Speed &amp; Core Web Vitals optimisation|2 months post-launch support &amp; updates|3-day delivery · Unlimited revisions (often faster)">
+            Order Now <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+      </div>
+      <p class="compare-note">All prices are one-time build fees. Hosting, domain, and third-party tool costs are separate and chosen by you. <span>Need a custom scope? Let's talk.</span></p>
+      <p class="compare-note" style="margin-top:10px;color:#22c55e"><i class="fas fa-bolt"></i> Delivery timelines are maximums — we regularly deliver well before the stated deadline.</p>
+    </div>
+  </section>
+
+  <!-- ===== WHAT'S INCLUDED ===== -->
+  <section class="svc-section mid">
+    <div class="container">
+      <h2 class="svc-section-title">What's <span class="gradient-text">Included</span></h2>
+      <p class="svc-section-sub">A complete, professional business website — built to establish trust, generate leads, and represent your brand at its very best.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-paint-brush"></i></div>
+          <h4>Corporate Design</h4>
+          <p>A clean, authoritative design that instantly builds trust — tailored to your industry, brand colours, and target audience. No generic templates.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-search"></i></div>
+          <h4>Full SEO Package</h4>
+          <p>On-page SEO, technical SEO, proper headings, meta tags, schema markup, sitemap, and Google Search Console setup — so customers find you first.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-envelope-open-text"></i></div>
+          <h4>Lead Generation Forms</h4>
+          <p>Smart contact and inquiry forms with instant email notifications and optional CRM delivery — every enquiry lands directly in your inbox or pipeline.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-robot"></i></div>
+          <h4>AI Chatbot</h4>
+          <p>An AI-powered chat widget that answers visitor questions, captures leads, and qualifies prospects 24/7 — so no opportunity slips through the cracks.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-calendar-check"></i></div>
+          <h4>Booking &amp; Appointments</h4>
+          <p>An integrated booking system synced with Google Calendar — clients can schedule calls, consultations, or services directly from your website.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <h4>Google Maps &amp; Reviews</h4>
+          <p>Embedded Google Maps, business hours, and a Google Reviews widget — boosting local trust and helping nearby customers find and choose your business.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-newspaper"></i></div>
+          <h4>Blog &amp; News Section</h4>
+          <p>Publish articles, updates, and industry insights to build authority, drive organic traffic, and give customers a reason to keep coming back.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+          <h4>Analytics &amp; Tracking</h4>
+          <p>Google Analytics and Search Console fully set up — so you can see exactly how many visitors you get, where they come from, and what they do on your site.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-tachometer-alt"></i></div>
+          <h4>Speed &amp; Performance</h4>
+          <p>Optimised images, minified code, and Core Web Vitals tuning — because a slow website loses customers and directly hurts your Google ranking.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROCESS ===== -->
+  <section class="svc-section dark">
+    <div class="container">
+      <h2 class="svc-section-title">How It <span class="gradient-text">Works</span></h2>
+      <p class="svc-section-sub">From brief to a live, professional business website — delivered quickly and built to convert visitors into clients.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Discovery &amp; Strategy</h4>
+            <p>We discuss your business, target audience, competitors, and goals. I map out the pages, structure, and conversion strategy before writing a single line of code.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Design &amp; Development</h4>
+            <p>A custom, professional design is built to match your brand — no templates. Every section is crafted to communicate credibility and drive action from visitors.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>SEO &amp; Content Setup</h4>
+            <p>All pages are optimised for search engines. Your content is loaded, images compressed, and meta tags configured so Google can find you from day one.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Launch &amp; Handover</h4>
+            <p>Your site goes live on your domain with full testing. You receive complete ownership — source code, admin access, and a walkthrough of how to manage it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="svc-cta">
+    <h2>Put Your Business <span class="gradient-text">Online Professionally</span></h2>
+    <p>First impressions happen online. Give your business a website that wins trust and converts visitors into paying clients.</p>
+    <div class="svc-cta-btns">
+      <a href="index.html#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Start My Business Site</a>
+      <a href="#plans" class="btn btn-outline"><i class="fas fa-tag"></i> Compare Plans</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 WebsiteCreator. All rights reserved.</p>
+        <p><a href="index.html" style="color:var(--primary)">← Back to Home</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => { navToggle.classList.toggle('active'); navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => { navToggle.classList.remove('active'); navLinks.classList.remove('open'); }));
+    function orderPlan(el) {
+      var n = el.getAttribute('data-name'), p = el.getAttribute('data-price');
+      var f = el.getAttribute('data-features').split('|').map(function(x){ return '  • ' + x.trim(); }).join('\n');
+      var msg = 'Hello! I would like to order:\n\n' + n + '\nPrice: ' + p + '\n\nFeatures included:\n' + f + '\n\nPlease let me know how to proceed. Thank you!';
+      window.open('https://wa.me/923062025427?text=' + encodeURIComponent(msg), '_blank');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Enterprise Ultimate Package – Website Creator</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root{--clr:#f59e0b;--clr-low:rgba(245,158,11,0.13);--clr-border:rgba(245,158,11,0.35)}
+
+    /* ── HERO ── */
+    .svc-hero{min-height:68vh;background:#0a0a1a;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;padding:130px 20px 80px;overflow:hidden}
+    .svc-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(245,158,11,0.18) 0%,transparent 65%)}
+    .svc-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 80%,rgba(239,68,68,0.1) 0%,transparent 55%)}
+    .svc-hero-content{position:relative;z-index:1;max-width:780px}
+    .svc-back{display:inline-flex;align-items:center;gap:6px;color:var(--text-muted);font-size:0.88rem;margin-bottom:28px;transition:color .2s}
+    .svc-back:hover{color:var(--white)}
+    .svc-icon-wrap{width:100px;height:100px;border-radius:26px;background:var(--clr-low);border:2px solid var(--clr-border);display:flex;align-items:center;justify-content:center;font-size:2.6rem;color:var(--clr);margin:0 auto 28px;box-shadow:0 0 60px rgba(245,158,11,0.3)}
+    .svc-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,6vw,3.6rem);font-weight:800;color:var(--white);margin-bottom:16px;line-height:1.1}
+    .gold-text{background:linear-gradient(135deg,#f59e0b,#ef4444);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .svc-tagline{font-size:1.08rem;color:rgba(255,255,255,0.75);max-width:620px;margin:0 auto 36px;line-height:1.8}
+    .svc-hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .btn-gold{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;box-shadow:0 8px 32px rgba(245,158,11,0.4)}
+    .btn-gold:hover{opacity:.9;transform:translateY(-2px)}
+
+    /* ── SECTIONS ── */
+    .svc-section{padding:80px 0}
+    .svc-section.dark{background:var(--bg)}
+    .svc-section.mid{background:var(--bg2)}
+    .svc-section.alt{background:var(--bg3)}
+    .svc-section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.3rem);font-weight:700;color:var(--white);text-align:center;margin-bottom:14px}
+    .svc-section-sub{color:var(--text-muted);text-align:center;font-size:0.95rem;max-width:580px;margin:0 auto 52px;line-height:1.75}
+
+    /* ── PRICE SHOWCASE ── */
+    .price-showcase{max-width:680px;margin:0 auto;background:var(--card);border:2px solid var(--clr-border);border-radius:var(--radius);padding:48px 40px;text-align:center;position:relative;box-shadow:0 0 80px rgba(245,158,11,0.15)}
+    .price-showcase::before{content:'';position:absolute;inset:0;border-radius:var(--radius);background:linear-gradient(135deg,rgba(245,158,11,0.05),transparent);pointer-events:none}
+    .price-crown{font-size:3rem;margin-bottom:16px;display:block}
+    .price-label{font-size:0.82rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--clr);margin-bottom:12px}
+    .price-amount{font-family:'Space Grotesk',sans-serif;font-size:clamp(3rem,8vw,5rem);font-weight:900;color:var(--white);line-height:1;margin-bottom:8px}
+    .price-amount span{font-size:0.45em;vertical-align:top;margin-top:10px;display:inline-block;color:var(--clr)}
+    .price-sub{color:var(--text-muted);font-size:0.9rem;margin-bottom:28px}
+    .price-divider{height:1px;background:var(--clr-border);margin:28px 0}
+    .price-note{color:rgba(255,255,255,0.6);font-size:0.85rem;line-height:1.7}
+
+    /* ── FEATURES GRID ── */
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+    .feature-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:30px;transition:var(--transition);position:relative;overflow:hidden}
+    .feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#f59e0b,#ef4444);opacity:0;transition:var(--transition)}
+    .feature-card:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(245,158,11,0.15)}
+    .feature-card:hover::before{opacity:1}
+    .feature-icon{width:56px;height:56px;border-radius:14px;background:var(--clr-low);display:flex;align-items:center;justify-content:center;color:var(--clr);font-size:1.4rem;margin-bottom:18px;border:1px solid var(--clr-border)}
+    .feature-card h4{font-weight:700;color:var(--white);margin-bottom:10px;font-size:1.05rem}
+    .feature-card p{color:var(--text-muted);font-size:0.88rem;line-height:1.65}
+    .feature-tag{display:inline-block;margin-top:12px;font-size:0.75rem;font-weight:700;padding:3px 12px;border-radius:50px;background:var(--clr-low);color:var(--clr);border:1px solid var(--clr-border)}
+
+    /* ── DELIVERABLES LIST ── */
+    .deliverables{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:0}
+    .deliverable-item{display:flex;align-items:flex-start;gap:14px;background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:18px 20px}
+    .deliverable-item i{color:var(--clr);font-size:1.1rem;margin-top:2px;flex-shrink:0}
+    .deliverable-item span{color:var(--text-muted);font-size:0.88rem;line-height:1.5}
+    .deliverable-item strong{color:var(--white);display:block;font-size:0.92rem;margin-bottom:2px}
+
+    /* ── PROCESS STEPS ── */
+    .steps{display:flex;flex-direction:column;gap:0;max-width:720px;margin:0 auto}
+    .step{display:flex;gap:24px;align-items:flex-start;padding-bottom:40px;position:relative}
+    .step:not(:last-child)::before{content:'';position:absolute;left:22px;top:48px;width:2px;height:calc(100% - 14px);background:var(--clr-border)}
+    .step-num{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:#fff;flex-shrink:0;box-shadow:0 4px 20px rgba(245,158,11,0.4)}
+    .step-body h4{font-weight:700;color:var(--white);margin-bottom:6px;font-size:1rem}
+    .step-body p{color:var(--text-muted);font-size:0.9rem;line-height:1.65}
+
+    /* ── CTA ── */
+    .svc-cta{padding:90px 20px;text-align:center;background:var(--bg2);position:relative;overflow:hidden}
+    .svc-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(245,158,11,0.08) 0%,transparent 70%)}
+    .svc-cta h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;color:var(--white);margin-bottom:14px;position:relative}
+    .svc-cta p{color:var(--text-muted);margin-bottom:36px;font-size:1rem;position:relative;max-width:500px;margin-left:auto;margin-right:auto}
+    .svc-cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
+
+    @media(max-width:600px){.svc-hero-btns,.svc-cta-btns{flex-direction:column;align-items:center}.btn{width:100%;max-width:300px;justify-content:center}.price-showcase{padding:36px 24px}}
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo">
+          <span class="logo-icon">MI</span>
+          <span class="logo-text">Website <span class="logo-accent">Creator</span></span>
+        </a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#home" class="nav-link">Home</a></li>
+        <li><a href="index.html#services" class="nav-link">Services</a></li>
+        <li><a href="index.html#pricing" class="nav-link">Pricing</a></li>
+        <li><a href="index.html#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="index.html#contact" class="nav-link nav-cta">Get Started</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="svc-hero">
+    <div class="svc-video-wrap">
+      <video class="svc-video" autoplay muted loop playsinline preload="auto">
+        <source src="0.1.mp4" type="video/mp4" />
+      </video>
+      <div class="svc-video-overlay"></div>
+    </div>
+    <div class="svc-hero-content">
+      <a href="index.html#pricing" class="svc-back"><i class="fas fa-arrow-left"></i> Back to Pricing</a>
+      <div class="svc-icon-wrap"><i class="fas fa-crown"></i></div>
+      <h1 class="svc-title">Enterprise <span class="gold-text">Ultimate Package</span></h1>
+      <p class="svc-tagline">The most complete AI-powered digital empire ever built — one investment that gives your business an unstoppable AI workforce, a billion-scale audience system, and a full suite of intelligent automation working for you around the clock, every single day.</p>
+      <div class="svc-hero-btns">
+        <a href="#" class="btn btn-primary btn-gold" onclick="orderPlan(this);return false;"
+           data-name="Enterprise Ultimate Package"
+           data-price="$100,000 (one-time investment)"
+           data-features="AI Call Agent (Enterprise) — inbound &amp; outbound, multi-language, CRM, 24/7|AI Chatbot (Enterprise) — GPT-4o + Claude, all platforms, full knowledge base|1 Billion+ Followers System — growth engine, viral distribution, engagement automation|Full-Time Digital Employees — Sales, Support, Marketing, Research &amp; Operations AI agents|Custom AI Recommendations — personalised engine trained on user behaviour|3D Modern Website — Three.js, WebGL, GSAP, immersive animations|OpenAI-Style Web Application — white-label SaaS, Stripe billing, team workspaces|Full E-Commerce Store — unlimited products, abandoned cart, multi-currency, AI chatbot|Email Delivery &amp; Campaigns — transactional, sequences, broadcasts, A/B testing|User Accounts, Login &amp; Roles — secure auth, role permissions, team workspaces|Followers &amp; Social Layer — follow system, content feeds, community platform|In-App Messaging System — real-time chat, read receipts, AI smart replies|Full SEO &amp; Visibility Suite — technical SEO, schema, sitemap, Core Web Vitals|Booking &amp; Appointment System — Google Calendar sync, AI can book during calls|Master Admin Dashboard — revenue, users, AI performance, all metrics in one place|6 Months Dedicated Priority Support — new features, AI retraining, strategic guidance|Full source code handover · All admin access · Complete documentation · Video walkthrough"><i class="fas fa-crown"></i> Claim This Package</a>
+        <a href="#features" class="btn btn-outline"><i class="fas fa-list"></i> See What's Included</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICE SHOWCASE ===== -->
+  <section class="svc-section dark">
+    <div class="container">
+      <div class="price-showcase">
+        <span class="price-crown">👑</span>
+        <div class="price-label">Enterprise Ultimate — One-Time Investment</div>
+        <div class="price-amount"><span>$</span>100,000</div>
+        <div class="price-sub">Everything. Built. Deployed. Running for you.</div>
+        <div class="price-divider"></div>
+        <div class="price-note">
+          This is not a subscription. This is a one-time, end-to-end build of your complete AI-powered digital business — every system, every agent, every automation, every feature — handed over fully operational and ready to scale.<br /><br />
+          <strong style="color:var(--white)">Includes 6 months of dedicated post-launch support, unlimited revisions during build, and a fully documented handover of every system.</strong>
+        </div>
+        <br />
+        <a href="#" class="btn btn-primary btn-gold" style="display:inline-flex;margin-top:8px" onclick="orderPlan(this);return false;"
+           data-name="Enterprise Ultimate Package"
+           data-price="$100,000 (one-time investment)"
+           data-features="AI Call Agent (Enterprise) — inbound &amp; outbound, multi-language, CRM, 24/7|AI Chatbot (Enterprise) — GPT-4o + Claude, all platforms, full knowledge base|1 Billion+ Followers System — growth engine, viral distribution, engagement automation|Full-Time Digital Employees — Sales, Support, Marketing, Research &amp; Operations AI agents|Custom AI Recommendations — personalised engine trained on user behaviour|3D Modern Website — Three.js, WebGL, GSAP, immersive animations|OpenAI-Style Web Application — white-label SaaS, Stripe billing, team workspaces|Full E-Commerce Store — unlimited products, abandoned cart, multi-currency, AI chatbot|Email Delivery &amp; Campaigns — transactional, sequences, broadcasts, A/B testing|User Accounts, Login &amp; Roles — secure auth, role permissions, team workspaces|Followers &amp; Social Layer — follow system, content feeds, community platform|In-App Messaging System — real-time chat, read receipts, AI smart replies|Full SEO &amp; Visibility Suite — technical SEO, schema, sitemap, Core Web Vitals|Booking &amp; Appointment System — Google Calendar sync, AI can book during calls|Master Admin Dashboard — revenue, users, AI performance, all metrics in one place|6 Months Dedicated Priority Support — new features, AI retraining, strategic guidance|Full source code handover · All admin access · Complete documentation · Video walkthrough"><i class="fas fa-paper-plane"></i> Start the Conversation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CORE AI FEATURES ===== -->
+  <section class="svc-section mid" id="features">
+    <div class="container">
+      <h2 class="svc-section-title">Every <span class="gold-text">AI Feature Included</span></h2>
+      <p class="svc-section-sub">This package brings together every AI system we offer — fully integrated, fully trained, and working together as a single, seamless digital empire for your business.</p>
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-phone-volume"></i></div>
+          <h4>AI Call Agent (Enterprise)</h4>
+          <p>A fully autonomous voice AI that handles every inbound and outbound call — answering questions, booking appointments, following up with leads, and running customer satisfaction surveys — 24/7, in multiple languages, with human-level fluency. Never miss a call again.</p>
+          <span class="feature-tag">Vapi + ElevenLabs</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-robot"></i></div>
+          <h4>AI Chatbot (Enterprise)</h4>
+          <p>A GPT-4o and Claude-powered enterprise chatbot deployed across every platform — your website, WhatsApp, Telegram, and Slack. Trained on your entire business knowledge base, it qualifies leads, handles support, books meetings, and escalates to humans seamlessly with full conversation context.</p>
+          <span class="feature-tag">GPT-4o + Claude</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-users"></i></div>
+          <h4>1 Billion+ Followers System</h4>
+          <p>A complete audience growth and engagement platform — follower management, content recommendation engine, viral distribution system, and engagement automation — engineered to build and maintain a massive audience base at scale. Your brand reaches more people every single day without additional effort.</p>
+          <span class="feature-tag">Growth Engine</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-user-tie"></i></div>
+          <h4>Full-Time Digital Employees</h4>
+          <p>A fleet of AI agents that work as real digital employees — each assigned a specific role: Sales Agent, Support Agent, Marketing Agent, Research Agent, and Operations Agent. They coordinate, execute tasks, and report results autonomously, giving your business a full AI workforce that never sleeps, never calls in sick, and never asks for a raise.</p>
+          <span class="feature-tag">Multi-Agent System</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-brain"></i></div>
+          <h4>Custom AI Recommendations</h4>
+          <p>A personalised AI recommendation engine trained on your users' behaviour — recommending products, content, services, and next actions in real time. Every user gets a unique, tailored experience that increases engagement, time on site, and purchase conversion rates significantly.</p>
+          <span class="feature-tag">Recommendation AI</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-cube"></i></div>
+          <h4>3D Modern Website</h4>
+          <p>A jaw-dropping 3D animated website built with Three.js, WebGL, and GSAP — immersive scroll effects, interactive 3D scenes, and cinematic transitions that make your brand impossible to forget. Fully mobile optimised and performance-tuned for real-world traffic.</p>
+          <span class="feature-tag">Three.js + WebGL</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-comment-alt"></i></div>
+          <h4>OpenAI-Style Web Application</h4>
+          <p>A fully white-label AI SaaS platform — streaming chat interface, image generation, document analysis, multi-tool workspace, subscription billing via Stripe, user accounts, team workspaces, and a complete admin dashboard. Branded entirely as your own product with zero third-party mentions.</p>
+          <span class="feature-tag">Full SaaS Build</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-shopping-cart"></i></div>
+          <h4>Full E-Commerce Store</h4>
+          <p>An unlimited-product online store with Stripe, PayPal, and multi-gateway payments, abandoned cart recovery, coupon system, customer reviews, AI product recommendations, multi-currency support, and a complete revenue analytics dashboard — built to sell at maximum scale.</p>
+          <span class="feature-tag">Stripe + PayPal</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-envelope"></i></div>
+          <h4>Email Delivery &amp; Campaigns</h4>
+          <p>A full email marketing system — transactional emails, automated welcome sequences, behaviour-triggered campaigns, newsletter broadcasts, and A/B testing. Every email is personalised using AI, optimised for open rates, and sent at the exact right moment for each individual recipient.</p>
+          <span class="feature-tag">AI Email Engine</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-user-lock"></i></div>
+          <h4>User Accounts, Login &amp; Roles</h4>
+          <p>A complete authentication and user management system — secure login, registration, social sign-in, role-based permissions (Admin, Member, Guest), profile management, team workspaces, and a full user dashboard. Every account is tied to your AI systems for a personalised experience.</p>
+          <span class="feature-tag">Auth + Permissions</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-user-friends"></i></div>
+          <h4>Followers &amp; Social Layer</h4>
+          <p>A built-in social system — users can follow each other, receive personalised content from accounts they follow, and interact within your platform. This keeps your audience engaged inside your own ecosystem rather than relying on external social networks you don't control.</p>
+          <span class="feature-tag">Social Platform</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-comments"></i></div>
+          <h4>In-App Messaging System</h4>
+          <p>Real-time direct messaging between users — with read receipts, media sharing, and AI-assisted smart replies. Keeps your community connected and communicating entirely inside your branded platform, increasing daily active users and long-term retention.</p>
+          <span class="feature-tag">Real-Time Chat</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-search"></i></div>
+          <h4>Full SEO &amp; Visibility Suite</h4>
+          <p>Technical SEO, on-page optimisation, schema markup, sitemap, Google Search Console setup, Core Web Vitals tuning, and a blog/content system to drive organic traffic. Your platform is built to rank and be discovered — without spending on ads.</p>
+          <span class="feature-tag">SEO + Analytics</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-calendar-check"></i></div>
+          <h4>Booking &amp; Appointment System</h4>
+          <p>A complete booking engine synced to Google Calendar or Calendly — clients book calls, consultations, or services directly from your platform. The AI Call Agent can also book on behalf of callers in real time during a live phone conversation.</p>
+          <span class="feature-tag">Calendar Sync</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-tachometer-alt"></i></div>
+          <h4>Master Admin Dashboard</h4>
+          <p>A single control centre showing every metric in your digital empire — revenue, user activity, AI agent performance, call logs, email stats, follower growth, chatbot conversations, and API usage. Full visibility over every system, all in one place.</p>
+          <span class="feature-tag">Central Command</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-headset"></i></div>
+          <h4>6 Months Dedicated Support</h4>
+          <p>Six months of priority post-launch support — new feature additions, performance tuning, AI retraining, bug fixes, and strategic consultations. A direct line to the team that built your entire system, ensuring everything runs at peak performance long after launch.</p>
+          <span class="feature-tag">Priority Support</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EVERYTHING DELIVERED ===== -->
+  <section class="svc-section alt">
+    <div class="container">
+      <h2 class="svc-section-title">Everything <span class="gold-text">Delivered</span></h2>
+      <p class="svc-section-sub">A complete handover of every system, credential, and piece of infrastructure — you own 100% of everything built.</p>
+      <div class="deliverables">
+        <div class="deliverable-item">
+          <i class="fas fa-check-circle"></i>
+          <div><strong>Full Source Code</strong><span>Every line of code for every system — frontend, backend, AI agents, and databases — handed over in full.</span></div>
+        </div>
+        <div class="deliverable-item">
+          <i class="fas fa-check-circle"></i>
+          <div><strong>All Admin Access</strong><span>Complete admin credentials for every platform, dashboard, and integration — you are the sole owner.</span></div>
+        </div>
+        <div class="deliverable-item">
+          <i class="fas fa-check-circle"></i>
+          <div><strong>Live Deployment</strong><span>Every system deployed to your chosen infrastructure — live, tested, and ready for real traffic from day one.</span></div>
+        </div>
+        <div class="deliverable-item">
+          <i class="fas fa-check-circle"></i>
+          <div><strong>System Documentation</strong><span>Full written documentation explaining every system, how to manage it, and how to expand it in the future.</span></div>
+        </div>
+        <div class="deliverable-item">
+          <i class="fas fa-check-circle"></i>
+          <div><strong>AI Agent Training Data</strong><span>All training data, system prompts, personas, and knowledge bases — fully documented and transferable.</span></div>
+        </div>
+        <div class="deliverable-item">
+          <i class="fas fa-check-circle"></i>
+          <div><strong>Video Walkthrough</strong><span>A recorded walkthrough of every system so your team can manage and operate the platform independently.</span></div>
+        </div>
+        <div class="deliverable-item">
+          <i class="fas fa-check-circle"></i>
+          <div><strong>Unlimited Revisions During Build</strong><span>Request changes at any point during the build — no limit, no extra charges, until you are completely satisfied.</span></div>
+        </div>
+        <div class="deliverable-item">
+          <i class="fas fa-check-circle"></i>
+          <div><strong>6 Months Priority Support</strong><span>Dedicated post-launch support for new features, AI retraining, performance tuning, and strategic guidance.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROCESS ===== -->
+  <section class="svc-section dark">
+    <div class="container">
+      <h2 class="svc-section-title">How We <span class="gold-text">Build Your Empire</span></h2>
+      <p class="svc-section-sub">A clear, structured build process — from the first conversation to a fully operational AI-powered digital business.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Discovery &amp; Architecture</h4>
+            <p>We spend time deeply understanding your business, goals, audience, and existing systems. A complete technical architecture is drafted — mapping every AI agent, integration, platform, and data flow before a single line of code is written.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>AI Agent Design &amp; Training</h4>
+            <p>Every AI agent — Call Agent, Chatbot, Digital Employees, and Recommendation Engine — is designed with custom personas, knowledge bases, and conversation flows trained on your real business data, services, and brand voice.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Platform Build &amp; Integration</h4>
+            <p>The full digital platform is built in parallel — website, web app, e-commerce, social layer, messaging, email system, and admin dashboard — all integrated and tested to work as one unified system.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Testing &amp; Quality Assurance</h4>
+            <p>Every system is tested end-to-end — real call simulations, live chatbot sessions, payment flows, follower system stress tests, and performance benchmarks. Nothing goes live until it performs flawlessly.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h4>Launch &amp; Full Handover</h4>
+            <p>Your complete digital empire goes live. You receive full source code, all admin access, complete documentation, and a video walkthrough. The 6-month support period begins — we stay with you to ensure everything scales perfectly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="svc-cta">
+    <h2>Ready to Own Your <span class="gold-text">AI Empire?</span></h2>
+    <p>This is the most complete digital transformation package available. One investment — an entire AI-powered business built and running for you.</p>
+    <div class="svc-cta-btns">
+      <a href="#" class="btn btn-primary btn-gold" onclick="orderPlan(this);return false;"
+         data-name="Enterprise Ultimate Package"
+         data-price="$100,000 (one-time investment)"
+         data-features="AI Call Agent (Enterprise) — inbound &amp; outbound, multi-language, CRM, 24/7|AI Chatbot (Enterprise) — GPT-4o + Claude, all platforms, full knowledge base|1 Billion+ Followers System — growth engine, viral distribution, engagement automation|Full-Time Digital Employees — Sales, Support, Marketing, Research &amp; Operations AI agents|Custom AI Recommendations — personalised engine trained on user behaviour|3D Modern Website — Three.js, WebGL, GSAP, immersive animations|OpenAI-Style Web Application — white-label SaaS, Stripe billing, team workspaces|Full E-Commerce Store — unlimited products, abandoned cart, multi-currency, AI chatbot|Email Delivery &amp; Campaigns — transactional, sequences, broadcasts, A/B testing|User Accounts, Login &amp; Roles — secure auth, role permissions, team workspaces|Followers &amp; Social Layer — follow system, content feeds, community platform|In-App Messaging System — real-time chat, read receipts, AI smart replies|Full SEO &amp; Visibility Suite — technical SEO, schema, sitemap, Core Web Vitals|Booking &amp; Appointment System — Google Calendar sync, AI can book during calls|Master Admin Dashboard — revenue, users, AI performance, all metrics in one place|6 Months Dedicated Priority Support — new features, AI retraining, strategic guidance|Full source code handover · All admin access · Complete documentation · Video walkthrough"><i class="fas fa-crown"></i> Claim This Package</a>
+      <a href="index.html#services" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Explore Other Services</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 WebsiteCreator. All rights reserved.</p>
+        <p><a href="index.html" style="color:#f59e0b">← Back to Home</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => { navToggle.classList.toggle('active'); navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => { navToggle.classList.remove('active'); navLinks.classList.remove('open'); }));
+    function orderPlan(el) {
+      var n = el.getAttribute('data-name'), p = el.getAttribute('data-price');
+      var f = el.getAttribute('data-features').split('|').map(function(x){ return '  • ' + x.trim(); }).join('\n');
+      var msg = 'Hello! I would like to order:\n\n' + n + '\nPrice: ' + p + '\n\nFeatures included:\n' + f + '\n\nPlease let me know how to proceed. Thank you!';
+      window.open('https://wa.me/923062025427?text=' + encodeURIComponent(msg), '_blank');
+    }
+  </script>
+</body>
+</html>

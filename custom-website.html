@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Full-Time Employees – Website Creator</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root{--clr:#6c63ff;--clr-low:rgba(108,99,255,0.14);--clr-border:rgba(108,99,255,0.3)}
+
+    /* ── HERO ── */
+    .svc-hero{min-height:62vh;background:#0a0a1a;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;padding:130px 20px 80px;overflow:hidden}
+    .svc-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(108,99,255,0.18) 0%,transparent 65%)}
+    .svc-hero-content{position:relative;z-index:1;max-width:720px}
+    .svc-back{display:inline-flex;align-items:center;gap:6px;color:var(--text-muted);font-size:0.88rem;margin-bottom:28px;transition:color .2s}
+    .svc-back:hover{color:var(--white)}
+    .svc-icon-wrap{width:88px;height:88px;border-radius:22px;background:var(--clr-low);border:1px solid var(--clr-border);display:flex;align-items:center;justify-content:center;font-size:2.2rem;color:var(--clr);margin:0 auto 28px}
+    .svc-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,6vw,3.4rem);font-weight:800;color:var(--white);margin-bottom:16px;line-height:1.15}
+    .svc-tagline{font-size:1.05rem;color:rgba(255,255,255,0.72);max-width:580px;margin:0 auto 36px;line-height:1.75}
+    .svc-hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+    /* ── SECTIONS ── */
+    .svc-section{padding:80px 0}
+    .svc-section.dark{background:var(--bg)}
+    .svc-section.mid{background:var(--bg2)}
+    .svc-section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--white);text-align:center;margin-bottom:14px}
+    .svc-section-sub{color:var(--text-muted);text-align:center;font-size:0.95rem;max-width:540px;margin:0 auto 48px;line-height:1.7}
+
+    /* ── FEATURES GRID ── */
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+    .feature-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;transition:var(--transition)}
+    .feature-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .feature-icon{width:50px;height:50px;border-radius:12px;background:var(--clr-low);display:flex;align-items:center;justify-content:center;color:var(--clr);font-size:1.2rem;margin-bottom:16px}
+    .feature-card h4{font-weight:700;color:var(--white);margin-bottom:8px;font-size:1rem}
+    .feature-card p{color:var(--text-muted);font-size:0.88rem;line-height:1.6}
+
+    /* ── PRICING TIERS ── */
+    .agent-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
+    .agent-plan{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:36px 28px;position:relative;transition:var(--transition)}
+    .agent-plan:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+    .agent-plan.popular{border-color:var(--clr);box-shadow:0 0 0 1px var(--clr),0 20px 60px rgba(108,99,255,0.25)}
+    .popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#6c63ff,#2563eb);color:#fff;font-size:0.75rem;font-weight:700;padding:5px 18px;border-radius:50px;letter-spacing:0.06em;white-space:nowrap}
+    .plan-tier{font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--clr);margin-bottom:10px}
+    .plan-name-lg{font-family:'Space Grotesk',sans-serif;font-size:1.55rem;font-weight:800;color:var(--white);margin-bottom:6px}
+    .plan-tagline{font-size:0.85rem;color:var(--text-muted);margin-bottom:24px;line-height:1.5;min-height:40px}
+    .plan-price-wrap{display:flex;align-items:flex-end;gap:4px;margin-bottom:6px}
+    .plan-currency{font-size:1.3rem;font-weight:700;color:var(--white);line-height:1;margin-bottom:6px}
+    .plan-amount{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:900;color:var(--white);line-height:1}
+    .plan-per{font-size:0.82rem;color:var(--text-muted);margin-bottom:6px}
+    .plan-divider{height:1px;background:var(--card-border);margin:22px 0}
+    .plan-features-list{list-style:none;padding:0;margin:0 0 28px;display:flex;flex-direction:column;gap:11px}
+    .plan-features-list li{display:flex;align-items:flex-start;gap:10px;font-size:0.87rem;color:var(--text-muted);line-height:1.4}
+    .plan-features-list li .fi{font-size:0.82rem;margin-top:2px;flex-shrink:0}
+    .plan-features-list li .fi.yes{color:#22c55e}
+    .plan-features-list li .fi.no{color:#475569}
+    .plan-features-list li.dim{opacity:.45}
+    .plan-cta{display:block;text-align:center;padding:13px;border-radius:50px;font-weight:700;font-size:0.9rem;transition:var(--transition)}
+    .plan-cta.outline{border:1.5px solid var(--clr);color:var(--clr)}
+    .plan-cta.outline:hover{background:var(--clr-low)}
+    .plan-cta.filled{background:linear-gradient(135deg,#6c63ff,#2563eb);color:#fff;box-shadow:0 6px 24px rgba(108,99,255,0.35)}
+    .plan-cta.filled:hover{opacity:.9;transform:translateY(-1px)}
+
+    /* ── COMPARISON NOTE ── */
+    .compare-note{margin-top:36px;text-align:center;color:var(--text-muted);font-size:0.85rem}
+    .compare-note span{color:var(--clr);font-weight:600}
+
+    /* ── PROCESS STEPS ── */
+    .steps{display:flex;flex-direction:column;gap:0;max-width:680px;margin:0 auto}
+    .step{display:flex;gap:22px;align-items:flex-start;padding-bottom:36px;position:relative}
+    .step:not(:last-child)::before{content:'';position:absolute;left:21px;top:46px;width:2px;height:calc(100% - 12px);background:var(--clr-border)}
+    .step-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#6c63ff,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:#fff;flex-shrink:0}
+    .step-body h4{font-weight:700;color:var(--white);margin-bottom:6px}
+    .step-body p{color:var(--text-muted);font-size:0.9rem;line-height:1.6}
+
+    /* ── CTA ── */
+    .svc-cta{padding:80px 20px;text-align:center;background:var(--bg2)}
+    .svc-cta h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--white);margin-bottom:12px}
+    .svc-cta p{color:var(--text-muted);margin-bottom:32px;font-size:0.95rem}
+    .svc-cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+    @media(max-width:900px){.agent-plans{grid-template-columns:1fr}}
+    @media(max-width:600px){.svc-hero-btns,.svc-cta-btns{flex-direction:column;align-items:center}.btn{width:100%;max-width:280px;justify-content:center}}
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo">
+          <span class="logo-icon">MI</span>
+          <span class="logo-text">Website <span class="logo-accent">Creator</span></span>
+        </a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#home" class="nav-link">Home</a></li>
+        <li><a href="index.html#services" class="nav-link">Services</a></li>
+        <li><a href="index.html#pricing" class="nav-link">Pricing</a></li>
+        <li><a href="index.html#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="index.html#contact" class="nav-link nav-cta">Get Started</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="svc-hero">
+    <div class="svc-video-wrap">
+      <video class="svc-video" autoplay muted loop playsinline preload="auto">
+        <source src="0.1.mp4" type="video/mp4" />
+      </video>
+      <div class="svc-video-overlay"></div>
+    </div>
+    <div class="svc-hero-content">
+      <a href="index.html#services" class="svc-back"><i class="fas fa-arrow-left"></i> Back to Services</a>
+      <div class="svc-icon-wrap"><i class="fas fa-robot"></i></div>
+      <h1 class="svc-title">Full-Time <span class="gradient-text">Employees</span></h1>
+      <p class="svc-tagline">High-quality digital employees built to grow your business — automated, intelligent, and always performing at their best so you never miss an opportunity. Choose the tier that fits your scale.</p>
+      <div class="svc-hero-btns">
+        <a href="index.html#contact" class="btn btn-primary"><i class="fas fa-robot"></i> Build My Agent</a>
+        <a href="#plans" class="btn btn-outline"><i class="fas fa-tag"></i> See Plans</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING PLANS ===== -->
+  <section class="svc-section dark" id="plans">
+    <div class="container">
+      <h2 class="svc-section-title">Choose Your <span class="gradient-text">Agent Plan</span></h2>
+      <p class="svc-section-sub">Three tiers designed for different scales — from a simple smart assistant to a fully autonomous enterprise AI system.</p>
+
+      <div class="agent-plans">
+
+        <!-- NORMAL -->
+        <div class="agent-plan">
+          <div class="plan-tier">Tier 1</div>
+          <div class="plan-name-lg">Normal</div>
+          <div class="plan-tagline">A smart, reliable AI agent for small businesses and solo operators.</div>
+          <div class="plan-price-wrap">
+            <div class="plan-currency">$</div>
+            <div class="plan-amount">1,000</div>
+          </div>
+          <div class="plan-per">one-time setup fee</div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features-list">
+            <li><i class="fas fa-check fi yes"></i> GPT-4o or Claude 3 powered</li>
+            <li><i class="fas fa-check fi yes"></i> Single-channel deployment (website or WhatsApp)</li>
+            <li><i class="fas fa-check fi yes"></i> Custom persona &amp; tone of voice</li>
+            <li><i class="fas fa-check fi yes"></i> FAQ &amp; knowledge base training (up to 30 Q&amp;A)</li>
+            <li><i class="fas fa-check fi yes"></i> Lead capture (name, email, phone)</li>
+            <li><i class="fas fa-check fi yes"></i> Human handoff via email notification</li>
+            <li><i class="fas fa-check fi yes"></i> Basic conversation analytics</li>
+            <li><i class="fas fa-check fi yes"></i> 1-day delivery · 2 revisions (often faster)</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> CRM integration</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Multi-channel deployment</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Advanced workflows &amp; automation</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Voice capability</li>
+          </ul>
+          <a href="#" class="plan-cta outline" onclick="orderPlan(this);return false;"
+             data-name="Full-Time Employees – Normal Plan"
+             data-price="$1,000 (one-time setup fee)"
+             data-features="GPT-4o or Claude 3 powered|Single-channel deployment (website or WhatsApp)|Custom persona &amp; tone of voice|FAQ &amp; knowledge base training (up to 30 Q&amp;A)|Lead capture (name, email, phone)|Human handoff via email notification|Basic conversation analytics|1-day delivery · 2 revisions (often faster)">
+            Order Now <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- MEDIUM -->
+        <div class="agent-plan popular">
+          <div class="popular-badge">⭐ Most Popular</div>
+          <div class="plan-tier">Tier 2</div>
+          <div class="plan-name-lg">Medium</div>
+          <div class="plan-tagline">A fully integrated AI agent for growing businesses that need real automation.</div>
+          <div class="plan-price-wrap">
+            <div class="plan-currency">$</div>
+            <div class="plan-amount">5,000</div>
+          </div>
+          <div class="plan-per">one-time setup fee</div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features-list">
+            <li><i class="fas fa-check fi yes"></i> GPT-4o or Claude 3 Opus powered</li>
+            <li><i class="fas fa-check fi yes"></i> Multi-channel: website + WhatsApp + Telegram</li>
+            <li><i class="fas fa-check fi yes"></i> Custom persona &amp; brand voice</li>
+            <li><i class="fas fa-check fi yes"></i> Deep knowledge base training (up to 200 items)</li>
+            <li><i class="fas fa-check fi yes"></i> Lead capture + qualification scoring</li>
+            <li><i class="fas fa-check fi yes"></i> CRM integration (HubSpot / Notion / Airtable)</li>
+            <li><i class="fas fa-check fi yes"></i> Appointment booking via Google Calendar</li>
+            <li><i class="fas fa-check fi yes"></i> Automated follow-up messages</li>
+            <li><i class="fas fa-check fi yes"></i> Multi-language support (up to 3 languages)</li>
+            <li><i class="fas fa-check fi yes"></i> Analytics dashboard with conversation reports</li>
+            <li><i class="fas fa-check fi yes"></i> 3-day delivery · 5 revisions (often faster)</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Voice AI capability</li>
+          </ul>
+          <a href="#" class="plan-cta filled" onclick="orderPlan(this);return false;"
+             data-name="Full-Time Employees – Medium Plan"
+             data-price="$5,000 (one-time setup fee)"
+             data-features="GPT-4o or Claude 3 Opus powered|Multi-channel: website + WhatsApp + Telegram|Custom persona &amp; brand voice|Deep knowledge base training (up to 200 items)|Lead capture + qualification scoring|CRM integration (HubSpot / Notion / Airtable)|Appointment booking via Google Calendar|Automated follow-up messages|Multi-language support (up to 3 languages)|Analytics dashboard with conversation reports|3-day delivery · 5 revisions (often faster)">
+            Order Now <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- PREMIUM -->
+        <div class="agent-plan">
+          <div class="plan-tier">Tier 3</div>
+          <div class="plan-name-lg">Premium</div>
+          <div class="plan-tagline">A fully autonomous AI agent system for enterprises that need end-to-end automation.</div>
+          <div class="plan-price-wrap">
+            <div class="plan-currency">$</div>
+            <div class="plan-amount">15,000</div>
+          </div>
+          <div class="plan-per">one-time setup fee</div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features-list">
+            <li><i class="fas fa-check fi yes"></i> Custom fine-tuned LLM or GPT-4o Enterprise</li>
+            <li><i class="fas fa-check fi yes"></i> All channels + custom app / API endpoint</li>
+            <li><i class="fas fa-check fi yes"></i> Multi-agent orchestration system</li>
+            <li><i class="fas fa-check fi yes"></i> Unlimited knowledge base &amp; document ingestion</li>
+            <li><i class="fas fa-check fi yes"></i> Full CRM + ERP + calendar integration</li>
+            <li><i class="fas fa-check fi yes"></i> Payment processing via Stripe / PayPal</li>
+            <li><i class="fas fa-check fi yes"></i> Voice AI (inbound &amp; outbound calls via Vapi)</li>
+            <li><i class="fas fa-check fi yes"></i> Advanced workflow automation (n8n / Zapier)</li>
+            <li><i class="fas fa-check fi yes"></i> Unlimited language support</li>
+            <li><i class="fas fa-check fi yes"></i> Real-time analytics &amp; admin dashboard</li>
+            <li><i class="fas fa-check fi yes"></i> 3 months post-launch support &amp; refinements</li>
+            <li><i class="fas fa-check fi yes"></i> 3-day delivery · Unlimited revisions (often faster)</li>
+          </ul>
+          <a href="#" class="plan-cta outline" onclick="orderPlan(this);return false;"
+             data-name="Full-Time Employees – Premium Plan"
+             data-price="$15,000 (one-time setup fee)"
+             data-features="Custom fine-tuned LLM or GPT-4o Enterprise|All channels + custom app / API endpoint|Multi-agent orchestration system|Unlimited knowledge base &amp; document ingestion|Full CRM + ERP + calendar integration|Payment processing via Stripe / PayPal|Voice AI (inbound &amp; outbound calls via Vapi)|Advanced workflow automation (n8n / Zapier)|Unlimited language support|Real-time analytics &amp; admin dashboard|3 months post-launch support &amp; refinements|3-day delivery · Unlimited revisions (often faster)">
+            Order Now <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+      </div>
+
+      <p class="compare-note">All prices are one-time setup fees. Monthly API costs (OpenAI / Anthropic) are billed directly by the provider to you. <span>Need something custom? Let's talk.</span></p>
+      <p class="compare-note" style="margin-top:10px;color:#22c55e"><i class="fas fa-bolt"></i> Delivery timelines are maximums — we regularly deliver well before the stated deadline.</p>
+    </div>
+  </section>
+
+  <!-- ===== WHAT'S INCLUDED ===== -->
+  <section class="svc-section mid">
+    <div class="container">
+      <h2 class="svc-section-title">What Every Agent <span class="gradient-text">Includes</span></h2>
+      <p class="svc-section-sub">Regardless of tier, every Full-Time Employee is built with the same professional foundations — the plan determines depth and scale.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-brain"></i></div>
+          <h4>GPT-4 / Claude Powered</h4>
+          <p>Every agent runs on the latest large language models — OpenAI GPT-4o or Anthropic Claude — giving it human-level understanding and accuracy.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-sliders-h"></i></div>
+          <h4>Custom Training &amp; Persona</h4>
+          <p>Your agent is trained on your business data, FAQs, and tone of voice — so it speaks like a real member of your team, not a generic bot.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-plug"></i></div>
+          <h4>Platform Integration</h4>
+          <p>Deployed wherever your customers are — website, WhatsApp, Telegram, Slack, or a custom web app — seamlessly connected to your stack.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+          <h4>Secure &amp; Reliable</h4>
+          <p>API keys secured server-side, rate limiting applied, and monitored uptime — your agent runs reliably without exposing sensitive credentials.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+          <h4>Usage Tracking</h4>
+          <p>See how your agent is performing — conversation counts, response quality metrics, and token usage — so you always know its impact.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-headset"></i></div>
+          <h4>Handoff to Human</h4>
+          <p>When conversations need a human touch, the agent smoothly escalates — notifying you via email or WhatsApp with full conversation context.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROCESS ===== -->
+  <section class="svc-section mid">
+    <div class="container">
+      <h2 class="svc-section-title">How It <span class="gradient-text">Works</span></h2>
+      <p class="svc-section-sub">From brief to a live, working AI agent — a clear process with no guesswork at any step.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Discovery &amp; Plan Selection</h4>
+            <p>We define exactly what your agent needs to do, who it talks to, and which platforms it lives on. I'll recommend the right tier based on your goals.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Training &amp; Persona Design</h4>
+            <p>I configure your agent's personality, knowledge base, and conversation flows — trained on your real business data, FAQs, and services.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Integration &amp; Deployment</h4>
+            <p>The agent is connected to your chosen platforms, CRMs, and calendars. Everything is tested end-to-end before you see it.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Review, Refine &amp; Go Live</h4>
+            <p>You test the agent live, request changes, and I refine until it's performing perfectly. Then it goes live — monitored for the first week.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="svc-cta">
+    <h2>Ready to Deploy Your <span class="gradient-text">AI Agent?</span></h2>
+    <p>Whether you need a simple assistant or a full enterprise system — let's build the agent that runs your business on autopilot.</p>
+    <div class="svc-cta-btns">
+      <a href="index.html#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Contact Me Now</a>
+      <a href="#plans" class="btn btn-outline"><i class="fas fa-tag"></i> Compare Plans</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 WebsiteCreator. All rights reserved.</p>
+        <p><a href="index.html" style="color:var(--primary)">← Back to Home</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => { navToggle.classList.toggle('active'); navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => { navToggle.classList.remove('active'); navLinks.classList.remove('open'); }));
+    function orderPlan(el) {
+      var n = el.getAttribute('data-name'), p = el.getAttribute('data-price');
+      var f = el.getAttribute('data-features').split('|').map(function(x){ return '  • ' + x.trim(); }).join('\n');
+      var msg = 'Hello! I would like to order:\n\n' + n + '\nPrice: ' + p + '\n\nFeatures included:\n' + f + '\n\nPlease let me know how to proceed. Thank you!';
+      window.open('https://wa.me/923062025427?text=' + encodeURIComponent(msg), '_blank');
+    }
+  </script>
+</body>
+</html>

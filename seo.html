@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>SEO Optimization – Website Creator</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .svc-hero{min-height:62vh;background:#0a0a1a;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;padding:130px 20px 80px;overflow:hidden}
+    .svc-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(32,201,151,0.15) 0%,transparent 65%)}
+    .svc-hero-content{position:relative;z-index:1;max-width:720px}
+    .svc-back{display:inline-flex;align-items:center;gap:6px;color:var(--text-muted);font-size:0.88rem;margin-bottom:28px;transition:color .2s}
+    .svc-back:hover{color:var(--white)}
+    .svc-icon-wrap{width:88px;height:88px;border-radius:22px;background:rgba(32,201,151,0.12);border:1px solid rgba(32,201,151,0.3);display:flex;align-items:center;justify-content:center;font-size:2.2rem;color:#20c997;margin:0 auto 28px}
+    .svc-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,6vw,3.4rem);font-weight:800;color:var(--white);margin-bottom:16px;line-height:1.15}
+    .svc-tagline{font-size:1.05rem;color:rgba(255,255,255,0.72);max-width:580px;margin:0 auto 36px;line-height:1.75}
+    .svc-hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .svc-section{padding:80px 0}
+    .svc-section.dark{background:var(--bg)}
+    .svc-section.mid{background:var(--bg2)}
+    .svc-section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--white);text-align:center;margin-bottom:14px}
+    .svc-section-sub{color:var(--text-muted);text-align:center;font-size:0.95rem;max-width:540px;margin:0 auto 48px;line-height:1.7}
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+    .feature-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;transition:var(--transition)}
+    .feature-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .feature-icon{width:50px;height:50px;border-radius:12px;background:rgba(32,201,151,0.12);display:flex;align-items:center;justify-content:center;color:#20c997;font-size:1.2rem;margin-bottom:16px}
+    .feature-card h4{font-weight:700;color:var(--white);margin-bottom:8px;font-size:1rem}
+    .feature-card p{color:var(--text-muted);font-size:0.88rem;line-height:1.6}
+    .steps{display:flex;flex-direction:column;gap:0;max-width:680px;margin:0 auto}
+    .step{display:flex;gap:22px;align-items:flex-start;padding-bottom:36px;position:relative}
+    .step:not(:last-child)::before{content:'';position:absolute;left:21px;top:46px;width:2px;height:calc(100% - 12px);background:rgba(32,201,151,0.25)}
+    .step-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#20c997,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:#fff;flex-shrink:0}
+    .step-body h4{font-weight:700;color:var(--white);margin-bottom:6px}
+    .step-body p{color:var(--text-muted);font-size:0.9rem;line-height:1.6}
+    .svc-cta{padding:80px 20px;text-align:center;background:var(--bg2)}
+    .svc-cta h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--white);margin-bottom:12px}
+    .svc-cta p{color:var(--text-muted);margin-bottom:32px;font-size:0.95rem}
+    .svc-cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    @media(max-width:600px){.svc-hero-btns,.svc-cta-btns{flex-direction:column;align-items:center}.btn{width:100%;max-width:280px;justify-content:center}}
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo">
+          <span class="logo-icon">MI</span>
+          <span class="logo-text">Website <span class="logo-accent">Creator</span></span>
+        </a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#home" class="nav-link">Home</a></li>
+        <li><a href="index.html#services" class="nav-link">Services</a></li>
+        <li><a href="index.html#pricing" class="nav-link">Pricing</a></li>
+        <li><a href="index.html#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="index.html#contact" class="nav-link nav-cta">Get Started</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="svc-hero">
+    <div class="svc-video-wrap">
+      <video class="svc-video" autoplay muted loop playsinline preload="auto">
+        <source src="0.1.mp4" type="video/mp4" />
+      </video>
+      <div class="svc-video-overlay"></div>
+    </div>
+    <div class="svc-hero-content">
+      <a href="index.html#services" class="svc-back"><i class="fas fa-arrow-left"></i> Back to Services</a>
+      <div class="svc-icon-wrap"><i class="fas fa-search"></i></div>
+      <h1 class="svc-title">SEO <span class="gradient-text">Optimization</span></h1>
+      <p class="svc-tagline">Rank higher on Google, drive organic traffic, and get found by customers searching for your services — without paid ads.</p>
+      <div class="svc-hero-btns">
+        <a href="index.html#contact" class="btn btn-primary"><i class="fas fa-chart-line"></i> Boost My Rankings</a>
+        <a href="index.html#pricing" class="btn btn-outline"><i class="fas fa-tag"></i> View Pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-section mid">
+    <div class="container">
+      <h2 class="svc-section-title">What's <span class="gradient-text">Included</span></h2>
+      <p class="svc-section-sub">A complete SEO package covering everything from technical fixes to content optimization — built to get you ranking.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-file-alt"></i></div>
+          <h4>On-Page SEO</h4>
+          <p>Optimized title tags, meta descriptions, headings, image alt text, and keyword placement on every page of your site.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-tools"></i></div>
+          <h4>Technical SEO</h4>
+          <p>Site speed optimization, mobile-friendliness, crawlability fixes, XML sitemaps, and robots.txt configuration.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-tachometer-alt"></i></div>
+          <h4>Core Web Vitals Fix</h4>
+          <p>Improve Google's Core Web Vitals scores — LCP, FID, and CLS — to meet Google's page experience requirements.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-code"></i></div>
+          <h4>Schema Markup</h4>
+          <p>Add structured data so Google shows rich snippets — stars, prices, FAQs — directly in search results for more clicks.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-link"></i></div>
+          <h4>Internal Linking Structure</h4>
+          <p>Strategic internal links that guide visitors deeper into your site and distribute link equity to boost all pages.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+          <h4>Monthly Reports</h4>
+          <p>Clear monthly reports showing your rankings, organic traffic, and improvements — so you always know your progress.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-section dark">
+    <div class="container">
+      <h2 class="svc-section-title">How It <span class="gradient-text">Works</span></h2>
+      <p class="svc-section-sub">A data-driven SEO process designed to deliver real, lasting results in Google search.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>SEO Audit</h4>
+            <p>A full technical and content audit of your current site to identify every issue and opportunity holding you back in search rankings.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Keyword Research &amp; Strategy</h4>
+            <p>Identify the highest-value keywords your target customers are searching for and map them to your pages strategically.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>On-Page &amp; Technical Fixes</h4>
+            <p>Implement all optimizations — meta tags, speed improvements, schema markup, Core Web Vitals — directly on your site.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Monitor &amp; Report</h4>
+            <p>Track rankings, traffic, and conversions monthly. Ongoing refinements ensure your position keeps improving over time.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-cta">
+    <h2>Ready to <span class="gradient-text">Rank on Google?</span></h2>
+    <p>Stop losing customers to competitors who rank above you. Let's fix that — starting today.</p>
+    <div class="svc-cta-btns">
+      <a href="index.html#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Start SEO Now</a>
+      <a href="index.html#pricing" class="btn btn-outline"><i class="fas fa-tag"></i> See Pricing Plans</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 WebsiteCreator. All rights reserved.</p>
+        <p><a href="index.html" style="color:var(--primary)">← Back to Home</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => { navToggle.classList.toggle('active'); navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => { navToggle.classList.remove('active'); navLinks.classList.remove('open'); }));
+  </script>
+</body>
+</html>

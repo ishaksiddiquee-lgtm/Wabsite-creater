@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Call AI Agents – Website Creator</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root{--clr:#a855f7;--clr-low:rgba(168,85,247,0.14);--clr-border:rgba(168,85,247,0.3)}
+
+    /* ── HERO ── */
+    .svc-hero{min-height:62vh;background:#0a0a1a;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;padding:130px 20px 80px;overflow:hidden}
+    .svc-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(168,85,247,0.18) 0%,transparent 65%)}
+    .svc-hero-content{position:relative;z-index:1;max-width:720px}
+    .svc-back{display:inline-flex;align-items:center;gap:6px;color:var(--text-muted);font-size:0.88rem;margin-bottom:28px;transition:color .2s}
+    .svc-back:hover{color:var(--white)}
+    .svc-icon-wrap{width:88px;height:88px;border-radius:22px;background:var(--clr-low);border:1px solid var(--clr-border);display:flex;align-items:center;justify-content:center;font-size:2.2rem;color:var(--clr);margin:0 auto 28px}
+    .svc-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,6vw,3.4rem);font-weight:800;color:var(--white);margin-bottom:16px;line-height:1.15}
+    .svc-tagline{font-size:1.05rem;color:rgba(255,255,255,0.72);max-width:580px;margin:0 auto 36px;line-height:1.75}
+    .svc-hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+    /* ── SECTIONS ── */
+    .svc-section{padding:80px 0}
+    .svc-section.dark{background:var(--bg)}
+    .svc-section.mid{background:var(--bg2)}
+    .svc-section.alt{background:var(--bg3)}
+    .svc-section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--white);text-align:center;margin-bottom:14px}
+    .svc-section-sub{color:var(--text-muted);text-align:center;font-size:0.95rem;max-width:540px;margin:0 auto 48px;line-height:1.7}
+
+    /* ── PRICING TIERS ── */
+    .agent-plans{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;align-items:start;max-width:820px;margin:0 auto}
+    .agent-plan{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:36px 28px;position:relative;transition:var(--transition)}
+    .agent-plan:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+    .agent-plan.popular{border-color:var(--clr);box-shadow:0 0 0 1px var(--clr),0 20px 60px rgba(168,85,247,0.25)}
+    .popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#a855f7,#2563eb);color:#fff;font-size:0.75rem;font-weight:700;padding:5px 18px;border-radius:50px;letter-spacing:0.06em;white-space:nowrap}
+    .plan-tier{font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--clr);margin-bottom:10px}
+    .plan-name-lg{font-family:'Space Grotesk',sans-serif;font-size:1.55rem;font-weight:800;color:var(--white);margin-bottom:6px}
+    .plan-tagline{font-size:0.85rem;color:var(--text-muted);margin-bottom:24px;line-height:1.5;min-height:40px}
+    .plan-price-wrap{display:flex;align-items:flex-end;gap:4px;margin-bottom:6px}
+    .plan-currency{font-size:1.3rem;font-weight:700;color:var(--white);line-height:1;margin-bottom:6px}
+    .plan-amount{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:900;color:var(--white);line-height:1}
+    .plan-per{font-size:0.82rem;color:var(--text-muted);margin-bottom:6px}
+    .plan-divider{height:1px;background:var(--card-border);margin:22px 0}
+    .plan-features-list{list-style:none;padding:0;margin:0 0 28px;display:flex;flex-direction:column;gap:11px}
+    .plan-features-list li{display:flex;align-items:flex-start;gap:10px;font-size:0.87rem;color:var(--text-muted);line-height:1.4}
+    .plan-features-list li .fi{font-size:0.82rem;margin-top:2px;flex-shrink:0}
+    .plan-features-list li .fi.yes{color:#22c55e}
+    .plan-features-list li .fi.no{color:#475569}
+    .plan-features-list li.dim{opacity:.45}
+    .plan-cta{display:block;text-align:center;padding:13px;border-radius:50px;font-weight:700;font-size:0.9rem;transition:var(--transition)}
+    .plan-cta.outline{border:1.5px solid var(--clr);color:var(--clr)}
+    .plan-cta.outline:hover{background:var(--clr-low)}
+    .plan-cta.filled{background:linear-gradient(135deg,#a855f7,#2563eb);color:#fff;box-shadow:0 6px 24px rgba(168,85,247,0.35)}
+    .plan-cta.filled:hover{opacity:.9;transform:translateY(-1px)}
+    .compare-note{margin-top:36px;text-align:center;color:var(--text-muted);font-size:0.85rem}
+    .compare-note span{color:var(--clr);font-weight:600}
+
+    /* ── FEATURES GRID ── */
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+    .feature-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;transition:var(--transition)}
+    .feature-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .feature-icon{width:50px;height:50px;border-radius:12px;background:var(--clr-low);display:flex;align-items:center;justify-content:center;color:var(--clr);font-size:1.2rem;margin-bottom:16px}
+    .feature-card h4{font-weight:700;color:var(--white);margin-bottom:8px;font-size:1rem}
+    .feature-card p{color:var(--text-muted);font-size:0.88rem;line-height:1.6}
+
+    /* ── USE CASES ── */
+    .use-cases{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+    .use-case{background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.2);border-radius:var(--radius-sm);padding:20px;text-align:center;transition:var(--transition)}
+    .use-case:hover{background:rgba(168,85,247,0.14);border-color:rgba(168,85,247,0.4)}
+    .use-case i{font-size:1.8rem;color:#a855f7;margin-bottom:12px;display:block}
+    .use-case h5{font-weight:700;color:var(--white);font-size:0.92rem}
+
+    /* ── PROCESS STEPS ── */
+    .steps{display:flex;flex-direction:column;gap:0;max-width:680px;margin:0 auto}
+    .step{display:flex;gap:22px;align-items:flex-start;padding-bottom:36px;position:relative}
+    .step:not(:last-child)::before{content:'';position:absolute;left:21px;top:46px;width:2px;height:calc(100% - 12px);background:var(--clr-border)}
+    .step-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:#fff;flex-shrink:0}
+    .step-body h4{font-weight:700;color:var(--white);margin-bottom:6px}
+    .step-body p{color:var(--text-muted);font-size:0.9rem;line-height:1.6}
+
+    /* ── CTA ── */
+    .svc-cta{padding:80px 20px;text-align:center;background:var(--bg2)}
+    .svc-cta h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--white);margin-bottom:12px}
+    .svc-cta p{color:var(--text-muted);margin-bottom:32px;font-size:0.95rem}
+    .svc-cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+    @media(max-width:768px){.agent-plans{grid-template-columns:1fr}}
+    @media(max-width:600px){.svc-hero-btns,.svc-cta-btns{flex-direction:column;align-items:center}.btn{width:100%;max-width:280px;justify-content:center}}
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo">
+          <span class="logo-icon">MI</span>
+          <span class="logo-text">Website <span class="logo-accent">Creator</span></span>
+        </a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#home" class="nav-link">Home</a></li>
+        <li><a href="index.html#services" class="nav-link">Services</a></li>
+        <li><a href="index.html#pricing" class="nav-link">Pricing</a></li>
+        <li><a href="index.html#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="index.html#contact" class="nav-link nav-cta">Get Started</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="svc-hero">
+    <div class="svc-video-wrap">
+      <video class="svc-video" autoplay muted loop playsinline preload="auto">
+        <source src="0.1.mp4" type="video/mp4" />
+      </video>
+      <div class="svc-video-overlay"></div>
+    </div>
+    <div class="svc-hero-content">
+      <a href="index.html#services" class="svc-back"><i class="fas fa-arrow-left"></i> Back to Services</a>
+      <div class="svc-icon-wrap"><i class="fas fa-phone-volume"></i></div>
+      <h1 class="svc-title">Call <span class="gradient-text">AI Agents</span></h1>
+      <p class="svc-tagline">Deploy intelligent voice AI agents that handle inbound and outbound calls, book appointments, and answer customer inquiries 24/7 — sounding completely human. Choose the package that fits your business.</p>
+      <div class="svc-hero-btns">
+        <a href="index.html#contact" class="btn btn-primary"><i class="fas fa-phone"></i> Deploy My AI Agent</a>
+        <a href="#plans" class="btn btn-outline"><i class="fas fa-tag"></i> See Plans</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING PLANS ===== -->
+  <section class="svc-section dark" id="plans">
+    <div class="container">
+      <h2 class="svc-section-title">Choose Your <span class="gradient-text">Call Agent Plan</span></h2>
+      <p class="svc-section-sub">Two fully professional packages — built to put your phone lines on complete AI autopilot, whether you're a growing business or a scaling enterprise.</p>
+
+      <div class="agent-plans">
+
+        <!-- PROFESSIONAL -->
+        <div class="agent-plan">
+          <div class="plan-tier">Package 1</div>
+          <div class="plan-name-lg">Professional</div>
+          <div class="plan-tagline">A complete inbound AI call agent for businesses ready to stop missing calls and start converting every enquiry.</div>
+          <div class="plan-price-wrap">
+            <div class="plan-currency">$</div>
+            <div class="plan-amount">6,000</div>
+          </div>
+          <div class="plan-per">one-time setup fee</div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features-list">
+            <li><i class="fas fa-check fi yes"></i> Human-sounding voice (Vapi + ElevenLabs)</li>
+            <li><i class="fas fa-check fi yes"></i> Custom agent persona, name &amp; brand voice</li>
+            <li><i class="fas fa-check fi yes"></i> Full business knowledge base training</li>
+            <li><i class="fas fa-check fi yes"></i> Inbound call handling (24/7)</li>
+            <li><i class="fas fa-check fi yes"></i> FAQ &amp; inquiry answering</li>
+            <li><i class="fas fa-check fi yes"></i> Appointment booking (Google Calendar / Calendly)</li>
+            <li><i class="fas fa-check fi yes"></i> Human handoff — notifies you via WhatsApp or email</li>
+            <li><i class="fas fa-check fi yes"></i> Call recordings &amp; transcripts</li>
+            <li><i class="fas fa-check fi yes"></i> Dedicated phone number (Twilio)</li>
+            <li><i class="fas fa-check fi yes"></i> 3-day delivery · 2 revisions (often faster)</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Outbound calls</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> CRM integration</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Automated follow-up messages</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Multi-language support</li>
+          </ul>
+          <a href="#" class="plan-cta outline" onclick="orderPlan(this);return false;"
+             data-name="Call AI Agents – Professional Package"
+             data-price="$6,000 (one-time setup fee)"
+             data-features="Human-sounding voice (Vapi + ElevenLabs)|Custom agent persona, name &amp; brand voice|Full business knowledge base training|Inbound call handling (24/7)|FAQ &amp; inquiry answering|Appointment booking (Google Calendar / Calendly)|Human handoff — notifies you via WhatsApp or email|Call recordings &amp; transcripts|Dedicated phone number (Twilio)|3-day delivery · 2 revisions (often faster)">
+            Order Now <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- ENTERPRISE -->
+        <div class="agent-plan popular">
+          <div class="popular-badge">⭐ Best Value</div>
+          <div class="plan-tier">Package 2</div>
+          <div class="plan-name-lg">Enterprise</div>
+          <div class="plan-tagline">A fully autonomous inbound and outbound call system with CRM, automation, and multi-language support — built for scale.</div>
+          <div class="plan-price-wrap">
+            <div class="plan-currency">$</div>
+            <div class="plan-amount">15,000</div>
+          </div>
+          <div class="plan-per">one-time setup fee</div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features-list">
+            <li><i class="fas fa-check fi yes"></i> Human-sounding voice (Vapi + ElevenLabs / PlayHT)</li>
+            <li><i class="fas fa-check fi yes"></i> Custom agent persona, name &amp; brand voice</li>
+            <li><i class="fas fa-check fi yes"></i> Deep business knowledge base &amp; scenario training</li>
+            <li><i class="fas fa-check fi yes"></i> Inbound call handling (24/7)</li>
+            <li><i class="fas fa-check fi yes"></i> Outbound calls — lead follow-up, reminders &amp; surveys</li>
+            <li><i class="fas fa-check fi yes"></i> Appointment booking with live calendar sync</li>
+            <li><i class="fas fa-check fi yes"></i> CRM integration (HubSpot / Notion / Airtable)</li>
+            <li><i class="fas fa-check fi yes"></i> Automated follow-up emails &amp; SMS after every call</li>
+            <li><i class="fas fa-check fi yes"></i> Multi-language support (up to 5 languages)</li>
+            <li><i class="fas fa-check fi yes"></i> Advanced call analytics &amp; full transcripts dashboard</li>
+            <li><i class="fas fa-check fi yes"></i> Dedicated phone number (Twilio) + call routing</li>
+            <li><i class="fas fa-check fi yes"></i> Human handoff with full conversation context</li>
+            <li><i class="fas fa-check fi yes"></i> 3 months post-launch support &amp; refinements</li>
+            <li><i class="fas fa-check fi yes"></i> 3-day delivery · Unlimited revisions (often faster)</li>
+          </ul>
+          <a href="#" class="plan-cta filled" onclick="orderPlan(this);return false;"
+             data-name="Call AI Agents – Enterprise Package"
+             data-price="$15,000 (one-time setup fee)"
+             data-features="Human-sounding voice (Vapi + ElevenLabs / PlayHT)|Custom agent persona, name &amp; brand voice|Deep business knowledge base &amp; scenario training|Inbound call handling (24/7)|Outbound calls — lead follow-up, reminders &amp; surveys|Appointment booking with live calendar sync|CRM integration (HubSpot / Notion / Airtable)|Automated follow-up emails &amp; SMS after every call|Multi-language support (up to 5 languages)|Advanced call analytics &amp; full transcripts dashboard|Dedicated phone number (Twilio) + call routing|Human handoff with full conversation context|3 months post-launch support &amp; refinements|3-day delivery · Unlimited revisions (often faster)">
+            Order Now <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+      </div>
+
+      <p class="compare-note">All prices are one-time setup fees. Monthly usage costs (Vapi, Twilio, ElevenLabs) are billed directly by the provider to you. <span>Need a custom volume plan? Let's talk.</span></p>
+      <p class="compare-note" style="margin-top:10px;color:#22c55e"><i class="fas fa-bolt"></i> Delivery timelines are maximums — we regularly deliver well before the stated deadline.</p>
+    </div>
+  </section>
+
+  <!-- ===== WHAT'S INCLUDED ===== -->
+  <section class="svc-section mid">
+    <div class="container">
+      <h2 class="svc-section-title">What's <span class="gradient-text">Included</span></h2>
+      <p class="svc-section-sub">Every Call AI Agent package is built on the same professional foundations — fully trained, fully integrated, and ready to handle real customer conversations from day one.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-microphone"></i></div>
+          <h4>Human-Sounding Voice</h4>
+          <p>Powered by Vapi with ElevenLabs or PlayHT ultra-realistic voices — callers can barely tell they're speaking to an AI. Natural, warm, and fully fluent.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-comments"></i></div>
+          <h4>Natural Conversation Flow</h4>
+          <p>The agent handles interruptions, pauses, topic switches, and objections — exactly like a trained human receptionist on a live call would.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-calendar-check"></i></div>
+          <h4>Appointment Booking</h4>
+          <p>Integrated with Google Calendar or Calendly — the agent checks real-time availability and confirms bookings during the call without any human involvement.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-database"></i></div>
+          <h4>CRM &amp; Calendar Integration</h4>
+          <p>Connects to your existing CRM to log every call, update contact records, and trigger automated follow-up sequences after each interaction.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-phone-alt"></i></div>
+          <h4>Inbound &amp; Outbound Calls</h4>
+          <p>Handle all incoming customer calls OR proactively make outbound calls for lead follow-up, appointment reminders, payment chasers, and satisfaction surveys.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+          <h4>Call Analytics &amp; Transcripts</h4>
+          <p>Every call is recorded, transcribed, and summarised automatically. Review full transcripts, spot patterns, and continuously improve your agent's performance.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-user-tie"></i></div>
+          <h4>Custom Persona &amp; Brand Voice</h4>
+          <p>Your agent is given a name, personality, and tone that matches your brand — so every caller experiences a consistent, professional impression of your business.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-handshake"></i></div>
+          <h4>Seamless Human Handoff</h4>
+          <p>When a call needs a human touch, the agent smoothly transfers the caller and instantly notifies you via WhatsApp or email with full conversation context.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-globe"></i></div>
+          <h4>Multi-Language Support</h4>
+          <p>Serve customers in their own language — the agent can switch languages naturally mid-call, expanding your reach without hiring multilingual staff.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== USE CASES ===== -->
+  <section class="svc-section alt">
+    <div class="container">
+      <h2 class="svc-section-title">Perfect <span class="gradient-text">Use Cases</span></h2>
+      <p class="svc-section-sub">Call AI agents transform operations across every industry that handles phone enquiries.</p>
+      <div class="use-cases">
+        <div class="use-case"><i class="fas fa-hospital"></i><h5>Clinics &amp; Healthcare</h5></div>
+        <div class="use-case"><i class="fas fa-utensils"></i><h5>Restaurants &amp; Food</h5></div>
+        <div class="use-case"><i class="fas fa-home"></i><h5>Real Estate</h5></div>
+        <div class="use-case"><i class="fas fa-briefcase"></i><h5>Law Firms</h5></div>
+        <div class="use-case"><i class="fas fa-spa"></i><h5>Salons &amp; Beauty</h5></div>
+        <div class="use-case"><i class="fas fa-car"></i><h5>Auto Dealerships</h5></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROCESS ===== -->
+  <section class="svc-section dark">
+    <div class="container">
+      <h2 class="svc-section-title">How It <span class="gradient-text">Works</span></h2>
+      <p class="svc-section-sub">From agent design to live phone calls — your AI receptionist will be active and handling real calls within days.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Agent Design &amp; Script</h4>
+            <p>We define the agent's personality, name, voice, and conversation flows — how it greets callers, handles common questions, manages objections, and books appointments.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Knowledge Base Setup</h4>
+            <p>I configure the agent with your business info, services, pricing, FAQs, and edge cases so it answers accurately and confidently on every call.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Integrations &amp; Testing</h4>
+            <p>Calendar, CRM, phone number, and follow-up systems are all connected. We run real call tests together to fine-tune before going public.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Go Live &amp; Monitor</h4>
+            <p>Your AI agent goes live and starts handling real calls. I monitor the first week closely and make any refinements needed to ensure peak performance.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="svc-cta">
+    <h2>Put Your Phone Lines on <span class="gradient-text">AI Autopilot</span></h2>
+    <p>Never miss another call. Let your AI agent handle enquiries, bookings, and follow-ups 24/7 while you focus on growing your business.</p>
+    <div class="svc-cta-btns">
+      <a href="index.html#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Deploy My Agent</a>
+      <a href="#plans" class="btn btn-outline"><i class="fas fa-tag"></i> Compare Plans</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 WebsiteCreator. All rights reserved.</p>
+        <p><a href="index.html" style="color:var(--primary)">← Back to Home</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => { navToggle.classList.toggle('active'); navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => { navToggle.classList.remove('active'); navLinks.classList.remove('open'); }));
+    function orderPlan(el) {
+      var n = el.getAttribute('data-name'), p = el.getAttribute('data-price');
+      var f = el.getAttribute('data-features').split('|').map(function(x){ return '  • ' + x.trim(); }).join('\n');
+      var msg = 'Hello! I would like to order:\n\n' + n + '\nPrice: ' + p + '\n\nFeatures included:\n' + f + '\n\nPlease let me know how to proceed. Thank you!';
+      window.open('https://wa.me/923062025427?text=' + encodeURIComponent(msg), '_blank');
+    }
+  </script>
+</body>
+</html>

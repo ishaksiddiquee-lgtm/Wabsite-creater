@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Portfolio & Resume Site – Website Creator</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root{--clr:#f7b731;--clr-low:rgba(247,183,49,0.13);--clr-border:rgba(247,183,49,0.3)}
+
+    .svc-hero{min-height:62vh;background:#0a0a1a;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;padding:130px 20px 80px;overflow:hidden}
+    .svc-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(247,183,49,0.15) 0%,transparent 65%)}
+    .svc-hero-content{position:relative;z-index:1;max-width:720px}
+    .svc-back{display:inline-flex;align-items:center;gap:6px;color:var(--text-muted);font-size:0.88rem;margin-bottom:28px;transition:color .2s}
+    .svc-back:hover{color:var(--white)}
+    .svc-icon-wrap{width:88px;height:88px;border-radius:22px;background:var(--clr-low);border:1px solid var(--clr-border);display:flex;align-items:center;justify-content:center;font-size:2.2rem;color:var(--clr);margin:0 auto 28px}
+    .svc-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,6vw,3.4rem);font-weight:800;color:var(--white);margin-bottom:16px;line-height:1.15}
+    .svc-tagline{font-size:1.05rem;color:rgba(255,255,255,0.72);max-width:580px;margin:0 auto 36px;line-height:1.75}
+    .svc-hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+    .svc-section{padding:80px 0}
+    .svc-section.dark{background:var(--bg)}
+    .svc-section.mid{background:var(--bg2)}
+    .svc-section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--white);text-align:center;margin-bottom:14px}
+    .svc-section-sub{color:var(--text-muted);text-align:center;font-size:0.95rem;max-width:540px;margin:0 auto 48px;line-height:1.7}
+
+    .agent-plans{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;align-items:start;max-width:820px;margin:0 auto}
+    .agent-plan{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:36px 28px;position:relative;transition:var(--transition)}
+    .agent-plan:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+    .agent-plan.popular{border-color:var(--clr);box-shadow:0 0 0 1px var(--clr),0 20px 60px rgba(247,183,49,0.2)}
+    .popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#f7b731,#e55039);color:#fff;font-size:0.75rem;font-weight:700;padding:5px 18px;border-radius:50px;letter-spacing:0.06em;white-space:nowrap}
+    .plan-tier{font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--clr);margin-bottom:10px}
+    .plan-name-lg{font-family:'Space Grotesk',sans-serif;font-size:1.55rem;font-weight:800;color:var(--white);margin-bottom:6px}
+    .plan-tagline{font-size:0.85rem;color:var(--text-muted);margin-bottom:24px;line-height:1.5;min-height:48px}
+    .plan-price-wrap{display:flex;align-items:flex-end;gap:4px;margin-bottom:6px}
+    .plan-currency{font-size:1.3rem;font-weight:700;color:var(--white);line-height:1;margin-bottom:6px}
+    .plan-amount{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:900;color:var(--white);line-height:1}
+    .plan-per{font-size:0.82rem;color:var(--text-muted);margin-bottom:6px}
+    .plan-divider{height:1px;background:var(--card-border);margin:22px 0}
+    .plan-features-list{list-style:none;padding:0;margin:0 0 28px;display:flex;flex-direction:column;gap:11px}
+    .plan-features-list li{display:flex;align-items:flex-start;gap:10px;font-size:0.87rem;color:var(--text-muted);line-height:1.4}
+    .plan-features-list li .fi{font-size:0.82rem;margin-top:2px;flex-shrink:0}
+    .plan-features-list li .fi.yes{color:#22c55e}
+    .plan-features-list li .fi.no{color:#475569}
+    .plan-features-list li.dim{opacity:.45}
+    .plan-cta{display:block;text-align:center;padding:13px;border-radius:50px;font-weight:700;font-size:0.9rem;transition:var(--transition)}
+    .plan-cta.outline{border:1.5px solid var(--clr);color:var(--clr)}
+    .plan-cta.outline:hover{background:var(--clr-low)}
+    .plan-cta.filled{background:linear-gradient(135deg,#f7b731,#e55039);color:#fff;box-shadow:0 6px 24px rgba(247,183,49,0.3)}
+    .plan-cta.filled:hover{opacity:.9;transform:translateY(-1px)}
+    .compare-note{margin-top:36px;text-align:center;color:var(--text-muted);font-size:0.85rem}
+    .compare-note span{color:var(--clr);font-weight:600}
+
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+    .feature-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;transition:var(--transition);position:relative;overflow:hidden}
+    .feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#f7b731,#e55039);opacity:0;transition:var(--transition)}
+    .feature-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(247,183,49,0.15)}
+    .feature-card:hover::before{opacity:1}
+    .feature-icon{width:50px;height:50px;border-radius:12px;background:var(--clr-low);display:flex;align-items:center;justify-content:center;color:var(--clr);font-size:1.2rem;margin-bottom:16px}
+    .feature-card h4{font-weight:700;color:var(--white);margin-bottom:8px;font-size:1rem}
+    .feature-card p{color:var(--text-muted);font-size:0.88rem;line-height:1.6}
+
+    .steps{display:flex;flex-direction:column;gap:0;max-width:680px;margin:0 auto}
+    .step{display:flex;gap:22px;align-items:flex-start;padding-bottom:36px;position:relative}
+    .step:not(:last-child)::before{content:'';position:absolute;left:21px;top:46px;width:2px;height:calc(100% - 12px);background:var(--clr-border)}
+    .step-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#f7b731,#e55039);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:#fff;flex-shrink:0}
+    .step-body h4{font-weight:700;color:var(--white);margin-bottom:6px}
+    .step-body p{color:var(--text-muted);font-size:0.9rem;line-height:1.6}
+
+    .svc-cta{padding:80px 20px;text-align:center;background:var(--bg2)}
+    .svc-cta h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--white);margin-bottom:12px}
+    .svc-cta p{color:var(--text-muted);margin-bottom:32px;font-size:0.95rem}
+    .svc-cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+    @media(max-width:768px){.agent-plans{grid-template-columns:1fr}}
+    @media(max-width:600px){.svc-hero-btns,.svc-cta-btns{flex-direction:column;align-items:center}.btn{width:100%;max-width:280px;justify-content:center}}
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo">
+          <span class="logo-icon">MI</span>
+          <span class="logo-text">Website <span class="logo-accent">Creator</span></span>
+        </a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#home" class="nav-link">Home</a></li>
+        <li><a href="index.html#services" class="nav-link">Services</a></li>
+        <li><a href="index.html#pricing" class="nav-link">Pricing</a></li>
+        <li><a href="index.html#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="index.html#contact" class="nav-link nav-cta">Get Started</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="svc-hero">
+    <div class="svc-video-wrap">
+      <video class="svc-video" autoplay muted loop playsinline preload="auto">
+        <source src="0.1.mp4" type="video/mp4" />
+      </video>
+      <div class="svc-video-overlay"></div>
+    </div>
+    <div class="svc-hero-content">
+      <a href="index.html#services" class="svc-back"><i class="fas fa-arrow-left"></i> Back to Services</a>
+      <div class="svc-icon-wrap"><i class="fas fa-briefcase"></i></div>
+      <h1 class="svc-title">Portfolio &amp; <span class="gradient-text">Resume</span> Site</h1>
+      <p class="svc-tagline">Showcase your work professionally with a beautiful, animated portfolio website that makes employers and clients remember you. Choose the package that tells your story best.</p>
+      <div class="svc-hero-btns">
+        <a href="index.html#contact" class="btn btn-primary"><i class="fas fa-rocket"></i> Build My Portfolio</a>
+        <a href="#plans" class="btn btn-outline"><i class="fas fa-tag"></i> See Plans</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING PLANS ===== -->
+  <section class="svc-section dark" id="plans">
+    <div class="container">
+      <h2 class="svc-section-title">Choose Your <span class="gradient-text">Portfolio Plan</span></h2>
+      <p class="svc-section-sub">Two packages built to present your work at its best — from a clean essential portfolio to a fully featured personal brand platform.</p>
+
+      <div class="agent-plans">
+
+        <!-- ESSENTIAL -->
+        <div class="agent-plan">
+          <div class="plan-tier">Plan 1</div>
+          <div class="plan-name-lg">Essential</div>
+          <div class="plan-tagline">A clean, professional portfolio to showcase your work, share your skills, and get contacted by employers or clients fast.</div>
+          <div class="plan-price-wrap">
+            <div class="plan-currency">$</div>
+            <div class="plan-amount">300</div>
+          </div>
+          <div class="plan-per">one-time build fee</div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features-list">
+            <li><i class="fas fa-check fi yes"></i> Up to 6 project showcase cards</li>
+            <li><i class="fas fa-check fi yes"></i> About me &amp; skills section</li>
+            <li><i class="fas fa-check fi yes"></i> Animated skill bars &amp; experience section</li>
+            <li><i class="fas fa-check fi yes"></i> Working contact form (email delivery)</li>
+            <li><i class="fas fa-check fi yes"></i> CV / resume one-click download button</li>
+            <li><i class="fas fa-check fi yes"></i> Social media links</li>
+            <li><i class="fas fa-check fi yes"></i> Basic scroll animations</li>
+            <li><i class="fas fa-check fi yes"></i> Mobile responsive &amp; fast loading</li>
+            <li><i class="fas fa-check fi yes"></i> 1-day delivery · 1 revision (often faster)</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Blog section</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Dark / light mode toggle</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Advanced animations &amp; transitions</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Testimonials section</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Project filter by category</li>
+          </ul>
+          <a href="#" class="plan-cta outline" onclick="orderPlan(this);return false;"
+             data-name="Portfolio &amp; Resume Site – Essential Plan"
+             data-price="$300 (one-time build fee)"
+             data-features="Up to 6 project showcase cards|About me &amp; skills section|Animated skill bars &amp; experience section|Working contact form (email delivery)|CV / resume one-click download button|Social media links|Basic scroll animations|Mobile responsive &amp; fast loading|1-day delivery · 1 revision (often faster)">
+            Order Now <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- PREMIUM -->
+        <div class="agent-plan popular">
+          <div class="popular-badge">⭐ Best Value</div>
+          <div class="plan-tier">Plan 2</div>
+          <div class="plan-name-lg">Premium</div>
+          <div class="plan-tagline">A fully featured personal brand website — unlimited projects, blog, animations, testimonials, dark mode, and SEO — built to win clients and get hired.</div>
+          <div class="plan-price-wrap">
+            <div class="plan-currency">$</div>
+            <div class="plan-amount">800</div>
+          </div>
+          <div class="plan-per">one-time build fee</div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features-list">
+            <li><i class="fas fa-check fi yes"></i> Unlimited project gallery with category filters</li>
+            <li><i class="fas fa-check fi yes"></i> Detailed project case study pages</li>
+            <li><i class="fas fa-check fi yes"></i> About me, skills, &amp; full experience timeline</li>
+            <li><i class="fas fa-check fi yes"></i> Animated skill bars &amp; statistics counters</li>
+            <li><i class="fas fa-check fi yes"></i> Working contact form + WhatsApp quick-message button</li>
+            <li><i class="fas fa-check fi yes"></i> CV / resume one-click download button</li>
+            <li><i class="fas fa-check fi yes"></i> Blog section — publish articles &amp; build authority</li>
+            <li><i class="fas fa-check fi yes"></i> Testimonials &amp; client reviews section</li>
+            <li><i class="fas fa-check fi yes"></i> Dark / light mode toggle</li>
+            <li><i class="fas fa-check fi yes"></i> Advanced scroll animations &amp; smooth page transitions</li>
+            <li><i class="fas fa-check fi yes"></i> Social media links &amp; profile integration</li>
+            <li><i class="fas fa-check fi yes"></i> SEO optimised — meta tags, schema &amp; sitemap</li>
+            <li><i class="fas fa-check fi yes"></i> Mobile responsive &amp; performance optimised</li>
+            <li><i class="fas fa-check fi yes"></i> Custom domain setup assistance</li>
+            <li><i class="fas fa-check fi yes"></i> 3-day delivery · 3 revisions (often faster)</li>
+          </ul>
+          <a href="#" class="plan-cta filled" onclick="orderPlan(this);return false;"
+             data-name="Portfolio &amp; Resume Site – Premium Plan"
+             data-price="$800 (one-time build fee)"
+             data-features="Unlimited project gallery with category filters|Detailed project case study pages|About me, skills, &amp; full experience timeline|Animated skill bars &amp; statistics counters|Working contact form + WhatsApp quick-message button|CV / resume one-click download button|Blog section — publish articles &amp; build authority|Testimonials &amp; client reviews section|Dark / light mode toggle|Advanced scroll animations &amp; smooth page transitions|Social media links &amp; profile integration|SEO optimised — meta tags, schema &amp; sitemap|Mobile responsive &amp; performance optimised|Custom domain setup assistance|3-day delivery · 3 revisions (often faster)">
+            Order Now <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+      </div>
+      <p class="compare-note">All prices are one-time build fees. Hosting and domain costs are separate and chosen by you. <span>Need something specific? Let's talk.</span></p>
+      <p class="compare-note" style="margin-top:10px;color:#22c55e"><i class="fas fa-bolt"></i> Delivery timelines are maximums — we regularly deliver well before the stated deadline.</p>
+    </div>
+  </section>
+
+  <!-- ===== WHAT'S INCLUDED ===== -->
+  <section class="svc-section mid">
+    <div class="container">
+      <h2 class="svc-section-title">What's <span class="gradient-text">Included</span></h2>
+      <p class="svc-section-sub">A stunning portfolio site that tells your professional story — designed to impress and convert at first glance.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-images"></i></div>
+          <h4>Project Gallery</h4>
+          <p>Beautiful project cards and image galleries showcasing your best work — filterable by category with detailed case study pages for deeper storytelling.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-magic"></i></div>
+          <h4>Smooth Animations</h4>
+          <p>Professional entrance animations, hover effects, and scroll reveals that make your portfolio feel premium, polished, and memorable to every visitor.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-user-circle"></i></div>
+          <h4>About &amp; Skills Section</h4>
+          <p>A compelling about section with animated skill bars, experience timeline, and your professional story — beautifully laid out to sell your expertise.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-envelope-open-text"></i></div>
+          <h4>Contact Form</h4>
+          <p>A working contact form with email delivery and a WhatsApp quick-message button — so potential clients and employers can reach you instantly.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-newspaper"></i></div>
+          <h4>Blog Section</h4>
+          <p>Publish articles, tutorials, and case studies to showcase expertise and improve your Google ranking — great for long-term authority building.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-download"></i></div>
+          <h4>CV / Resume Download</h4>
+          <p>One-click resume download button so recruiters and clients can save your CV instantly — no extra clicks, no extra steps required.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-moon"></i></div>
+          <h4>Dark / Light Mode</h4>
+          <p>A toggle that lets visitors switch between dark and light themes — making your portfolio comfortable to browse in any environment or lighting.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-quote-left"></i></div>
+          <h4>Testimonials Section</h4>
+          <p>Client and employer testimonials displayed prominently — building social proof that turns a curious visitor into someone ready to hire you.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-search"></i></div>
+          <h4>SEO Optimised</h4>
+          <p>Meta tags, schema markup, Open Graph social previews, and a sitemap — so your portfolio appears in Google searches and looks great when shared.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROCESS ===== -->
+  <section class="svc-section dark">
+    <div class="container">
+      <h2 class="svc-section-title">How It <span class="gradient-text">Works</span></h2>
+      <p class="svc-section-sub">I build your personal brand online — quickly, professionally, and exactly the way you envision it.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Content &amp; Brand Gathering</h4>
+            <p>You share your projects, skills, experience, photos, and any design preferences. I'll send a simple content form to guide you through everything needed.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Design &amp; Layout</h4>
+            <p>I design a visually impressive layout that represents your personal brand — modern, clean, and uniquely yours, not a generic template.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Build with Animations</h4>
+            <p>Full development with scroll animations, hover effects, gallery filters, blog, and all interactive elements hand-coded from scratch.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Review &amp; Deploy</h4>
+            <p>You review and request any changes. Once approved, I deploy your portfolio live and hand over all files with full ownership.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="svc-cta">
+    <h2>Stand Out with a <span class="gradient-text">Professional Portfolio</span></h2>
+    <p>Let's build the portfolio that gets you hired, wins clients, and shows the world what you're capable of.</p>
+    <div class="svc-cta-btns">
+      <a href="index.html#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Get My Portfolio</a>
+      <a href="#plans" class="btn btn-outline"><i class="fas fa-tag"></i> Compare Plans</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 WebsiteCreator. All rights reserved.</p>
+        <p><a href="index.html" style="color:var(--primary)">← Back to Home</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => { navToggle.classList.toggle('active'); navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => { navToggle.classList.remove('active'); navLinks.classList.remove('open'); }));
+    function orderPlan(el) {
+      var n = el.getAttribute('data-name'), p = el.getAttribute('data-price');
+      var f = el.getAttribute('data-features').split('|').map(function(x){ return '  • ' + x.trim(); }).join('\n');
+      var msg = 'Hello! I would like to order:\n\n' + n + '\nPrice: ' + p + '\n\nFeatures included:\n' + f + '\n\nPlease let me know how to proceed. Thank you!';
+      window.open('https://wa.me/923062025427?text=' + encodeURIComponent(msg), '_blank');
+    }
+  </script>
+</body>
+</html>

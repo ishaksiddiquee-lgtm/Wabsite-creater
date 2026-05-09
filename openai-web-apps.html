@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>OpenAI-Style Web Apps – Website Creator</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root{--clr:#06b6d4;--clr-low:rgba(6,182,212,0.13);--clr-border:rgba(6,182,212,0.3)}
+
+    /* ── HERO ── */
+    .svc-hero{min-height:62vh;background:#0a0a1a;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;padding:130px 20px 80px;overflow:hidden}
+    .svc-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(6,182,212,0.18) 0%,transparent 65%)}
+    .svc-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 25% 75%,rgba(37,99,235,0.1) 0%,transparent 55%)}
+    .svc-hero-content{position:relative;z-index:1;max-width:720px}
+    .svc-back{display:inline-flex;align-items:center;gap:6px;color:var(--text-muted);font-size:0.88rem;margin-bottom:28px;transition:color .2s}
+    .svc-back:hover{color:var(--white)}
+    .svc-icon-wrap{width:88px;height:88px;border-radius:22px;background:var(--clr-low);border:1px solid var(--clr-border);display:flex;align-items:center;justify-content:center;font-size:2.2rem;color:var(--clr);margin:0 auto 28px;box-shadow:0 0 40px rgba(6,182,212,0.2)}
+    .svc-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,6vw,3.4rem);font-weight:800;color:var(--white);margin-bottom:16px;line-height:1.15}
+    .svc-tagline{font-size:1.05rem;color:rgba(255,255,255,0.72);max-width:580px;margin:0 auto 36px;line-height:1.75}
+    .svc-hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+    /* ── SECTIONS ── */
+    .svc-section{padding:80px 0}
+    .svc-section.dark{background:var(--bg)}
+    .svc-section.mid{background:var(--bg2)}
+    .svc-section.alt{background:var(--bg3)}
+    .svc-section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--white);text-align:center;margin-bottom:14px}
+    .svc-section-sub{color:var(--text-muted);text-align:center;font-size:0.95rem;max-width:560px;margin:0 auto 48px;line-height:1.7}
+
+    /* ── PRICING TIERS ── */
+    .agent-plans{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;align-items:start;max-width:860px;margin:0 auto}
+    .agent-plan{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:36px 28px;position:relative;transition:var(--transition)}
+    .agent-plan:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+    .agent-plan.popular{border-color:var(--clr);box-shadow:0 0 0 1px var(--clr),0 20px 60px rgba(6,182,212,0.2)}
+    .popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#06b6d4,#2563eb);color:#fff;font-size:0.75rem;font-weight:700;padding:5px 18px;border-radius:50px;letter-spacing:0.06em;white-space:nowrap}
+    .plan-tier{font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--clr);margin-bottom:10px}
+    .plan-name-lg{font-family:'Space Grotesk',sans-serif;font-size:1.55rem;font-weight:800;color:var(--white);margin-bottom:6px}
+    .plan-tagline{font-size:0.85rem;color:var(--text-muted);margin-bottom:24px;line-height:1.5;min-height:48px}
+    .plan-price-wrap{display:flex;align-items:flex-end;gap:4px;margin-bottom:6px}
+    .plan-currency{font-size:1.3rem;font-weight:700;color:var(--white);line-height:1;margin-bottom:6px}
+    .plan-amount{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:900;color:var(--white);line-height:1}
+    .plan-per{font-size:0.82rem;color:var(--text-muted);margin-bottom:6px}
+    .plan-divider{height:1px;background:var(--card-border);margin:22px 0}
+    .plan-features-list{list-style:none;padding:0;margin:0 0 28px;display:flex;flex-direction:column;gap:11px}
+    .plan-features-list li{display:flex;align-items:flex-start;gap:10px;font-size:0.87rem;color:var(--text-muted);line-height:1.4}
+    .plan-features-list li .fi{font-size:0.82rem;margin-top:2px;flex-shrink:0}
+    .plan-features-list li .fi.yes{color:#22c55e}
+    .plan-features-list li .fi.no{color:#475569}
+    .plan-features-list li.dim{opacity:.45}
+    .plan-cta{display:block;text-align:center;padding:13px;border-radius:50px;font-weight:700;font-size:0.9rem;transition:var(--transition)}
+    .plan-cta.outline{border:1.5px solid var(--clr);color:var(--clr)}
+    .plan-cta.outline:hover{background:var(--clr-low)}
+    .plan-cta.filled{background:linear-gradient(135deg,#06b6d4,#2563eb);color:#fff;box-shadow:0 6px 24px rgba(6,182,212,0.3)}
+    .plan-cta.filled:hover{opacity:.9;transform:translateY(-1px)}
+    .compare-note{margin-top:36px;text-align:center;color:var(--text-muted);font-size:0.85rem}
+    .compare-note span{color:var(--clr);font-weight:600}
+
+    /* ── FEATURES GRID ── */
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+    .feature-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;transition:var(--transition);position:relative;overflow:hidden}
+    .feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#06b6d4,#2563eb);opacity:0;transition:var(--transition)}
+    .feature-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(6,182,212,0.15)}
+    .feature-card:hover::before{opacity:1}
+    .feature-icon{width:50px;height:50px;border-radius:12px;background:var(--clr-low);display:flex;align-items:center;justify-content:center;color:var(--clr);font-size:1.2rem;margin-bottom:16px}
+    .feature-card h4{font-weight:700;color:var(--white);margin-bottom:8px;font-size:1rem}
+    .feature-card p{color:var(--text-muted);font-size:0.88rem;line-height:1.6}
+
+    /* ── TECH PILLS ── */
+    .tech-stack{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:16px}
+    .tech-pill{background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.25);border-radius:50px;padding:8px 18px;color:#06b6d4;font-size:0.82rem;font-weight:600}
+
+    /* ── PROCESS STEPS ── */
+    .steps{display:flex;flex-direction:column;gap:0;max-width:680px;margin:0 auto}
+    .step{display:flex;gap:22px;align-items:flex-start;padding-bottom:36px;position:relative}
+    .step:not(:last-child)::before{content:'';position:absolute;left:21px;top:46px;width:2px;height:calc(100% - 12px);background:var(--clr-border)}
+    .step-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#06b6d4,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:#fff;flex-shrink:0;box-shadow:0 4px 16px rgba(6,182,212,0.3)}
+    .step-body h4{font-weight:700;color:var(--white);margin-bottom:6px}
+    .step-body p{color:var(--text-muted);font-size:0.9rem;line-height:1.6}
+
+    /* ── CTA ── */
+    .svc-cta{padding:80px 20px;text-align:center;background:var(--bg2)}
+    .svc-cta h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--white);margin-bottom:12px}
+    .svc-cta p{color:var(--text-muted);margin-bottom:32px;font-size:0.95rem}
+    .svc-cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+    @media(max-width:768px){.agent-plans{grid-template-columns:1fr}}
+    @media(max-width:600px){.svc-hero-btns,.svc-cta-btns{flex-direction:column;align-items:center}.btn{width:100%;max-width:280px;justify-content:center}}
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo">
+          <span class="logo-icon">MI</span>
+          <span class="logo-text">Website <span class="logo-accent">Creator</span></span>
+        </a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#home" class="nav-link">Home</a></li>
+        <li><a href="index.html#services" class="nav-link">Services</a></li>
+        <li><a href="index.html#pricing" class="nav-link">Pricing</a></li>
+        <li><a href="index.html#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="index.html#contact" class="nav-link nav-cta">Get Started</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="svc-hero">
+    <div class="svc-video-wrap">
+      <video class="svc-video" autoplay muted loop playsinline preload="auto">
+        <source src="0.1.mp4" type="video/mp4" />
+      </video>
+      <div class="svc-video-overlay"></div>
+    </div>
+    <div class="svc-hero-content">
+      <a href="index.html#services" class="svc-back"><i class="fas fa-arrow-left"></i> Back to Services</a>
+      <div class="svc-icon-wrap"><i class="fas fa-brain"></i></div>
+      <h1 class="svc-title">OpenAI-Style <span class="gradient-text">Web Apps</span></h1>
+      <p class="svc-tagline">Build powerful AI web applications with GPT-4, Claude, or Gemini — custom chat tools, image generators, document analysers, and full SaaS platforms branded entirely as your own product. Choose the tier that matches your vision.</p>
+      <div class="svc-hero-btns">
+        <a href="index.html#contact" class="btn btn-primary"><i class="fas fa-robot"></i> Build My AI App</a>
+        <a href="#plans" class="btn btn-outline"><i class="fas fa-tag"></i> See Plans</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING PLANS ===== -->
+  <section class="svc-section dark" id="plans">
+    <div class="container">
+      <h2 class="svc-section-title">Choose Your <span class="gradient-text">AI App Plan</span></h2>
+      <p class="svc-section-sub">Two fully professional packages — from a polished AI chat platform to a complete white-label SaaS product with every feature built in.</p>
+
+      <div class="agent-plans">
+
+        <!-- PROFESSIONAL -->
+        <div class="agent-plan">
+          <div class="plan-tier">Plan 1</div>
+          <div class="plan-name-lg">Professional</div>
+          <div class="plan-tagline">A fully functional, branded AI web application — custom chat interface, secure AI backend, and user accounts ready to launch.</div>
+          <div class="plan-price-wrap">
+            <div class="plan-currency">$</div>
+            <div class="plan-amount">10,000</div>
+          </div>
+          <div class="plan-per">one-time build fee</div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features-list">
+            <li><i class="fas fa-check fi yes"></i> ChatGPT-style streaming chat interface</li>
+            <li><i class="fas fa-check fi yes"></i> GPT-4o or Claude API integration</li>
+            <li><i class="fas fa-check fi yes"></i> Custom AI persona &amp; system prompt</li>
+            <li><i class="fas fa-check fi yes"></i> Secure server-side API key management</li>
+            <li><i class="fas fa-check fi yes"></i> User login &amp; registration system</li>
+            <li><i class="fas fa-check fi yes"></i> Conversation history &amp; session memory</li>
+            <li><i class="fas fa-check fi yes"></i> Admin dashboard — usage stats &amp; user list</li>
+            <li><i class="fas fa-check fi yes"></i> Custom branding, colours &amp; UI design</li>
+            <li><i class="fas fa-check fi yes"></i> Mobile responsive &amp; fast loading</li>
+            <li><i class="fas fa-check fi yes"></i> Deployed to live URL (Vercel / Netlify)</li>
+            <li><i class="fas fa-check fi yes"></i> 3-day delivery · 3 revisions (often faster)</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Image generation</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Document upload &amp; AI analysis</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Subscription &amp; payment system</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Multi-tool AI workspace</li>
+            <li class="dim"><i class="fas fa-times fi no"></i> Team &amp; role management</li>
+          </ul>
+          <a href="#" class="plan-cta outline" onclick="orderPlan(this);return false;"
+             data-name="OpenAI-Style Web App – Professional Plan"
+             data-price="$10,000 (one-time build fee)"
+             data-features="ChatGPT-style streaming chat interface|GPT-4o or Claude API integration|Custom AI persona &amp; system prompt|Secure server-side API key management|User login &amp; registration system|Conversation history &amp; session memory|Admin dashboard — usage stats &amp; user list|Custom branding, colours &amp; UI design|Mobile responsive &amp; fast loading|Deployed to live URL (Vercel / Netlify)|3-day delivery · 3 revisions (often faster)">
+            Order Now <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- FULL HIGHEST -->
+        <div class="agent-plan popular">
+          <div class="popular-badge">⭐ Full Package</div>
+          <div class="plan-tier">Plan 2</div>
+          <div class="plan-name-lg">Full Highest</div>
+          <div class="plan-tagline">A complete, white-label AI SaaS platform — every tool, every feature, subscription billing, and enterprise-grade infrastructure built for scale.</div>
+          <div class="plan-price-wrap">
+            <div class="plan-currency">$</div>
+            <div class="plan-amount">30,000</div>
+          </div>
+          <div class="plan-per">one-time build fee</div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features-list">
+            <li><i class="fas fa-check fi yes"></i> ChatGPT-style streaming chat interface</li>
+            <li><i class="fas fa-check fi yes"></i> Multiple AI models — GPT-4o, Claude &amp; Gemini selectable</li>
+            <li><i class="fas fa-check fi yes"></i> Custom AI persona &amp; advanced system prompts</li>
+            <li><i class="fas fa-check fi yes"></i> Secure server-side API management &amp; rate limiting</li>
+            <li><i class="fas fa-check fi yes"></i> AI image generation (DALL·E 3 / Stable Diffusion)</li>
+            <li><i class="fas fa-check fi yes"></i> Document upload &amp; AI analysis — PDF, Word, CSV (RAG)</li>
+            <li><i class="fas fa-check fi yes"></i> Multi-tool AI workspace — chat, image gen, code assistant, content writer</li>
+            <li><i class="fas fa-check fi yes"></i> User login, registration &amp; profile management</li>
+            <li><i class="fas fa-check fi yes"></i> Subscription &amp; payment system (Stripe — monthly / yearly plans)</li>
+            <li><i class="fas fa-check fi yes"></i> Team workspaces &amp; multi-user access</li>
+            <li><i class="fas fa-check fi yes"></i> Role-based permissions — Admin, Member, Guest</li>
+            <li><i class="fas fa-check fi yes"></i> Conversation history, memory &amp; saved threads</li>
+            <li><i class="fas fa-check fi yes"></i> Full admin dashboard — revenue, users, usage &amp; cost tracking</li>
+            <li><i class="fas fa-check fi yes"></i> White-label branding — fully yours, no third-party mentions</li>
+            <li><i class="fas fa-check fi yes"></i> SEO-optimised marketing landing page</li>
+            <li><i class="fas fa-check fi yes"></i> Mobile responsive &amp; performance optimised</li>
+            <li><i class="fas fa-check fi yes"></i> Deployed to live URL + full source code handover</li>
+            <li><i class="fas fa-check fi yes"></i> 3 months post-launch support &amp; refinements</li>
+            <li><i class="fas fa-check fi yes"></i> 3-day delivery · Unlimited revisions (often faster)</li>
+          </ul>
+          <a href="#" class="plan-cta filled" onclick="orderPlan(this);return false;"
+             data-name="OpenAI-Style Web App – Full Highest Plan"
+             data-price="$30,000 (one-time build fee)"
+             data-features="ChatGPT-style streaming chat interface|Multiple AI models — GPT-4o, Claude &amp; Gemini selectable|Custom AI persona &amp; advanced system prompts|Secure server-side API management &amp; rate limiting|AI image generation (DALL·E 3 / Stable Diffusion)|Document upload &amp; AI analysis — PDF, Word, CSV (RAG)|Multi-tool AI workspace — chat, image gen, code assistant, content writer|User login, registration &amp; profile management|Subscription &amp; payment system (Stripe — monthly / yearly plans)|Team workspaces &amp; multi-user access|Role-based permissions — Admin, Member, Guest|Conversation history, memory &amp; saved threads|Full admin dashboard — revenue, users, usage &amp; cost tracking|White-label branding — fully yours, no third-party mentions|SEO-optimised marketing landing page|Mobile responsive &amp; performance optimised|Deployed to live URL + full source code handover|3 months post-launch support &amp; refinements|3-day delivery · Unlimited revisions (often faster)">
+            Order Now <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+      </div>
+
+      <p class="compare-note">All prices are one-time build fees. Ongoing AI API costs (OpenAI, Anthropic, Google) are billed directly by the provider to you. <span>Need a custom feature set? Let's talk.</span></p>
+      <p class="compare-note" style="margin-top:10px;color:#22c55e"><i class="fas fa-bolt"></i> Delivery timelines are maximums — we regularly deliver well before the stated deadline.</p>
+    </div>
+  </section>
+
+  <!-- ===== WHAT'S INCLUDED ===== -->
+  <section class="svc-section mid">
+    <div class="container">
+      <h2 class="svc-section-title">What's <span class="gradient-text">Included</span></h2>
+      <p class="svc-section-sub">Every AI web app is built on a solid professional foundation — secure, scalable, and ready for real users from the moment it goes live.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-comment-alt"></i></div>
+          <h4>Streaming Chat Interface</h4>
+          <p>A polished ChatGPT-style chat UI with real-time streaming responses — users see text appear word by word for a premium, modern feel.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-brain"></i></div>
+          <h4>GPT-4o / Claude / Gemini API</h4>
+          <p>Integrated with the AI model of your choice — OpenAI GPT-4o, Anthropic Claude, or Google Gemini — with full secure API key management server-side.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-image"></i></div>
+          <h4>AI Image Generation</h4>
+          <p>Users can generate images from text prompts using DALL·E 3 or Stable Diffusion — fully integrated into your branded interface.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-file-alt"></i></div>
+          <h4>Document Upload &amp; Analysis</h4>
+          <p>Users upload PDFs, Word documents, or spreadsheets and ask the AI questions about them — powered by retrieval-augmented generation (RAG).</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-user-lock"></i></div>
+          <h4>User Authentication</h4>
+          <p>Full login and registration system — so only your members or paying subscribers can access your AI tools, with secure session handling.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-credit-card"></i></div>
+          <h4>Subscription &amp; Payments</h4>
+          <p>Stripe integration for monthly and yearly subscription plans — your AI app becomes a revenue-generating SaaS product from day one.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-users-cog"></i></div>
+          <h4>Team Workspaces &amp; Roles</h4>
+          <p>Users can create team workspaces, invite members, and collaborate — with role-based permissions controlling what each member can access.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-tachometer-alt"></i></div>
+          <h4>Admin Dashboard</h4>
+          <p>A full admin panel showing revenue, active users, token usage, API cost tracking, and conversation history — complete business visibility.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-memory"></i></div>
+          <h4>Conversation Memory</h4>
+          <p>The AI remembers context across sessions — users can save, name, and revisit past conversations exactly like ChatGPT or Claude's interface.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-cogs"></i></div>
+          <h4>Multi-Tool AI Workspace</h4>
+          <p>Beyond chat — your platform can include a content writer, code assistant, image generator, and document analyser all in one branded workspace.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-tag"></i></div>
+          <h4>White-Label Branding</h4>
+          <p>Your name, your logo, your colours — no mention of any third-party tool. Visitors see a fully original product that belongs entirely to you.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+          <h4>Secure &amp; Scalable Backend</h4>
+          <p>API keys secured server-side, rate limiting enforced per user, and built on scalable infrastructure — handles real traffic from day one.</p>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:52px">
+        <h3 style="font-family:'Space Grotesk',sans-serif;color:var(--white);margin-bottom:20px;font-size:1.1rem">Technologies Used</h3>
+        <div class="tech-stack">
+          <span class="tech-pill">OpenAI GPT-4o</span>
+          <span class="tech-pill">Anthropic Claude</span>
+          <span class="tech-pill">Google Gemini</span>
+          <span class="tech-pill">DALL·E 3</span>
+          <span class="tech-pill">Node.js / Python</span>
+          <span class="tech-pill">React / Next.js</span>
+          <span class="tech-pill">Firebase / Supabase</span>
+          <span class="tech-pill">Stripe Payments</span>
+          <span class="tech-pill">REST &amp; Streaming API</span>
+          <span class="tech-pill">Vercel / Netlify</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROCESS ===== -->
+  <section class="svc-section dark">
+    <div class="container">
+      <h2 class="svc-section-title">How It <span class="gradient-text">Works</span></h2>
+      <p class="svc-section-sub">From idea to a live, branded AI web application — delivered professionally and ready to scale from day one.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Define the AI Product</h4>
+            <p>We map out exactly what your AI app does — who uses it, what tools it offers, which AI model powers it, and how users will pay or access it.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Design the UI</h4>
+            <p>A clean, modern interface is designed — the chat window, sidebar, tool switcher, admin panel, and any output views your application needs.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Build &amp; Integrate AI</h4>
+            <p>Frontend and backend are built together. API keys are secured server-side. Streaming, memory, image gen, document analysis, and payments are all wired up and tested.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Test, Deploy &amp; Hand Over</h4>
+            <p>End-to-end testing, performance tuning, and deployment to a live URL. You receive full source code, admin access, and a walkthrough of the entire system.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="svc-cta">
+    <h2>Build Your Own <span class="gradient-text">AI-Powered Platform</span></h2>
+    <p>Give your users an AI experience as powerful as ChatGPT — built, branded, and owned entirely by you.</p>
+    <div class="svc-cta-btns">
+      <a href="index.html#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Start Building</a>
+      <a href="#plans" class="btn btn-outline"><i class="fas fa-tag"></i> Compare Plans</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 WebsiteCreator. All rights reserved.</p>
+        <p><a href="index.html" style="color:var(--primary)">← Back to Home</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => { navToggle.classList.toggle('active'); navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => { navToggle.classList.remove('active'); navLinks.classList.remove('open'); }));
+    function orderPlan(el) {
+      var n = el.getAttribute('data-name'), p = el.getAttribute('data-price');
+      var f = el.getAttribute('data-features').split('|').map(function(x){ return '  • ' + x.trim(); }).join('\n');
+      var msg = 'Hello! I would like to order:\n\n' + n + '\nPrice: ' + p + '\n\nFeatures included:\n' + f + '\n\nPlease let me know how to proceed. Thank you!';
+      window.open('https://wa.me/923062025427?text=' + encodeURIComponent(msg), '_blank');
+    }
+  </script>
+</body>
+</html>

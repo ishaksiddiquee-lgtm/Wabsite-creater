@@ -3,12 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#0a0a1a" />
-  <title>Website Creator – Affordable Professional Websites</title>
+  <meta name="theme-color" content="#020b18" />
+  <title>Website Creater – Affordable Professional Websites</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <script src="https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js" defer></script>
+<style>
+    /* 4-column pricing grid */
+    .pricing-grid{grid-template-columns:repeat(4,1fr)!important;gap:18px!important}
+    /* Enterprise card gold theme */
+    .enterprise-plan{border:2px solid #f59e0b!important;position:relative}
+    .enterprise-plan .plan-name{background:linear-gradient(135deg,#f59e0b,#ef4444);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .enterprise-plan .plan-price{font-size:clamp(1.4rem,3vw,2.2rem)!important}
+    .enterprise-badge{background:linear-gradient(135deg,#f59e0b,#ef4444)!important}
+    .enterprise-cta{display:block;text-align:center;padding:13px 20px;border-radius:50px;font-weight:700;font-size:0.9rem;background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;box-shadow:0 6px 24px rgba(245,158,11,0.4);transition:all .2s;margin-top:4px}
+    .enterprise-cta:hover{opacity:.88;transform:translateY(-2px)}
+    @media(max-width:1100px){.pricing-grid{grid-template-columns:repeat(2,1fr)!important}}
+    @media(max-width:580px){.pricing-grid{grid-template-columns:1fr!important}}
+  </style>
 </head>
 <body>
 
@@ -18,15 +30,15 @@
       <div class="nav-left">
         <a href="#" class="nav-logo">
           <span class="logo-icon">MI</span>
-          <span class="logo-text">Website <span class="logo-accent">Creator</span></span>
+          <span class="logo-text">Website <span class="logo-accent">Creater</span></span>
         </a>
         <div class="nav-follow-widget">
           <div class="nav-follow-avatar">MI</div>
           <div class="follow-info">
-            <span class="follow-name">Website Creator</span>
+            <span class="follow-name">Website Creater</span>
             <span class="follow-count"><strong id="followerCount">10.2M</strong> followers</span>
           </div>
-          <button class="follow-btn" id="followBtn" aria-label="Follow WebsiteCreator">
+          <button class="follow-btn" id="followBtn" aria-label="Follow WebsiteCreater">
             <i class="fas fa-user-plus" id="followIcon"></i>
             <span id="followText">Follow</span>
           </button>
@@ -48,26 +60,26 @@
   <!-- ===== HERO SECTION ===== -->
   <section class="hero" id="home">
     <div class="hero-video-wrap">
-      <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="">
-        <source src="14721980_1920_1080_24fps.mp4" type="video/mp4" />
+      <video class="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto">
+        <source src="12922667_1920_1080_30fps.mp4" type="video/mp4" />
       </video>
       <div class="hero-overlay"></div>
     </div>
     <div class="hero-content">
-      <div class="hero-badge"><i class="fas fa-star"></i> Trusted by 200+ clients</div>
+      <div class="hero-badge"><i class="fas fa-star"></i> Trusted by 7.8M+ clients</div>
       <h1 class="hero-title">
         <span class="hero-name">Mohammad Ishaq Siddiqui Akbar</span><br />
-        <span class="gradient-text">Website Creator</span>
+        <span class="gradient-text">Website Creater</span>
       </h1>
       <p class="hero-tagline">
-        Custom websites built to your demand, fully professional, and at an affordable price.
+        Mohammad Ishaq Siddiqui Akbar is an Agentic AI Engineer who works on your behalf and builds cutting-edge AI solutions for major companies worldwide.
       </p>
       <div class="hero-stats">
         <div class="stat"><span class="stat-num">10M+</span><span class="stat-label">Projects</span></div>
         <div class="stat-divider"></div>
         <div class="stat"><span class="stat-num">9.5M</span><span class="stat-label">Mobile Ready</span></div>
         <div class="stat-divider"></div>
-        <div class="stat"><span class="stat-num">50K+</span><span class="stat-label">Clients Served</span></div>
+        <div class="stat"><span class="stat-num">5.9M+</span><span class="stat-label">Clients Safe</span></div>
       </div>
 
       <div class="hero-actions">
@@ -92,98 +104,120 @@
         <span class="section-tag">What I Offer</span>
         <h2 class="section-title">My <span class="gradient-text">Services</span></h2>
         <p class="section-sub">Professional web solutions tailored to every need and budget</p>
+        <p class="section-desc">From sleek landing pages to AI-powered platforms and voice call agents — I build digital experiences that convert visitors into customers. Every project is handcrafted with modern design, lightning-fast performance, and the latest AI technologies including ChatGPT, OpenAI APIs, and voice AI agents, giving your business a serious competitive edge in today's market.</p>
       </div>
       <div class="services-grid">
 
-        <div class="service-card">
+        <!-- 1. Custom Agent -->
+        <div class="service-card" style="background-image:linear-gradient(rgba(0,0,0,0.60),rgba(0,0,0,0.60)),url('Image/1.jfif');background-size:cover;background-position:center">
           <div class="service-icon-wrap" style="--clr:#6c63ff">
-            <i class="fas fa-laptop-code"></i>
-          </div>
-          <h3>Custom Website</h3>
-          <p>Fully hand-coded, pixel-perfect websites tailored exactly to your brand and requirements.</p>
-          <ul class="service-list">
-            <li><i class="fas fa-check"></i> Responsive &amp; mobile-first</li>
-            <li><i class="fas fa-check"></i> Fast loading speed</li>
-            <li><i class="fas fa-check"></i> Clean modern design</li>
-            <li><i class="fas fa-check"></i> Cross-browser compatible</li>
-          </ul>
-          <a href="#pricing" class="service-btn">View Plans <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <div class="service-card featured-card">
-          <div class="card-badge">Most Popular</div>
-          <div class="service-icon-wrap" style="--clr:#ff6584">
             <i class="fas fa-robot"></i>
           </div>
-          <h3>AI Chatbot Integration</h3>
-          <p>Add a smart AI-powered chatbot to your website that handles customer queries 24/7 automatically.</p>
+          <h3>Full-Time Employees</h3>
+          <p>High-quality digital employees built to grow your business — intelligent, tireless, and always performing at their best so you never miss an opportunity.</p>
           <ul class="service-list">
-            <li><i class="fas fa-check"></i> ChatGPT / Gemini powered</li>
-            <li><i class="fas fa-check"></i> Custom trained on your data</li>
-            <li><i class="fas fa-check"></i> Lead capture &amp; booking</li>
-            <li><i class="fas fa-check"></i> Multi-language support</li>
+            <li><i class="fas fa-check"></i> Tailored to your workflow</li>
+            <li><i class="fas fa-check"></i> Any platform or channel</li>
+            <li><i class="fas fa-check"></i> GPT-4 / Claude powered</li>
+            <li><i class="fas fa-check"></i> Fully automated</li>
           </ul>
-          <a href="#pricing" class="service-btn">View Plans <i class="fas fa-arrow-right"></i></a>
+          <a href="custom-website.html" class="service-cta-btn">Click This Button</a>
         </div>
 
-        <div class="service-card">
+        <!-- 2. 3D Modern Website -->
+        <div class="service-card" style="background-image:linear-gradient(rgba(0,0,0,0.60),rgba(0,0,0,0.60)),url('Image/7.jpg');background-size:cover;background-position:center">
+          <div class="service-icon-wrap" style="--clr:#4f46e5">
+            <i class="fas fa-cube"></i>
+          </div>
+          <h3>3D Modern Website</h3>
+          <p>Immersive 3D animated websites with cutting-edge visuals, smooth transitions, and jaw-dropping effects that set your brand apart.</p>
+          <ul class="service-list">
+            <li><i class="fas fa-check"></i> Three.js / WebGL animations</li>
+            <li><i class="fas fa-check"></i> Parallax &amp; scroll effects</li>
+            <li><i class="fas fa-check"></i> 3D product showcases</li>
+            <li><i class="fas fa-check"></i> Mobile optimized</li>
+          </ul>
+          <a href="3d-website.html" class="service-cta-btn">Click This Button</a>
+        </div>
+
+        <!-- 3. Call AI Agent -->
+        <div class="service-card" style="background-image:linear-gradient(rgba(0,0,0,0.60),rgba(0,0,0,0.60)),url('Image/5.jfif');background-size:cover;background-position:center">
+          <div class="service-icon-wrap" style="--clr:#a855f7">
+            <i class="fas fa-phone-volume"></i>
+          </div>
+          <h3>Call AI Agent</h3>
+          <p>Deploy intelligent voice AI agents that handle customer calls, bookings, and inquiries 24/7 — fully automated and human-sounding.</p>
+          <ul class="service-list">
+            <li><i class="fas fa-check"></i> Vapi / Twilio powered</li>
+            <li><i class="fas fa-check"></i> Natural conversation flow</li>
+            <li><i class="fas fa-check"></i> Appointment booking</li>
+            <li><i class="fas fa-check"></i> CRM &amp; calendar integration</li>
+          </ul>
+          <a href="call-ai-agents.html" class="service-cta-btn">Click This Button</a>
+        </div>
+
+        <!-- 4. OpenAI Style Website App -->
+        <div class="service-card" style="background-image:linear-gradient(rgba(0,0,0,0.60),rgba(0,0,0,0.60)),url('Image/4.png');background-size:cover;background-position:center">
+          <div class="service-icon-wrap" style="--clr:#06b6d4">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h3>OpenAI Style Website App</h3>
+          <p>Build powerful AI web applications with chat interfaces, image generation, and GPT-powered tools — branded entirely for your business.</p>
+          <ul class="service-list">
+            <li><i class="fas fa-check"></i> GPT-4 / Claude API integration</li>
+            <li><i class="fas fa-check"></i> Custom AI workflows</li>
+            <li><i class="fas fa-check"></i> Streaming chat responses</li>
+            <li><i class="fas fa-check"></i> User auth &amp; API dashboard</li>
+          </ul>
+          <a href="openai-web-apps.html" class="service-cta-btn">Click This Button</a>
+        </div>
+
+        <!-- 5. E-Commerce -->
+        <div class="service-card" style="background-image:linear-gradient(rgba(0,0,0,0.60),rgba(0,0,0,0.60)),url('Image/download (3.jfif');background-size:cover;background-position:center">
           <div class="service-icon-wrap" style="--clr:#43d9ad">
             <i class="fas fa-shopping-cart"></i>
           </div>
-          <h3>E-Commerce Store</h3>
-          <p>Full online store with product listings, cart, checkout, and payment gateway integration.</p>
+          <h3>E-Commerce</h3>
+          <p>Full online store with product listings, cart, checkout, and payment gateway integration — built to sell from day one.</p>
           <ul class="service-list">
             <li><i class="fas fa-check"></i> Stripe / PayPal integration</li>
             <li><i class="fas fa-check"></i> Product management</li>
             <li><i class="fas fa-check"></i> Order tracking</li>
             <li><i class="fas fa-check"></i> Admin dashboard</li>
           </ul>
-          <a href="#pricing" class="service-btn">View Plans <i class="fas fa-arrow-right"></i></a>
+          <a href="ecommerce.html" class="service-cta-btn">Click This Button</a>
         </div>
 
-        <div class="service-card">
+        <!-- 6. Portfolio -->
+        <div class="service-card" style="background-image:linear-gradient(rgba(0,0,0,0.60),rgba(0,0,0,0.60)),url('Image/download.jfif');background-size:cover;background-position:center">
           <div class="service-icon-wrap" style="--clr:#f7b731">
             <i class="fas fa-briefcase"></i>
           </div>
-          <h3>Portfolio / Resume Site</h3>
-          <p>Showcase your work professionally with a beautiful animated portfolio website.</p>
+          <h3>Portfolio</h3>
+          <p>Showcase your work professionally with a beautiful animated portfolio website that wins clients and impresses employers.</p>
           <ul class="service-list">
             <li><i class="fas fa-check"></i> Project gallery</li>
             <li><i class="fas fa-check"></i> Animated sections</li>
             <li><i class="fas fa-check"></i> Contact form</li>
             <li><i class="fas fa-check"></i> Blog ready</li>
           </ul>
-          <a href="#pricing" class="service-btn">View Plans <i class="fas fa-arrow-right"></i></a>
+          <a href="portfolio-site.html" class="service-cta-btn">Click This Button</a>
         </div>
 
-        <div class="service-card">
-          <div class="service-icon-wrap" style="--clr:#20c997">
-            <i class="fas fa-search"></i>
+        <!-- 7. Business Website -->
+        <div class="service-card" style="background-image:linear-gradient(rgba(0,0,0,0.60),rgba(0,0,0,0.60)),url('Image/6.jfif');background-size:cover;background-position:center">
+          <div class="service-icon-wrap" style="--clr:#10b981">
+            <i class="fas fa-building"></i>
           </div>
-          <h3>SEO Optimization</h3>
-          <p>Rank higher on Google with technical SEO, content optimization, and speed improvements.</p>
+          <h3>Business Website</h3>
+          <p>Professional, trust-building business websites designed to attract clients, showcase your services, and grow your brand online.</p>
           <ul class="service-list">
-            <li><i class="fas fa-check"></i> On-page SEO</li>
-            <li><i class="fas fa-check"></i> Core Web Vitals fix</li>
-            <li><i class="fas fa-check"></i> Schema markup</li>
-            <li><i class="fas fa-check"></i> Monthly report</li>
+            <li><i class="fas fa-check"></i> Corporate design</li>
+            <li><i class="fas fa-check"></i> SEO optimized</li>
+            <li><i class="fas fa-check"></i> Lead generation forms</li>
+            <li><i class="fas fa-check"></i> Google Maps &amp; reviews</li>
           </ul>
-          <a href="#pricing" class="service-btn">View Plans <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <div class="service-card">
-          <div class="service-icon-wrap" style="--clr:#fd79a8">
-            <i class="fas fa-edit"></i>
-          </div>
-          <h3>WordPress / CMS</h3>
-          <p>Easy-to-manage WordPress websites so you can update content yourself without any coding.</p>
-          <ul class="service-list">
-            <li><i class="fas fa-check"></i> Custom theme design</li>
-            <li><i class="fas fa-check"></i> Plugin setup</li>
-            <li><i class="fas fa-check"></i> WooCommerce ready</li>
-            <li><i class="fas fa-check"></i> Training included</li>
-          </ul>
-          <a href="#pricing" class="service-btn">View Plans <i class="fas fa-arrow-right"></i></a>
+          <a href="business-website.html" class="service-cta-btn">Click This Button</a>
         </div>
 
       </div>
@@ -200,15 +234,16 @@
       </div>
       <div class="pricing-grid">
 
+        <!-- STARTER $50 -->
         <div class="pricing-card">
           <div class="plan-name">Starter</div>
-          <div class="plan-price"><span class="currency">$</span>49</div>
+          <div class="plan-price"><span class="currency">$</span>50</div>
           <div class="plan-desc">Perfect for simple landing pages</div>
           <ul class="plan-features">
             <li><i class="fas fa-check"></i> 1-Page Website</li>
             <li><i class="fas fa-check"></i> Mobile Responsive</li>
             <li><i class="fas fa-check"></i> Contact Form</li>
-            <li><i class="fas fa-check"></i> 3-Day Delivery</li>
+            <li><i class="fas fa-check"></i> 1-Day Delivery</li>
             <li><i class="fas fa-check"></i> 1 Revision</li>
             <li class="disabled"><i class="fas fa-times"></i> AI Chatbot</li>
             <li class="disabled"><i class="fas fa-times"></i> SEO Setup</li>
@@ -216,16 +251,17 @@
           <a href="#contact" class="plan-btn">Order Now</a>
         </div>
 
+        <!-- PROFESSIONAL $250 -->
         <div class="pricing-card popular-plan">
           <div class="popular-badge"><i class="fas fa-fire"></i> Best Value</div>
           <div class="plan-name">Professional</div>
-          <div class="plan-price"><span class="currency">$</span>149</div>
+          <div class="plan-price"><span class="currency">$</span>250</div>
           <div class="plan-desc">Great for businesses &amp; freelancers</div>
           <ul class="plan-features">
             <li><i class="fas fa-check"></i> Up to 5 Pages</li>
             <li><i class="fas fa-check"></i> Mobile Responsive</li>
             <li><i class="fas fa-check"></i> Contact Form</li>
-            <li><i class="fas fa-check"></i> 5-Day Delivery</li>
+            <li><i class="fas fa-check"></i> 1-Day Delivery</li>
             <li><i class="fas fa-check"></i> 3 Revisions</li>
             <li><i class="fas fa-check"></i> AI Chatbot Integration</li>
             <li><i class="fas fa-check"></i> Basic SEO Setup</li>
@@ -233,20 +269,38 @@
           <a href="#contact" class="plan-btn plan-btn-featured">Order Now</a>
         </div>
 
+        <!-- PREMIUM $5,000 -->
         <div class="pricing-card">
           <div class="plan-name">Premium</div>
-          <div class="plan-price"><span class="currency">$</span>299</div>
-          <div class="plan-desc">For e-commerce &amp; advanced needs</div>
+          <div class="plan-price"><span class="currency">$</span>5,000</div>
+          <div class="plan-desc">Advanced business platform with AI</div>
           <ul class="plan-features">
             <li><i class="fas fa-check"></i> Unlimited Pages</li>
-            <li><i class="fas fa-check"></i> Mobile Responsive</li>
             <li><i class="fas fa-check"></i> E-Commerce Ready</li>
-            <li><i class="fas fa-check"></i> 10-Day Delivery</li>
-            <li><i class="fas fa-check"></i> Unlimited Revisions</li>
             <li><i class="fas fa-check"></i> AI Chatbot Integration</li>
+            <li><i class="fas fa-check"></i> Call AI Agent</li>
             <li><i class="fas fa-check"></i> Full SEO Package</li>
+            <li><i class="fas fa-check"></i> Booking System</li>
+            <li><i class="fas fa-check"></i> Unlimited Revisions</li>
           </ul>
           <a href="#contact" class="plan-btn">Order Now</a>
+        </div>
+
+        <!-- ENTERPRISE $100,000 -->
+        <div class="pricing-card enterprise-plan">
+          <div class="popular-badge enterprise-badge"><i class="fas fa-crown"></i> Ultimate</div>
+          <div class="plan-name">Enterprise</div>
+          <div class="plan-price"><span class="currency">$</span>100,000</div>
+          <div class="plan-desc">The complete AI-powered digital empire</div>
+          <ul class="plan-features">
+            <li><i class="fas fa-check"></i> Everything in Premium</li>
+            <li><i class="fas fa-check"></i> AI Call Agent (Enterprise)</li>
+            <li><i class="fas fa-check"></i> AI Chatbot (Enterprise)</li>
+            <li><i class="fas fa-check"></i> 1 Billion+ Followers System</li>
+            <li><i class="fas fa-check"></i> Full-Time Digital Employees</li>
+            <li><i class="fas fa-check"></i> Custom AI Recommendations</li>
+          </ul>
+          <a href="ultimate-enterprise.html" class="enterprise-cta">Click This Button</a>
         </div>
 
       </div>
@@ -263,9 +317,7 @@
       </div>
       <div class="portfolio-grid">
         <div class="portfolio-card">
-          <div class="portfolio-img" style="background: linear-gradient(135deg,#6c63ff,#3f3d56)">
-            <i class="fas fa-shopping-bag"></i>
-          </div>
+          <div class="portfolio-img" style="background-image:url('image/1.webp');background-size:cover;background-position:center"></div>
           <div class="portfolio-info">
             <h4>FashionHub Store</h4>
             <p>Full e-commerce with AI chatbot</p>
@@ -273,9 +325,7 @@
           </div>
         </div>
         <div class="portfolio-card">
-          <div class="portfolio-img" style="background: linear-gradient(135deg,#43d9ad,#0f7e6b)">
-            <i class="fas fa-utensils"></i>
-          </div>
+          <div class="portfolio-img" style="background-image:url('image/2.jpg');background-size:cover;background-position:center"></div>
           <div class="portfolio-info">
             <h4>Bistro Restaurant</h4>
             <p>Online menu &amp; reservation system</p>
@@ -283,9 +333,7 @@
           </div>
         </div>
         <div class="portfolio-card">
-          <div class="portfolio-img" style="background: linear-gradient(135deg,#f7b731,#e55039)">
-            <i class="fas fa-user-tie"></i>
-          </div>
+          <div class="portfolio-img" style="background-image:url('image/3.jfif');background-size:cover;background-position:center"></div>
           <div class="portfolio-info">
             <h4>Dev Portfolio</h4>
             <p>Animated personal portfolio site</p>
@@ -293,9 +341,7 @@
           </div>
         </div>
         <div class="portfolio-card">
-          <div class="portfolio-img" style="background: linear-gradient(135deg,#fd79a8,#6c5ce7)">
-            <i class="fas fa-heartbeat"></i>
-          </div>
+          <div class="portfolio-img" style="background-image:url('image/4.webp');background-size:cover;background-position:center"></div>
           <div class="portfolio-info">
             <h4>HealthCare Clinic</h4>
             <p>Booking &amp; patient info portal</p>
@@ -344,18 +390,24 @@
       <div class="section-header">
         <span class="section-tag">Get In Touch</span>
         <h2 class="section-title">Start Your <span class="gradient-text">Project</span></h2>
-        <p class="section-sub">Tell me about your idea and I'll get back to you within 24 hours</p>
+        <p class="section-sub">Large projects delivered in <strong>under 3 days</strong>. Small projects in <strong>1 day</strong>. Guaranteed.</p>
       </div>
       <div class="contact-wrap">
         <div class="contact-info">
           <h3>Let's Build Something Amazing</h3>
           <p>Ready to get started? Fill out the form or reach out directly. I'd love to hear about your project!</p>
+          <div class="contact-note" style="margin:18px 0;padding:16px 20px;border-radius:14px;background:linear-gradient(135deg,rgba(14,165,233,0.15),rgba(6,182,212,0.12));border:1px solid rgba(14,165,233,0.3);">
+            <p style="margin:0;font-size:0.93rem;line-height:1.7;color:#e2e8f0;">
+              <i class="fas fa-paper-plane" style="color:#0ea5e9;margin-right:8px;"></i>
+              Send this to my email — I will build it for you at a lower price that grows your business. Mention your requirements and references here, and you will have your website in your hands tomorrow.
+            </p>
+          </div>
           <div class="contact-items">
             <div class="contact-item">
               <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
               <div>
                 <strong>Email</strong>
-                <span>hajrasiddique641@gmail.com</span>
+                <span>ishaksiddiquee@gmail.com</span>
               </div>
             </div>
             <a class="contact-item" href="https://wa.me/923062025427" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
@@ -384,16 +436,17 @@
           <div class="form-group">
             <select id="service">
               <option value="" disabled selected>Select a Service</option>
-              <option>Custom Website</option>
-              <option>AI Chatbot Integration</option>
-              <option>E-Commerce Store</option>
-              <option>Portfolio / Resume Site</option>
-              <option>SEO Optimization</option>
-              <option>WordPress / CMS</option>
+              <option>Custom Agent</option>
+              <option>3D Modern Website</option>
+              <option>Call AI Agent</option>
+              <option>OpenAI Style Website App</option>
+              <option>E-Commerce</option>
+              <option>Portfolio</option>
+              <option>Business Website</option>
             </select>
           </div>
           <div class="form-group">
-            <textarea id="message" rows="4" placeholder="Describe your project..."></textarea>
+            <textarea id="message" rows="4" placeholder="Project Description — mention your requirements, references, and any examples you like..."></textarea>
           </div>
           <button type="submit" class="btn btn-primary btn-full">
             <i class="fas fa-paper-plane"></i> Send Message
@@ -410,17 +463,20 @@
         <div class="footer-brand">
           <a href="#" class="nav-logo">
             <span class="logo-icon">MI</span>
-            <span class="logo-text">Website <span class="logo-accent">Creator</span></span>
+            <span class="logo-text">Website <span class="logo-accent">Creater</span></span>
           </a>
           <p>Professional websites built affordably with AI integration &amp; mobile-first design.</p>
         </div>
         <div class="footer-links-group">
           <h5>Services</h5>
           <ul>
-            <li><a href="#services">Custom Websites</a></li>
-            <li><a href="#services">AI Chatbot</a></li>
+            <li><a href="#services">Custom Agent</a></li>
+            <li><a href="#services">3D Modern Website</a></li>
+            <li><a href="#services">Call AI Agent</a></li>
+            <li><a href="#services">OpenAI Style Website App</a></li>
             <li><a href="#services">E-Commerce</a></li>
-            <li><a href="#services">SEO</a></li>
+            <li><a href="#services">Portfolio</a></li>
+            <li><a href="#services">Business Website</a></li>
           </ul>
         </div>
         <div class="footer-links-group">
@@ -434,7 +490,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 WebsiteCreator. All rights reserved.</p>
+        <p>&copy; 2026 WebsiteCreater. All rights reserved.</p>
         <p>Built with <i class="fas fa-heart" style="color:#ff6584"></i> for affordable professional web design</p>
       </div>
     </div>
@@ -472,118 +528,5 @@
 
   <script src="app.js"></script>
 
-  <!-- ===== VAPI CALL AI AGENT ===== -->
-  <div class="call-agent-wrap" id="callAgentWrap">
-    <button class="call-agent-btn" id="callAgentBtn" aria-label="Call AI Agent">
-      <span class="call-agent-icon" id="callAgentIcon"><i class="fas fa-phone"></i></span>
-      <span class="call-agent-label">
-        <strong id="callAgentTitle">Call AI Agent</strong>
-        <small id="callAgentSub">Talk to our assistant</small>
-      </span>
-    </button>
-  </div>
-
-  <script>
-    (function () {
-      var btn  = document.getElementById('callAgentBtn');
-      var icon = document.getElementById('callAgentIcon');
-      var ttl  = document.getElementById('callAgentTitle');
-      var sub  = document.getElementById('callAgentSub');
-      var state = 'idle';
-      var vapi  = null;
-
-      function setIdle() {
-        state = 'idle';
-        btn.classList.remove('active', 'connecting', 'error');
-        icon.innerHTML = '<i class="fas fa-phone"></i>';
-        ttl.textContent = 'Call AI Agent';
-        sub.textContent = 'Talk to our assistant';
-      }
-      function setConnecting() {
-        state = 'connecting';
-        btn.classList.remove('active', 'error');
-        btn.classList.add('connecting');
-        icon.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
-        ttl.textContent = 'Connecting...';
-        sub.textContent = 'Please wait';
-      }
-      function setActive() {
-        state = 'active';
-        btn.classList.remove('connecting', 'error');
-        btn.classList.add('active');
-        icon.innerHTML = '<i class="fas fa-phone-alt"></i>';
-        ttl.textContent = 'End Call';
-        sub.textContent = 'Tap to hang up';
-      }
-      function setError(msg) {
-        state = 'idle';
-        btn.classList.remove('active', 'connecting');
-        btn.classList.add('error');
-        icon.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
-        ttl.textContent = 'Failed';
-        sub.textContent = msg || 'Try again';
-        setTimeout(setIdle, 3000);
-      }
-
-      /* Initialize Vapi widget (idempotent — safe to call multiple times) */
-      function initVapi() {
-        if (vapi) return true;
-        var sdk = window.vapiSDK;
-        if (!sdk || typeof sdk.run !== 'function') return false;
-        try {
-          var snapshot = new Set(document.querySelectorAll('body > div'));
-          var inst = sdk.run({
-            apiKey: '6f9ea218-e155-41fa-96f4-69121f3c7b38',
-            assistant: '7695890f-c816-427c-9166-8610b54c3cf0',
-            config: {
-              position: 'bottom-right',
-              offset: '9999px',
-              idle:    { color: '#2563eb', type: 'pill', title: 'Call AI Agent',  subtitle: 'Talk to our assistant' },
-              loading: { color: '#1d4ed8', type: 'pill', title: 'Connecting...',  subtitle: 'Please wait'           },
-              active:  { color: '#dc2626', type: 'pill', title: 'End Call',       subtitle: 'Tap to hang up'        }
-            }
-          });
-          /* Hide any overlay div Vapi injects so it doesn't block taps */
-          setTimeout(function () {
-            document.querySelectorAll('body > div').forEach(function (d) {
-              if (!snapshot.has(d) && d.id !== 'callAgentWrap') d.style.pointerEvents = 'none';
-            });
-          }, 400);
-          if (!inst) return false;
-          vapi = inst;
-          if (typeof inst.on === 'function') {
-            inst.on('call-start', setActive);
-            inst.on('call-end',   setIdle);
-            inst.on('error', function () { setError('Call failed'); });
-          }
-          return true;
-        } catch (e) { return false; }
-      }
-
-      btn.addEventListener('click', function () {
-        /* If active or connecting — stop the call */
-        if (state !== 'idle') {
-          try { if (vapi) vapi.stop(); } catch (e) {}
-          setIdle();
-          return;
-        }
-        /* Lazy-init on first click in case defer script just finished */
-        if (!initVapi()) {
-          setError('Voice not ready – check internet');
-          return;
-        }
-        setConnecting();
-        try {
-          var p = vapi.start('7695890f-c816-427c-9166-8610b54c3cf0');
-          if (p && typeof p.then === 'function') {
-            p.then(setActive).catch(function () { setError('Could not connect'); });
-          }
-        } catch (e) { setError('Call error'); }
-      });
-
-      /* Pre-init as soon as the defer script has run */
-      window.addEventListener('load', initVapi);
-    })();
-  </script>
 </body>
 </html>

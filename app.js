@@ -172,123 +172,97 @@ chatbotClose.addEventListener('click', () => {
   chatIcon.className = 'fas fa-comment-dots';
 });
 
-// ===== GEMINI AI CONFIG =====
-const GEMINI_KEY = 'AIzaSyCiu64HCOH6B8Z_GIbL6fJy3Eee45LX29U';
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent';
+// ===== GROQ AI CONFIG =====
+const GROQ_KEY = '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';
+const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const GROQ_MODEL = 'llama-3.3-70b-versatile';
 
-const SYSTEM_PROMPT_BASE = `You are WebBot, a friendly and professional AI sales assistant for "Website Creator" — a freelance web development service.
+const SYSTEM_PROMPT = `You are WebBot, a friendly and professional AI sales assistant for "Website Creator" — a freelance web development service run by Ishaq.
 
-OWNER (the person you work for — NOT the visitor):
-- Name: Mohammad Ishaq Siddiqui Akbar
+CONTACT:
 - WhatsApp: +92 306 2025427
-- Email: hajrasiddique641@gmail.com
+- Email: ishaksiddiquee@gmail.com
 - Response time: Within 24 hours
 
-CRITICAL RULE: Mohammad Ishaq Siddiqui Akbar is the OWNER/SELLER. The person chatting with you is the VISITOR/CLIENT. Never call the visitor by the owner's name. Always use the visitor's own name when addressing them.
-
-SERVICES:
-1. Custom Website — Hand-coded, pixel-perfect, mobile-first websites tailored to the client's brand.
-2. AI Chatbot Integration — ChatGPT / Gemini powered chatbots, custom trained, lead capture, multi-language.
-3. E-Commerce Store — Full online store with Stripe/PayPal, product management, order tracking, admin dashboard.
-4. Portfolio / Resume Site — Animated, professional portfolio websites with project gallery and contact form.
-5. SEO Optimization — On-page SEO, Core Web Vitals, schema markup, monthly reports.
-6. WordPress / CMS — Custom themes, plugin setup, WooCommerce, training included.
+SERVICES WE OFFER:
+1. Full-Time Digital Employees (AI Agents) — GPT-4 / Claude powered digital workers tailored to your workflow. Handle any platform or channel, fully automated, tireless, and always performing at their best.
+2. 3D Modern Website — Immersive Three.js / WebGL animated websites with parallax & scroll effects, 3D product showcases, and jaw-dropping visuals. Fully mobile optimized.
+3. Call AI Agent — Vapi / Twilio powered voice AI agents that handle customer calls, bookings, and inquiries 24/7. Natural conversation flow with CRM & calendar integration.
+4. OpenAI Style Website App — AI web applications with chat interfaces, image generation, and GPT-4 / Claude API integration. Custom AI workflows, streaming chat responses, user auth & API dashboard.
+5. E-Commerce Store — Full online store with Stripe / PayPal integration, product management, order tracking, and admin dashboard. Built to sell from day one.
+6. Portfolio Website — Beautiful animated portfolio with project gallery, animated sections, contact form, and blog-ready setup. Wins clients and impresses employers.
+7. Business Website — Professional, trust-building business websites with corporate design, SEO optimization, lead generation forms, and Google Maps & reviews integration.
 
 PRICING PLANS:
-- Starter ($49): 1-page website, mobile responsive, contact form, 3-day delivery, 1 revision. No AI chatbot, no SEO.
-- Professional ($149): Up to 5 pages, contact form, 5-day delivery, 3 revisions, AI chatbot included, basic SEO.
-- Premium ($299): Unlimited pages, e-commerce ready, 10-day delivery, unlimited revisions, AI chatbot, full SEO package.
+- Starter ($50): 1-page website, mobile responsive, contact form, 1-day delivery, 1 revision. No AI chatbot, no SEO.
+- Professional ($250): Up to 5 pages, mobile responsive, contact form, 1-day delivery, 3 revisions, AI chatbot integration, basic SEO setup.
+- Premium ($5,000): Unlimited pages, e-commerce ready, AI chatbot, Call AI Agent, full SEO package, booking system, unlimited revisions.
+- Enterprise ($100,000): Everything in Premium + AI Call Agent (Enterprise), AI Chatbot (Enterprise), 1 Billion+ Followers System, Full-Time Digital Employees, Custom AI Recommendations.
+
+DELIVERY GUARANTEE:
+- Large projects: delivered in under 3 days.
+- Small projects: delivered within 1 day.
 
 BEHAVIOUR RULES:
 - Be warm, engaging, and professional — like a helpful sales rep, not a robot.
 - Keep replies short and conversational (2–4 sentences). Use bullet points only when listing things.
-- Address the visitor by their name occasionally — naturally, not every single message.
-- If someone asks for a phone number, WhatsApp, or contact — always give: WhatsApp +92 306 2025427 and email hajrasiddique641@gmail.com
-- Encourage interested visitors to reach out via the contact form or WhatsApp.
-- If asked something outside your knowledge, say you will connect them with Mohammad directly.
+- Never ask for the visitor's name — just help them directly.
+- If someone asks for contact info — give: WhatsApp +92 306 2025427 and email ishaksiddiquee@gmail.com.
+- Encourage visitors to fill out the contact form on the website or reach out on WhatsApp.
 - Never invent services or prices not listed above.
 - If the visitor writes in Urdu or another language, reply in that same language.
 - Use emojis occasionally to keep the tone friendly.`;
 
-// ===== VISITOR NAME =====
-const VISITOR_NAME_KEY = 'wc_visitor_name';
-let visitorName = localStorage.getItem(VISITOR_NAME_KEY) || '';
-let awaitingName = !visitorName;
+let chatHistory = [];
 
-function buildContext() {
-  const nameNote = visitorName
-    ? `\n\nVISITOR NAME: "${visitorName}" — use their name occasionally in a warm, natural way.`
-    : '\n\nVISITOR NAME: Not yet known.';
-  return SYSTEM_PROMPT_BASE + nameNote;
-}
-
-function buildChatHistory() {
-  return [
-    { role: 'user',  parts: [{ text: 'Here are your instructions:\n\n' + buildContext() }] },
-    { role: 'model', parts: [{ text: 'Understood! I\'m WebBot, ready to assist your visitors. 😊' }] }
-  ];
-}
-
-let chatHistory = buildChatHistory();
-
-// Set dynamic opening message
+// Opening message
 (function () {
   const msg = document.createElement('div');
   msg.className = 'chat-msg bot-msg';
   const bubble = document.createElement('div');
   bubble.className = 'chat-bubble';
   bubble.style.whiteSpace = 'pre-line';
-  bubble.textContent = visitorName
-    ? `Welcome back, ${visitorName}! 👋 Great to see you again. How can I help you today?`
-    : 'Hi there! 👋 Welcome to Website Creator.\n\nI\'m WebBot, your assistant. Before we begin, could you tell me your name?';
+  bubble.textContent = 'Hi there! 👋 Welcome to Website Creator.\n\nHow can I help you today? Ask me about our services, pricing, or delivery times!';
   msg.appendChild(bubble);
   chatbotBody.appendChild(msg);
 })();
 
-function extractName(text) {
-  const clean = text.trim();
-  const patterns = [
-    /(?:i'?m|i am|my name is|call me|naam|mera naam)\s+([A-Za-z؀-ۿ]+(?:\s+[A-Za-z؀-ۿ]+)?)/i,
-    /^([A-Za-z؀-ۿ]+(?:\s+[A-Za-z؀-ۿ]+)?)$/
-  ];
-  for (const p of patterns) {
-    const m = clean.match(p);
-    if (m) return m[1].trim();
-  }
-  // Fallback: take first two words
-  return clean.split(/\s+/).slice(0, 2).join(' ');
-}
-
-async function getGeminiReply(userText) {
-  const contents = [
+async function getAIReply(userText) {
+  const messages = [
+    { role: 'system', content: SYSTEM_PROMPT },
     ...chatHistory,
-    { role: 'user', parts: [{ text: userText }] }
+    { role: 'user', content: userText }
   ];
 
-  const res = await fetch(GEMINI_URL, {
+  const res = await fetch(GROQ_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'X-goog-api-key': GEMINI_KEY },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${GROQ_KEY}`
+    },
     body: JSON.stringify({
-      contents,
-      generationConfig: { temperature: 0.75, maxOutputTokens: 350 }
+      model: GROQ_MODEL,
+      messages,
+      temperature: 0.75,
+      max_tokens: 400
     })
   });
 
   const data = await res.json();
 
   if (!res.ok) {
-    console.error('Gemini API error:', data?.error?.message || res.status, data);
+    console.error('Groq API error:', data?.error?.message || res.status, data);
     throw new Error(data?.error?.message || `HTTP ${res.status}`);
   }
 
-  const reply = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+  const reply = data.choices?.[0]?.message?.content?.trim();
   if (!reply) {
-    console.error('Gemini empty response:', data);
-    throw new Error('Empty response from Gemini');
+    console.error('Groq empty response:', data);
+    throw new Error('Empty response from Groq');
   }
 
-  chatHistory.push({ role: 'user',  parts: [{ text: userText }] });
-  chatHistory.push({ role: 'model', parts: [{ text: reply }] });
+  chatHistory.push({ role: 'user',      content: userText });
+  chatHistory.push({ role: 'assistant', content: reply });
   return reply;
 }
 
@@ -326,26 +300,9 @@ async function sendMessage() {
   appendMessage(text, 'user');
   chatInput.value = '';
 
-  // ── Name capture on first visit ──
-  if (awaitingName) {
-    visitorName = extractName(text);
-    awaitingName = false;
-    localStorage.setItem(VISITOR_NAME_KEY, visitorName);
-    chatHistory = buildChatHistory(); // rebuild context with visitor's name
-    showTyping();
-    setTimeout(() => {
-      removeTyping();
-      appendMessage(`Nice to meet you, ${visitorName}! 😊 How can I help you today? Feel free to ask about our services, pricing, or anything else!`, 'bot');
-    }, 700);
-    chatInput.disabled = false;
-    chatSend.disabled = false;
-    chatInput.focus();
-    return;
-  }
-
   showTyping();
   try {
-    const reply = await getGeminiReply(text);
+    const reply = await getAIReply(text);
     removeTyping();
     appendMessage(reply, 'bot');
   } catch (err) {
@@ -422,14 +379,38 @@ setTimeout(() => {
   });
 })();
 
-// ===== VIDEO FALLBACK FOR MOBILE =====
+// ===== SERVICE CARD ROUTING =====
+(function () {
+  const routes = {
+    'Custom Agent':             'custom-website.html',
+    '3D Modern Website':        '3d-website.html',
+    'Call AI Agent':            'call-ai-agents.html',
+    'OpenAI Style Website App': 'openai-web-apps.html',
+    'E-Commerce':               'ecommerce.html',
+    'Portfolio':                'portfolio-site.html',
+    'Business Website':         'business-website.html'
+  };
+  document.querySelectorAll('.service-card').forEach(card => {
+    const h3 = card.querySelector('h3');
+    if (!h3) return;
+    const page = routes[h3.textContent.trim()];
+    if (!page) return;
+    const viewBtn = card.querySelector('.service-btn');
+    if (viewBtn) viewBtn.href = page;
+    const ctaBtn = card.querySelector('.service-cta-btn');
+    if (ctaBtn) ctaBtn.href = page;
+  });
+})();
+
+// ===== VIDEO PLAYBACK FOR MOBILE =====
 const heroVideo = document.querySelector('.hero-video');
 if (heroVideo) {
-  heroVideo.addEventListener('error', () => {
-    heroVideo.parentElement.style.background = 'linear-gradient(135deg, #0a0a1a 0%, #1a1040 50%, #0a0a1a 100%)';
-  });
-  // Ensure autoplay on mobile by re-triggering on user interaction
-  document.addEventListener('touchstart', () => {
-    if (heroVideo.paused) heroVideo.play().catch(() => {});
-  }, { once: true, passive: true });
+  // Try to play immediately
+  heroVideo.play().catch(() => {});
+
+  // Re-attempt on any user interaction (required by some mobile browsers)
+  const tryPlay = () => { if (heroVideo.paused) heroVideo.play().catch(() => {}); };
+  document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
+  document.addEventListener('click',      tryPlay, { once: true, passive: true });
+  document.addEventListener('scroll',     tryPlay, { once: true, passive: true });
 }
