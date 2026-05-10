@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Website Builder – Workspace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --bg: #020b18;
+      --bg2: #051828;
+      --bg3: #061e2e;
+      --card: #0c2d44;
+      --border: rgba(14,165,233,0.2);
+      --primary: #0ea5e9;
+      --accent: #06b6d4;
+      --green: #14b8a6;
+      --purple: #7c3aed;
+      --purple-lt: #a78bfa;
+      --gold: #f59e0b;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --white: #fff;
+      --radius: 12px;
+      --tr: 0.22s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { height: 100%; }
+    body {
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ============================  HEADER  ============================== */
+    .ws-header {
+      height: 56px; flex-shrink: 0;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+      padding: 0 14px; gap: 10px;
+    }
+    .ws-back {
+      display: flex; align-items: center; gap: 6px;
+      color: var(--muted); font-size: 0.82rem;
+      text-decoration: none; padding: 6px 10px;
+      border-radius: 8px; transition: var(--tr); white-space: nowrap;
+    }
+    .ws-back:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+    .ws-header-logo {
+      display: flex; align-items: center; gap: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 0.98rem; color: var(--white);
+    }
+    .ws-header-logo-icon {
+      width: 30px; height: 30px; border-radius: 7px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-lt));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.82rem; color: #fff; flex-shrink: 0;
+    }
+    .ws-header-sep { width: 1px; height: 24px; background: var(--border); }
+    .ws-plan-badge {
+      display: flex; align-items: center; gap: 6px;
+      padding: 4px 13px; border-radius: 50px;
+      font-size: 0.77rem; font-weight: 600; border: 1px solid;
+    }
+    .badge-basic        { background: rgba(14,165,233,0.12); border-color: rgba(14,165,233,0.3); color: var(--primary); }
+    .badge-professional { background: rgba(124,58,237,0.12); border-color: rgba(124,58,237,0.3); color: var(--purple-lt); }
+    .badge-enterprise   { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.3); color: var(--gold); }
+    .ws-header-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .ws-kbd-hint { font-size: 0.72rem; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+    .ws-kbd {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px; padding: 1px 6px;
+      font-family: 'Fira Code', monospace; font-size: 0.7rem;
+    }
+
+    /* ============================  SPLIT LAYOUT  ============================== */
+    .ws-body {
+      flex: 1; display: grid;
+      grid-template-columns: 370px 1fr;
+      overflow: hidden;
+    }
+
+    /* ============================  LEFT PANEL  ============================== */
+    .ws-left {
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .ws-left-scroll {
+      flex: 1; overflow-y: auto;
+      padding: 18px 18px 8px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .ws-left-scroll::-webkit-scrollbar { width: 4px; }
+    .ws-left-scroll::-webkit-scrollbar-thumb { background: rgba(14,165,233,0.35); border-radius: 2px; }
+    .ws-label {
+      font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--muted); margin-bottom: 5px;
+    }
+    .ws-plan-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 12px 14px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .ws-plan-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.05rem; flex-shrink: 0;
+    }
+    .ws-plan-icon.blue   { background: rgba(14,165,233,0.15); color: var(--primary); }
+    .ws-plan-icon.purple { background: rgba(124,58,237,0.15); color: var(--purple-lt); }
+    .ws-plan-icon.gold   { background: rgba(245,158,11,0.15); color: var(--gold); }
+    .ws-plan-info strong { display: block; font-size: 0.88rem; color: var(--white); margin-bottom: 1px; }
+    .ws-plan-info small  { font-size: 0.74rem; color: var(--muted); }
+    .ws-plan-change {
+      margin-left: auto; font-size: 0.74rem;
+      color: var(--primary); text-decoration: none;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .ws-plan-change:hover { text-decoration: underline; }
+    .ws-textarea-wrap { position: relative; }
+    .ws-prompt {
+      width: 100%; background: var(--card);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 13px 13px 30px; color: var(--text);
+      font-family: inherit; font-size: 0.89rem; line-height: 1.62;
+      resize: none; min-height: 158px; outline: none;
+      transition: border-color var(--tr), box-shadow var(--tr);
+    }
+    .ws-prompt:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(14,165,233,0.1); }
+    .ws-prompt::placeholder { color: var(--muted); }
+    .ws-char-count {
+      position: absolute; bottom: 9px; right: 12px;
+      font-size: 0.7rem; color: var(--muted); pointer-events: none;
+    }
+    .ws-char-count.warn { color: #f87171; }
+    .ws-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+    .ws-chip {
+      background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.22);
+      color: var(--purple-lt); padding: 4px 12px; border-radius: 50px;
+      font-size: 0.76rem; font-weight: 500; cursor: pointer;
+      transition: var(--tr); font-family: inherit;
+    }
+    .ws-chip:hover { background: rgba(124,58,237,0.18); border-color: rgba(124,58,237,0.4); }
+    .ws-prefs {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 12px 14px;
+      display: flex; flex-direction: column; gap: 9px;
+    }
+    .ws-pref { display: flex; align-items: center; gap: 9px; cursor: pointer; user-select: none; }
+    .ws-pref input[type="checkbox"] { accent-color: var(--primary); width: 14px; height: 14px; cursor: pointer; flex-shrink: 0; }
+    .ws-pref-label { font-size: 0.86rem; color: var(--text); }
+    .ws-pref-tag {
+      font-size: 0.66rem; font-weight: 700; padding: 2px 7px; border-radius: 50px;
+      background: rgba(124,58,237,0.14); color: var(--purple-lt);
+      border: 1px solid rgba(124,58,237,0.22);
+    }
+    .ws-left-footer {
+      padding: 12px 18px 16px; border-top: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .ws-status {
+      font-size: 0.76rem; color: var(--muted);
+      text-align: center; min-height: 16px; transition: color var(--tr);
+    }
+    .ws-status.generating { color: var(--primary); }
+    .ws-status.done   { color: var(--green); }
+    .ws-status.error  { color: #f87171; }
+    .ws-gen-btn {
+      width: 100%; padding: 13px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-lt));
+      border: none; border-radius: var(--radius);
+      color: #fff; font-family: inherit; font-size: 0.93rem; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: var(--tr); box-shadow: 0 4px 20px rgba(124,58,237,0.35);
+    }
+    .ws-gen-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(124,58,237,0.5); }
+    .ws-gen-btn:active:not(:disabled) { transform: scale(0.98); }
+    .ws-gen-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+    .ws-clear-btn {
+      width: 100%; padding: 9px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius); color: var(--muted);
+      font-family: inherit; font-size: 0.82rem; cursor: pointer; transition: var(--tr);
+    }
+    .ws-clear-btn:hover:not(:disabled) { background: rgba(255,255,255,0.08); color: var(--text); }
+    .ws-clear-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* ============================  RIGHT PANEL  ============================== */
+    .ws-right { display: flex; flex-direction: column; overflow: hidden; }
+    .ws-tabbar {
+      height: 46px; flex-shrink: 0; border-bottom: 1px solid var(--border);
+      display: flex; align-items: stretch; padding: 0 14px; gap: 2px; background: var(--bg2);
+    }
+    .ws-tab {
+      display: flex; align-items: center; gap: 6px;
+      padding: 0 14px; font-size: 0.83rem; font-weight: 500;
+      color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent;
+      background: none; border-top: none; border-left: none; border-right: none;
+      font-family: inherit; transition: var(--tr); white-space: nowrap;
+    }
+    .ws-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .ws-tab:hover:not(.active) { color: var(--text); }
+    .ws-tab-actions { margin-left: auto; display: flex; align-items: center; gap: 7px; }
+    .ws-act-btn {
+      display: flex; align-items: center; gap: 5px;
+      padding: 5px 11px; border-radius: 7px;
+      font-size: 0.78rem; font-weight: 500;
+      cursor: pointer; transition: var(--tr);
+      border: 1px solid var(--border); background: var(--card); color: var(--text);
+      font-family: inherit;
+    }
+    .ws-act-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+    .ws-act-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .ws-act-btn.hi {
+      background: rgba(124,58,237,0.12);
+      border-color: rgba(124,58,237,0.3); color: var(--purple-lt);
+    }
+    .ws-act-btn.hi:hover:not(:disabled) { background: rgba(124,58,237,0.22); }
+    .ws-panel { flex: 1; display: none; flex-direction: column; overflow: hidden; }
+    .ws-panel.active { display: flex; }
+
+    /* ============================  EMPTY STATE  ============================== */
+    .ws-empty {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 32px; gap: 14px;
+    }
+    .ws-empty-orb {
+      width: 76px; height: 76px;
+      background: radial-gradient(circle, rgba(124,58,237,0.2) 0%, rgba(14,165,233,0.1) 100%);
+      border: 1px solid rgba(124,58,237,0.3); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; color: var(--purple-lt);
+      animation: floatOrb 3.5s ease-in-out infinite;
+    }
+    @keyframes floatOrb {
+      0%,100% { transform: translateY(0) scale(1); }
+      50%      { transform: translateY(-9px) scale(1.03); }
+    }
+    .ws-empty h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--white); }
+    .ws-empty p { color: var(--muted); font-size: 0.88rem; max-width: 340px; line-height: 1.65; }
+    .ws-empty-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 6px; width: 100%; max-width: 380px; }
+    .ws-empty-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 11px 13px; text-align: left;
+      cursor: pointer; transition: var(--tr);
+    }
+    .ws-empty-card:hover { border-color: rgba(124,58,237,0.45); transform: translateY(-2px); }
+    .ws-empty-card strong { display: block; font-size: 0.82rem; color: var(--white); margin-bottom: 3px; }
+    .ws-empty-card span { font-size: 0.73rem; color: var(--muted); }
+
+    /* ============================  PREVIEW IFRAME  ============================== */
+    .ws-iframe-wrap { flex: 1; position: relative; background: #fff; }
+    .ws-iframe { width: 100%; height: 100%; border: none; display: block; }
+    .ws-loading {
+      position: absolute; inset: 0;
+      background: rgba(2,11,24,0.88); backdrop-filter: blur(6px);
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 18px; z-index: 20;
+    }
+    .ws-loading.on { display: flex; }
+    .ws-spin-ring {
+      width: 60px; height: 60px;
+      border: 3px solid rgba(124,58,237,0.2);
+      border-top-color: var(--purple-lt); border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .ws-loading-label { color: var(--white); font-size: 0.9rem; font-weight: 600; }
+    .ws-loading-sub   { color: var(--muted); font-size: 0.78rem; }
+    .ws-progress-track { width: 200px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
+    .ws-progress-bar {
+      height: 100%; background: linear-gradient(90deg, var(--purple), var(--purple-lt));
+      border-radius: 2px; transition: width 0.4s ease; width: 0%;
+    }
+
+    /* ============================  CODE PANEL  ============================== */
+    .ws-code-scroll { flex: 1; overflow: auto; padding: 18px; background: #010d1a; }
+    .ws-code-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+    .ws-code-scroll::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.4); border-radius: 3px; }
+    .ws-code-pre { font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.8rem; line-height: 1.68; color: #cdd6f4; white-space: pre; tab-size: 2; }
+    .ws-code-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: var(--muted); }
+    .ws-code-empty i { font-size: 2rem; opacity: 0.3; }
+    .ws-code-empty p { font-size: 0.85rem; }
+
+    /* ============================  FLOATING EDIT TRIGGER  ============================== */
+    .ws-edit-trigger {
+      position: absolute;
+      bottom: 22px; right: 22px;
+      z-index: 15;
+      display: flex; align-items: center; gap: 9px;
+      padding: 12px 22px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-lt));
+      border: none; border-radius: 50px;
+      color: #fff; font-family: inherit; font-size: 0.88rem; font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 28px rgba(124,58,237,0.55);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      animation: editPulse 2.8s ease-in-out infinite;
+    }
+    .ws-edit-trigger:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(124,58,237,0.75);
+      animation: none;
+    }
+    .ws-edit-trigger:active { transform: scale(0.97); }
+    @keyframes editPulse {
+      0%,100% { box-shadow: 0 6px 28px rgba(124,58,237,0.55); }
+      50%      { box-shadow: 0 6px 36px rgba(124,58,237,0.85), 0 0 0 8px rgba(124,58,237,0.12); }
+    }
+
+    /* ============================  EDIT PANEL  ============================== */
+    .ws-editpanel {
+      flex-shrink: 0;
+      background: linear-gradient(to bottom, rgba(5,24,40,0.98), var(--bg2));
+      border-top: 2px solid;
+      border-image: linear-gradient(90deg, var(--purple), var(--purple-lt), var(--primary)) 1;
+      padding: 13px 18px 15px;
+      display: flex; flex-direction: column; gap: 11px;
+      animation: slideUp 0.22s cubic-bezier(0.4,0,0.2,1);
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .ws-editpanel-head {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .ws-editpanel-title {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 0.75rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      background: linear-gradient(135deg, var(--purple-lt), var(--primary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .ws-editpanel-title i { -webkit-text-fill-color: var(--purple-lt); }
+    .ws-editpanel-close {
+      margin-left: auto; background: none;
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 7px;
+      color: var(--muted); cursor: pointer; padding: 4px 10px;
+      font-size: 0.74rem; font-family: inherit;
+      display: flex; align-items: center; gap: 5px;
+      transition: var(--tr);
+    }
+    .ws-editpanel-close:hover { background: rgba(255,255,255,0.06); color: var(--text); border-color: rgba(255,255,255,0.2); }
+    .ws-edit-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .ws-edit-chip {
+      background: rgba(124,58,237,0.09);
+      border: 1px solid rgba(124,58,237,0.22);
+      color: var(--purple-lt); padding: 5px 12px; border-radius: 50px;
+      font-size: 0.73rem; font-weight: 500; cursor: pointer;
+      transition: var(--tr); font-family: inherit; white-space: nowrap;
+    }
+    .ws-edit-chip:hover {
+      background: rgba(124,58,237,0.2); border-color: rgba(124,58,237,0.5);
+      transform: translateY(-1px);
+    }
+    .ws-edit-chip:active { transform: scale(0.96); }
+    .ws-edit-row { display: flex; gap: 8px; align-items: flex-end; }
+    .ws-edit-input {
+      flex: 1; background: var(--card);
+      border: 1px solid var(--border); border-radius: 10px;
+      padding: 10px 13px; color: var(--text);
+      font-family: inherit; font-size: 0.86rem; line-height: 1.5;
+      resize: none; outline: none;
+      min-height: 44px; max-height: 100px;
+      transition: border-color var(--tr), box-shadow var(--tr);
+    }
+    .ws-edit-input:focus { border-color: var(--purple-lt); box-shadow: 0 0 0 3px rgba(124,58,237,0.12); }
+    .ws-edit-input::placeholder { color: var(--muted); }
+    .ws-apply-btn {
+      flex-shrink: 0; padding: 11px 20px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-lt));
+      border: none; border-radius: 10px;
+      color: #fff; font-family: inherit; font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; gap: 7px;
+      white-space: nowrap; transition: var(--tr);
+      box-shadow: 0 4px 16px rgba(124,58,237,0.4);
+    }
+    .ws-apply-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.6); }
+    .ws-apply-btn:active:not(:disabled) { transform: scale(0.97); }
+    .ws-apply-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .ws-edit-stat {
+      font-size: 0.74rem; color: var(--muted); min-height: 15px; transition: color var(--tr);
+    }
+    .ws-edit-stat.go   { color: var(--purple-lt); }
+    .ws-edit-stat.ok   { color: var(--green); }
+    .ws-edit-stat.fail { color: #f87171; }
+
+    /* ============================  MOBILE  ============================== */
+    @media (max-width: 768px) {
+      html, body { height: auto; overflow: auto; }
+      .ws-body { grid-template-columns: 1fr; overflow: visible; }
+      .ws-left { overflow: visible; max-height: none; }
+      .ws-left-scroll { overflow: visible; }
+      .ws-right { height: 65vh; min-height: 380px; }
+      .ws-kbd-hint { display: none; }
+      .ws-header-logo span { display: none; }
+      .ws-edit-trigger { bottom: 14px; right: 14px; padding: 10px 16px; font-size: 0.82rem; }
+      .ws-edit-chips { gap: 5px; }
+      .ws-edit-chip { font-size: 0.7rem; padding: 4px 10px; }
+    }
+    @media (max-width: 480px) {
+      .ws-tab-actions .ws-act-btn span { display: none; }
+      .ws-editpanel { padding: 10px 12px 13px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="ws-header">
+    <a href="build-pricing.html" class="ws-back">
+      <i class="fas fa-arrow-left"></i> Plans
+    </a>
+    <div class="ws-header-sep"></div>
+    <div class="ws-header-logo">
+      <div class="ws-header-logo-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+      <span>AI Website Builder</span>
+    </div>
+    <div class="ws-plan-badge badge-enterprise" id="planBadge">
+      <i class="fas fa-star" style="font-size:0.72rem"></i>
+      <span id="planBadgeLabel">Superstar — Free</span>
+    </div>
+    <div class="ws-header-right">
+      <div class="ws-kbd-hint">
+        <span>Generate</span>
+        <kbd class="ws-kbd">Ctrl</kbd>
+        <kbd class="ws-kbd">↵</kbd>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN SPLIT ===== -->
+  <div class="ws-body">
+
+    <!-- ====== LEFT PANEL ====== -->
+    <div class="ws-left">
+      <div class="ws-left-scroll">
+
+        <!-- Plan info -->
+        <div>
+          <div class="ws-label">Active Plan</div>
+          <div class="ws-plan-card">
+            <div class="ws-plan-icon gold" id="planIcon"><i class="fas fa-star"></i></div>
+            <div class="ws-plan-info">
+              <strong id="planName">Superstar — Free</strong>
+              <small id="planDesc">All-in-one premium website</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prompt -->
+        <div>
+          <div class="ws-label">Describe Your Website</div>
+          <div class="ws-textarea-wrap">
+            <textarea
+              class="ws-prompt" id="promptInput" maxlength="1200"
+              placeholder="Example: Build a sleek portfolio website for a UX designer named Alex. Dark theme with blue accents. Include: animated hero with name + title, skills section, project gallery with hover effects, about section, and contact form with social links."
+            ></textarea>
+            <div class="ws-char-count" id="charCount">0 / 1200</div>
+          </div>
+        </div>
+
+        <!-- Quick templates -->
+        <div>
+          <div class="ws-label">Quick Templates</div>
+          <div class="ws-chips" id="chipsContainer">
+            <button class="ws-chip" data-p="A sleek portfolio website for a UX/UI designer. Dark theme, animated hero with name and job title, skills with circular progress bars, project gallery with hover overlays, about section with profile image placeholder, and a contact form.">Portfolio</button>
+            <button class="ws-chip" data-p="A SaaS landing page for 'TaskFlow', an AI productivity app. Clean white and blue theme. Animated hero with app mockup, 6 feature highlight cards with icons, step-by-step how-it-works, pricing table (Free/Pro/Business), testimonials, and email signup CTA.">SaaS App</button>
+            <button class="ws-chip" data-p="An elegant restaurant website for 'La Maison' French bistro. Warm dark theme with gold accents. Full-screen hero with food photography placeholder, seasonal menu section, chef story, reservation booking form, Instagram gallery grid, and address map.">Restaurant</button>
+            <button class="ws-chip" data-p="A professional digital marketing agency website for 'PixelPeak Agency'. Dark navy theme. Bold animated hero, services grid (SEO, PPC, Social, Design), client logo strip, case studies with stats, team cards, and a project inquiry form.">Agency</button>
+            <button class="ws-chip" data-p="An online clothing store landing page for 'Velvet Co' fashion brand. Minimal white theme. Full-screen hero banner, featured product grid with price tags and add-to-cart buttons, trending categories, newsletter signup, and elegant footer.">E-Store</button>
+            <button class="ws-chip" data-p="A personal blog for a travel writer. Clean minimal white theme with pastel accents. Animated hero with featured post, latest articles grid with cover images and read-time, category filters, author bio sidebar, and newsletter subscription.">Blog</button>
+          </div>
+        </div>
+
+        <!-- Preferences -->
+        <div>
+          <div class="ws-label">Options</div>
+          <div class="ws-prefs">
+            <label class="ws-pref">
+              <input type="checkbox" id="optAnimations" checked />
+              <span class="ws-pref-label">CSS animations &amp; scroll effects</span>
+            </label>
+            <label class="ws-pref">
+              <input type="checkbox" id="optDark" checked />
+              <span class="ws-pref-label">Dark color theme</span>
+            </label>
+            <label class="ws-pref">
+              <input type="checkbox" id="optContact" checked />
+              <span class="ws-pref-label">Contact / inquiry form</span>
+            </label>
+            <label class="ws-pref">
+              <input type="checkbox" id="optNav" checked />
+              <span class="ws-pref-label">Sticky navigation bar</span>
+            </label>
+            <label class="ws-pref" id="optChatbotRow" style="display:none">
+              <input type="checkbox" id="optChatbot" />
+              <span class="ws-pref-label">AI chatbot widget</span>
+              <span class="ws-pref-tag">Pro+</span>
+            </label>
+            <label class="ws-pref" id="optEcomRow" style="display:none">
+              <input type="checkbox" id="optEcom" />
+              <span class="ws-pref-label">E-commerce features</span>
+              <span class="ws-pref-tag">Enterprise</span>
+            </label>
+            <label class="ws-pref" id="optBookRow" style="display:none">
+              <input type="checkbox" id="optBook" />
+              <span class="ws-pref-label">Booking / scheduling system</span>
+              <span class="ws-pref-tag">Enterprise</span>
+            </label>
+          </div>
+        </div>
+
+      </div><!-- /scroll -->
+
+      <!-- Footer -->
+      <div class="ws-left-footer">
+        <div class="ws-status" id="wsStatus">Describe your website above, then click Generate</div>
+        <button class="ws-gen-btn" id="genBtn">
+          <i class="fas fa-wand-magic-sparkles" id="genIcon"></i>
+          <span id="genLabel">Generate Website</span>
+        </button>
+        <button class="ws-clear-btn" id="clearBtn">
+          <i class="fas fa-rotate-left"></i> Clear &amp; Start Over
+        </button>
+      </div>
+    </div><!-- /left -->
+
+    <!-- ====== RIGHT PANEL ====== -->
+    <div class="ws-right">
+
+      <!-- Tab bar -->
+      <div class="ws-tabbar">
+        <button class="ws-tab active" data-panel="preview" id="tabPreview">
+          <i class="fas fa-eye"></i> Preview
+        </button>
+        <button class="ws-tab" data-panel="code" id="tabCode">
+          <i class="fas fa-code"></i> HTML Code
+        </button>
+        <div class="ws-tab-actions">
+          <button class="ws-act-btn" id="btnOpen" disabled title="Open in new tab">
+            <i class="fas fa-external-link-alt"></i><span>Open</span>
+          </button>
+          <button class="ws-act-btn" id="btnCopy" disabled title="Copy HTML (Ctrl+Shift+C)">
+            <i class="fas fa-copy"></i><span>Copy</span>
+          </button>
+          <button class="ws-act-btn hi" id="btnDl" disabled title="Download .html file (Ctrl+D)">
+            <i class="fas fa-download"></i><span>Download</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Preview panel -->
+      <div class="ws-panel active" id="panelPreview">
+
+        <!-- Empty state -->
+        <div class="ws-empty" id="emptyState">
+          <div class="ws-empty-orb"><i class="fas fa-wand-magic-sparkles"></i></div>
+          <h3>Your Preview Awaits</h3>
+          <p>Describe your website on the left and hit Generate — watch your site appear live as the AI writes it.</p>
+          <div class="ws-empty-cards">
+            <div class="ws-empty-card" onclick="useTemplate('portfolio')">
+              <strong>Portfolio</strong><span>Showcase your work</span>
+            </div>
+            <div class="ws-empty-card" onclick="useTemplate('saas')">
+              <strong>SaaS Landing</strong><span>Convert visitors</span>
+            </div>
+            <div class="ws-empty-card" onclick="useTemplate('restaurant')">
+              <strong>Restaurant</strong><span>Elegant dining site</span>
+            </div>
+            <div class="ws-empty-card" onclick="useTemplate('agency')">
+              <strong>Agency</strong><span>Professional business</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live iframe + loading overlay -->
+        <div class="ws-iframe-wrap" id="iframeWrap" style="display:none">
+          <iframe
+            class="ws-iframe" id="previewFrame"
+            title="Generated Website Preview"
+            sandbox="allow-scripts allow-forms allow-modals allow-popups"
+          ></iframe>
+
+          <div class="ws-loading" id="loadingOverlay">
+            <div class="ws-spin-ring"></div>
+            <div class="ws-loading-label" id="loadingLabel">Generating your website…</div>
+            <div class="ws-loading-sub"   id="loadingPct">Starting up AI…</div>
+            <div class="ws-progress-track">
+              <div class="ws-progress-bar" id="progressBar"></div>
+            </div>
+          </div>
+
+          <!-- Floating edit button — appears after generation -->
+          <button class="ws-edit-trigger" id="editTrigger" style="display:none">
+            <i class="fas fa-pen-to-square"></i>
+            Edit Website
+          </button>
+        </div>
+
+        <!-- Edit panel — slides up when Edit button clicked -->
+        <div class="ws-editpanel" id="editPanel" style="display:none">
+          <div class="ws-editpanel-head">
+            <div class="ws-editpanel-title">
+              <i class="fas fa-wand-magic-sparkles"></i>
+              AI Editor — Request a Change
+            </div>
+            <button class="ws-editpanel-close" id="closeEditPanel">
+              <i class="fas fa-times"></i> Close
+            </button>
+          </div>
+
+          <div class="ws-edit-chips">
+            <button class="ws-edit-chip" data-e="Make the hero section more dramatic with a bolder gradient background, larger headline text, and more visual depth">Bolder Hero</button>
+            <button class="ws-edit-chip" data-e="Upgrade the overall color scheme with more vibrant, premium gradients and richer accent colors">Better Colors</button>
+            <button class="ws-edit-chip" data-e="Add more CSS animations, smooth hover effects, and micro-interactions on buttons and cards throughout the site">More Animations</button>
+            <button class="ws-edit-chip" data-e="Make all cards and sections use premium glassmorphism: backdrop-filter blur, semi-transparent backgrounds, and subtle glowing borders">Glassmorphism</button>
+            <button class="ws-edit-chip" data-e="Add a social proof section with 3 testimonial cards, 5-star ratings, client names, and profile avatar circles">Add Testimonials</button>
+            <button class="ws-edit-chip" data-e="Add an animated stats strip showing 4 impressive business metrics with count-up animations when scrolled into view">Add Stats Bar</button>
+            <button class="ws-edit-chip" data-e="Make the typography larger, bolder, and more impactful using clamp() sizing and stronger font weights for all headings">Bigger Typography</button>
+            <button class="ws-edit-chip" data-e="Rebuild the footer with a multi-column layout, gradient top border, social media icons, newsletter input, and copyright bar">Better Footer</button>
+          </div>
+
+          <div class="ws-edit-row">
+            <textarea
+              class="ws-edit-input" id="editInput" rows="2"
+              placeholder='Describe any change… e.g. "Change the business name to Nova Studio" · "Make the hero background deep purple" · "Add a FAQ section with 5 questions"'
+            ></textarea>
+            <button class="ws-apply-btn" id="applyEditBtn">
+              <i class="fas fa-wand-magic-sparkles" id="editBtnIcon"></i>
+              <span id="editBtnLabel">Apply</span>
+            </button>
+          </div>
+          <div class="ws-edit-stat" id="editStat"></div>
+        </div>
+
+      </div><!-- /panelPreview -->
+
+      <!-- Code panel -->
+      <div class="ws-panel" id="panelCode">
+        <div class="ws-code-empty" id="codeEmpty">
+          <i class="fas fa-code"></i>
+          <p>Generated HTML will appear here</p>
+        </div>
+        <div class="ws-code-scroll" id="codeScroll" style="display:none">
+          <pre class="ws-code-pre" id="codePre"></pre>
+        </div>
+      </div>
+
+    </div><!-- /right -->
+  </div><!-- /ws-body -->
+
+  <script>
+
+    /* ===================================================
+       CONFIG — Groq API (workspace builder only)
+       Chatbot Groq key lives in app.js — do not touch that
+    =================================================== */
+    const GROQ_WS_KEY   = 'c938aaea46f841388102aebf55aed239.PEcXS-YbjbBlpyBrnITf4QOw';
+    const GROQ_WS_MODEL = 'mistral-small-latest';
+    const GROQ_WS_URL   = 'https://api.mistral.ai/v1/chat/completions';
+
+    /* ===================================================
+       PLAN SETUP
+    =================================================== */
+    const PLANS = {
+      superstar: {
+        label: 'Superstar — Free',
+        name: 'Superstar',
+        desc: 'All-in-one premium website — Free',
+        iconClass: 'gold',
+        iconHtml: '<i class="fas fa-star"></i>',
+        badgeClass: 'badge-enterprise',
+        estTokens: 10000,
+        chatbot: true, ecom: true, booking: true,
+        complexity: `TIER: SUPERSTAR (FREE) — Deliver a complete, all-in-one premium website with 3D elements, AI integration, and world-class design. Spare absolutely nothing.
+
+REQUIRED SECTIONS (in this exact order):
+1. STICKY NAV — Logo left, 6 nav links center with animated underline hover (::after pseudo, scaleX 0→1 from center), gradient CTA button right. On load: fully transparent. On scroll >60px: background:rgba(8,8,18,0.88); backdrop-filter:blur(24px); border-bottom:1px solid rgba(255,255,255,0.07). Smooth 0.3s transition. Animated hamburger for mobile (3 bars → X via CSS transform). Slide-out mobile drawer menu.
+2. HERO — Full 100vh. MANDATORY 3D ELEMENT: a floating device/card mockup built with CSS using transform:perspective(1200px) rotateY(-14deg) rotateX(6deg) combined with a float keyframe (translateY -14px oscillation, 4s ease-in-out infinite). Layered background: (a) deep dark base, (b) radial gradient glow, (c) 5 large blurred orbs (blur:90px, each different color/size, unique float keyframes at speeds 6s–14s), (d) subtle dot-grid overlay. H1: gradient-clip text, font-weight:900, clamp(3.5rem,7vw,6rem). Typewriter JS subheadline. 2 CTAs + a trust badge row (3–4 logos/icons in pill chips). Animated scroll arrow.
+3. STATS STRIP — Full-width gradient band. 5 count-up counters triggered by IntersectionObserver (JS counting from 0 to target). Large gradient numbers (clamp(2.4rem,4vw,3.6rem)), label below. Thin divider lines between items.
+4. SERVICES — 6 cards in a 3-column grid. Each card has a 3D tilt hover effect using JS mousemove event to dynamically set transform:perspective(800px) rotateX(Xdeg) rotateY(Ydeg) based on cursor position within the card. Also: gradient icon circle (56px), category tag (pill), title, description, "Explore →" link. On hover: gradient border via ::before pseudo-element + icon glow.
+5. 3D FLIP FEATURE CARDS — A full-width section "3D Interactive Features". 4 cards in a row (2×2 on mobile). Each is a CSS 3D flip card: outer container has perspective:1000px; inner has transform-style:preserve-3d; front face and back face both use backface-visibility:hidden. Hover triggers inner rotateY(180deg) with 0.6s transition. Front: gradient icon + title. Back: description paragraph + a CTA link, different gradient background. Height: 240px.
+6. PORTFOLIO — 6 project tiles in a masonry-style grid. Filter tabs (All / Web / Mobile / Branding / AI) — JS toggles .hidden class with opacity transition. Each tile: unique gradient background, project name, category tag, and a hover overlay (translateY from bottom, opacity 0→1) with description + "View Project →" link.
+7. TESTIMONIALS — 4 glassmorphism cards (2×2 grid). Each: ★★★★★ gold stars, italic quote, gradient avatar circle with initials, name + company + title. Auto-rotate carousel every 5s (JS setInterval cycling active class). Navigation dots below.
+8. E-COMMERCE PRODUCTS — Heading "Featured Products". 6 product cards: 200px gradient image placeholder (with centered product name text), price badge (top-left), star rating row (★★★★☆ + count), "Add to Cart" gradient button, heart wishlist icon (top-right, toggles filled/outline on click). Filter tabs: All / New / Popular / Sale.
+9. BOOKING SECTION — Two columns. Left: headline "Book Your Session", 4 benefit points with gradient check icons, a glassmorphism testimonial quote card. Right: a fully styled booking form with: date input (type="date"), time slots (6 pill radio buttons styled with accent colors), name input, email input, notes textarea, "Book Now" gradient button. Calendar decorative icon in section background.
+10. AI INTEGRATION SHOWCASE — Full-width section "Powered by AI". Two columns. Left: headline, 4 AI capability bullets with animated gradient icons (Smart Chat, Auto-Recommendations, 24/7 Availability, Real-time Personalization). Right: a CSS-animated AI terminal mockup — dark rounded card, terminal header dots (red/yellow/green circles), then lines of text appearing one by one via CSS animation (opacity 0→1, staggered with animation-delay). Each line: a prompt symbol + code-font text simulating AI output. Terminal has a blinking cursor at the end.
+11. TEAM — 4 member cards. Gradient rectangle photo placeholder (with initials in center), name, role, short bio. On hover: card lifts (translateY -10px), 3 social icon buttons slide up from bottom (translateY 100%→0, 0.3s transition each with stagger). Use overflow:hidden on the card to clip the reveal.
+12. FAQ ACCORDION — 6 questions. On click: answer expands via max-height:0→500px transition (0.4s ease). Plus icon rotates to × (transform:rotate(45deg)). Active item has a gradient left border (border-left:3px solid; using gradient via ::before). Smooth, no jank.
+13. NEWSLETTER + CONTACT — Side-by-side (50/50). Left: newsletter — bold headline, 3 benefit pills, email input + subscribe button inline, small privacy note. Right: contact form — name, email, company, service dropdown, budget range dropdown, message textarea, send button + "Reply within 24h" note.
+14. FLOATING AI CHATBOT — Bottom-right. 64px gradient circle button (purple-to-blue) with animated ring pulse (box-shadow 0→12px pulsing keyframe). On click: chat window slides up (340px wide, 460px tall, glassmorphism). Header: gradient background, bot avatar, bot name + "Online" green dot. Pre-populated messages (2 bot messages). Quick-reply chip row (3 options). Input + send button. Clicking a chip populates input.
+15. FOOTER — 5-column grid. Column 1: logo, tagline, 4 social icons in gradient circles. Columns 2–5: link groups (Services, Company, Resources, Legal). Above the grid: a full-width newsletter strip. Gradient 2px top border (border-image). Bottom bar: copyright + privacy + terms + payment icon strip (4 icons). All footer links have hover color transition.
+
+PREMIUM 3D & ANIMATION STANDARDS (NON-NEGOTIABLE):
+• The hero 3D mockup MUST be present — it is the signature visual element. Use a realistic card/screen shape built with divs and CSS.
+• The 3D flip cards MUST work correctly: proper transform-style:preserve-3d, backface-visibility:hidden on both faces, perspective on the container.
+• The JS mousemove card tilt on service cards MUST dynamically compute rotateX/rotateY from mouse position relative to card center using getBoundingClientRect().
+• Count-up animation MUST use IntersectionObserver — never start counting on page load.
+• Auto-carousel for testimonials with JS setInterval and smooth opacity/transform transition.
+• The AI terminal MUST have at least 5 lines of text, each appearing with a different animation-delay (0.5s increments). Include a blinking-cursor keyframe animation.
+
+DESIGN STANDARDS:
+• Import 'Syne' (700,800) for ALL display headings + 'Inter' (400,500,600) for body from Google Fonts.
+• :root with 22+ CSS variables. Palette: deep charcoal/navy base (#080818 range), electric purple-to-blue primary gradient, gold/amber accent, teal/cyan secondary.
+• ALL cards and modals: glassmorphism (backdrop-filter:blur(20px), semi-transparent bg, rgba border).
+• Every interactive element: 3 visual states — default, hover (lift + glow shadow), active (scale 0.97).
+• Grids: 3-col → 2-col at 900px → 1-col at 600px. All collapse gracefully.
+• Section padding: clamp(100px, 12vw, 160px) top and bottom.
+• IntersectionObserver on every section, children stagger 80ms apart.`
+      }
+    };
+
+    const plan = PLANS.superstar;
+
+    // Always show all premium options — Superstar plan includes everything
+    document.getElementById('optChatbotRow').style.display = 'flex';
+    document.getElementById('optEcomRow').style.display    = 'flex';
+    document.getElementById('optBookRow').style.display    = 'flex';
+    // Remove the "Pro+" / "Enterprise" restriction tags since there's one plan
+    document.querySelectorAll('.ws-pref-tag').forEach(t => t.remove());
+
+    /* ===================================================
+       TAB SWITCHING
+    =================================================== */
+    document.querySelectorAll('.ws-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.ws-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.ws-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        const pid = 'panel' + tab.dataset.panel[0].toUpperCase() + tab.dataset.panel.slice(1);
+        document.getElementById(pid).classList.add('active');
+      });
+    });
+
+    /* ===================================================
+       TEXTAREA CHAR COUNT
+    =================================================== */
+    const promptInput = document.getElementById('promptInput');
+    const charCount   = document.getElementById('charCount');
+    promptInput.addEventListener('input', () => {
+      const n = promptInput.value.length;
+      charCount.textContent = `${n} / 1200`;
+      charCount.className   = `ws-char-count${n > 1100 ? ' warn' : ''}`;
+    });
+
+    /* ===================================================
+       QUICK CHIPS
+    =================================================== */
+    document.querySelectorAll('.ws-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        promptInput.value = chip.dataset.p;
+        promptInput.dispatchEvent(new Event('input'));
+        promptInput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+    });
+
+    const TEMPLATE_PROMPTS = {
+      portfolio:  'A sleek portfolio website for a UX/UI designer named Alex. Dark theme, animated hero with name and job title, skills section with progress bars, project gallery with hover overlays, about section, and contact form.',
+      saas:       'A SaaS landing page for "TaskFlow", an AI productivity app. Clean blue/white theme. Animated hero with app mockup, 6 feature cards, how-it-works steps, pricing plans (Free/Pro/Business), testimonials, and email CTA.',
+      restaurant: 'An elegant website for "La Maison" French bistro. Warm dark theme with gold accents. Full-screen hero, seasonal menu grid, chef story, online reservation form, photo gallery, address and hours.',
+      agency:     'A professional digital marketing agency website for "PixelPeak". Dark navy theme. Bold animated hero, services grid, client logos, case study stats, team section, and project inquiry form.'
+    };
+    function useTemplate(key) {
+      promptInput.value = TEMPLATE_PROMPTS[key] || '';
+      promptInput.dispatchEvent(new Event('input'));
+    }
+    window.useTemplate = useTemplate;
+
+    /* ===================================================
+       BUILD SYSTEM PROMPT — Enhanced for premium output
+    =================================================== */
+    function buildSystemPrompt() {
+      const opts = [];
+      if (document.getElementById('optAnimations').checked) opts.push('Include smooth CSS animations and IntersectionObserver scroll-reveal on every section entrance');
+      if (document.getElementById('optDark').checked)       opts.push('Use a rich dark color scheme with deep navy/black backgrounds and light text');
+      else                                                   opts.push('Use a clean light/white color scheme with soft shadows');
+      if (document.getElementById('optContact').checked)    opts.push('Include a beautifully styled contact / inquiry form');
+      if (document.getElementById('optNav').checked)        opts.push('Include a sticky navigation bar with frosted-glass effect on scroll');
+      const cbEl = document.getElementById('optChatbot');
+      if (cbEl && cbEl.checked)                             opts.push('Include a floating AI chatbot widget in the bottom-right corner with styled UI');
+      const ecEl = document.getElementById('optEcom');
+      if (ecEl && ecEl.checked)                             opts.push('Include an e-commerce product grid with prices, ratings, and add-to-cart buttons');
+      const bkEl = document.getElementById('optBook');
+      if (bkEl && bkEl.checked)                             opts.push('Include a booking / appointment scheduling section with a styled form');
+
+      return `You are a world-class front-end developer who builds award-winning $10,000+ agency websites. Your ONLY task is to output one complete, self-contained HTML document.
+
+${plan.complexity}
+
+ABSOLUTE RULES — NEVER BREAK THESE:
+1. Your ENTIRE response is the HTML document. No explanation, no preamble, nothing else.
+2. Start immediately with <!DOCTYPE html> — first character of your output.
+3. NEVER use markdown code fences (\`\`\`) anywhere in your output.
+4. ALL CSS inside a single <style> tag in <head>. ALL JS inside a single <script> tag before </body>.
+5. Load Google Fonts via the fonts.googleapis.com link tag.
+6. Load Font Awesome 6.5 via: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css
+7. Use realistic, specific placeholder content that matches the user's described business — names, taglines, services, testimonials.
+8. Use CSS custom properties for ALL colors — minimum 18 variables in :root.
+9. Smooth scroll on <html>: scroll-behavior: smooth.
+10. Mobile-first. All layouts must work flawlessly at 320px, 768px, and 1440px.
+11. LOGOS — NEVER use <img src="logo.png"> or any file-path image. Build every logo with pure CSS: a gradient-filled div/span (40×40px, border-radius:10px) containing the brand initials in bold, placed next to the business name in a flex row. Example: <div class="logo"><div class="logo-icon">AB</div><span class="logo-text">AgencyName</span></div> — styled entirely in CSS with gradient background on the icon.
+12. PLACEHOLDER IMAGES — NEVER reference external image files. Replace every hero image, team photo, product image, or portfolio thumbnail with a CSS gradient div: background:linear-gradient(135deg, color1, color2); display:flex; align-items:center; justify-content:center; — with a large Font Awesome icon or short text label centered inside.
+13. BODY BACKGROUND — Set background color directly on the body element (e.g. body { background:#080818; color:#e2e8f0; }). This is mandatory — without it the page renders white and unstyled.
+14. CSS COMPLETENESS — The entire <style> block must be fully written out. Never truncate, abbreviate, or use comments like "/* ... rest of CSS ... */". Every selector and every rule must be present and complete.
+15. COLOR APPLICATION — Every section must have an explicit background property. Alternate between your :root dark shades so no two adjacent sections share the same background. Cards must have background + border properties set. Nothing should appear white or transparent unless it is the text color on a dark bg.
+
+PREMIUM VISUAL STANDARDS — ALL MANDATORY:
+▸ CSS LOGO (MANDATORY): Navbar logo = flex row: [gradient icon box with initials] + [brand name text]. Icon box: width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg,primaryColor,accentColor); display:flex; align-items:center; justify-content:center; font-weight:800; color:#fff; font-size:0.9rem. Brand name: font-weight:800; font-size:1.2rem; color:#fff. Zero image files.
+▸ CSS IMAGE PLACEHOLDERS: Every place a photo would go (hero visual, team member, portfolio tile, product image) = a div with height set, background:linear-gradient(135deg,colorA,colorB), border-radius matching its container, display:flex; align-items:center; justify-content:center; with a large (3–5rem) Font Awesome icon or short label inside. Make each placeholder a different gradient so they look intentional and designed, not broken.
+▸ BODY & ROOT COLORS: :root must define at minimum: --bg (darkest base), --bg2 (slightly lighter), --bg3, --card, --primary, --primary-lt, --accent, --gold, --text, --text-muted, --white, --border, --shadow, --radius, --transition, --gradient-primary, --gradient-accent. body { background:var(--bg); color:var(--text); } must be explicit.
+▸ HERO BACKGROUND: Must have 3+ large blurred animated orbs (position:absolute; border-radius:50%; filter:blur(80px); opacity:0.55; each a different color with unique float keyframe at different durations). Add a subtle CSS grid/dot overlay using background-image with radial-gradient.
+▸ GRADIENT TEXT: Main H1 and at least one H2 must use: background:linear-gradient(135deg,colorA,colorB); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text.
+▸ GLASSMORPHISM CARDS: background:rgba(255,255,255,0.04); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.08); border-radius:20px. On hover: transform:translateY(-10px); box-shadow:0 28px 56px rgba(0,0,0,0.35).
+▸ SECTION LABELS: Every H2 section must have a small pill/tag above it (e.g. "OUR SERVICES", "WHY US") with colored background and uppercase font.
+▸ ICON CIRCLES: All service/feature icons use a 52px circle with gradient background, centered Font Awesome icon.
+▸ BUTTONS: Primary = gradient background + border-radius:50px + font-weight:700. Hover: translateY(-2px) + stronger box-shadow. Active: scale(0.97).
+▸ SECTION BACKGROUNDS: Never use the same flat background for two consecutive sections. Use alternating radial gradient shifts, different dark shades, or full-width gradient bands. Every section background must be explicitly set in CSS.
+▸ FOOTER: Must have a 2px gradient top border (border-image: linear-gradient(90deg,colorA,colorB) 1). Multi-column layout. background:var(--bg) or similar dark value explicitly set.
+▸ TYPOGRAPHY: Use Google Fonts. H1: clamp(3rem,6vw,5rem). H2: clamp(1.9rem,4vw,3rem). All font sizes via clamp(). Section padding: clamp(80px,10vw,130px).
+▸ ANIMATIONS: IntersectionObserver on every section. Children stagger with 80ms delay. transform:translateY(45px)→(0) + opacity:0→1 transition 0.65s ease.
+▸ NAVBAR: Sticky, transparent on load. On scroll event: add class that applies backdrop-filter:blur(20px) + semi-transparent background + border-bottom. Smooth transition on the class.
+
+USER PREFERENCES:
+${opts.map(o => '• ' + o).join('\n')}
+
+Produce the most visually stunning, professionally crafted, pixel-perfect website possible. Think: Awwwards-worthy design.`;
+    }
+
+    /* ===================================================
+       HELPERS
+    =================================================== */
+    function sanitizeHTML(raw) {
+      let h = raw
+        .replace(/^```html?\s*/i, '')
+        .replace(/\s*```\s*$/i, '');
+      const start = h.search(/<!DOCTYPE\s+html|<html/i);
+      if (start > 0) h = h.slice(start);
+      return h;
+    }
+
+    function updatePreview(html) {
+      let doc = sanitizeHTML(html);
+      if (!doc.includes('</html>')) doc += '\n</body></html>';
+      previewFrame.srcdoc = doc;
+    }
+
+    function showCodePanel(html) {
+      codeEmpty.style.display  = 'none';
+      codeScroll.style.display = 'block';
+      codePre.textContent      = html;
+    }
+
+    function setStatus(msg, cls = '') {
+      wsStatus.textContent = msg;
+      wsStatus.className   = `ws-status ${cls}`;
+    }
+
+    /* ===================================================
+       DOM REFS
+    =================================================== */
+    const genBtn       = document.getElementById('genBtn');
+    const genIcon      = document.getElementById('genIcon');
+    const genLabel     = document.getElementById('genLabel');
+    const wsStatus     = document.getElementById('wsStatus');
+    const emptyState   = document.getElementById('emptyState');
+    const iframeWrap   = document.getElementById('iframeWrap');
+    const previewFrame = document.getElementById('previewFrame');
+    const loadingOv    = document.getElementById('loadingOverlay');
+    const loadingLabel = document.getElementById('loadingLabel');
+    const loadingPct   = document.getElementById('loadingPct');
+    const progressBar  = document.getElementById('progressBar');
+    const codeEmpty    = document.getElementById('codeEmpty');
+    const codeScroll   = document.getElementById('codeScroll');
+    const codePre      = document.getElementById('codePre');
+    const btnDl        = document.getElementById('btnDl');
+    const btnCopy      = document.getElementById('btnCopy');
+    const btnOpen      = document.getElementById('btnOpen');
+
+    // Edit bar refs
+    const editTrigger  = document.getElementById('editTrigger');
+    const editPanel    = document.getElementById('editPanel');
+    const editInput    = document.getElementById('editInput');
+    const applyEditBtn = document.getElementById('applyEditBtn');
+    const editBtnIcon  = document.getElementById('editBtnIcon');
+    const editBtnLabel = document.getElementById('editBtnLabel');
+    const editStat     = document.getElementById('editStat');
+
+    let generatedHTML = '';
+    let busy = false;
+
+    /* ===================================================
+       EDIT BAR LOGIC
+    =================================================== */
+    editTrigger.addEventListener('click', () => {
+      const isOpen = editPanel.style.display !== 'none';
+      editPanel.style.display = isOpen ? 'none' : 'flex';
+      editPanel.style.flexDirection = 'column';
+    });
+
+    document.getElementById('closeEditPanel').addEventListener('click', () => {
+      editPanel.style.display = 'none';
+    });
+
+    document.querySelectorAll('.ws-edit-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        editInput.value = chip.dataset.e;
+        editInput.focus();
+      });
+    });
+
+    async function applyEdit() {
+      const request = editInput.value.trim();
+      if (!request) {
+        editStat.textContent = 'Please describe the change you want to make.';
+        editStat.className   = 'ws-edit-stat fail';
+        return;
+      }
+      if (!generatedHTML) {
+        editStat.textContent = 'Generate a website first before editing.';
+        editStat.className   = 'ws-edit-stat fail';
+        return;
+      }
+      if (busy) return;
+      busy = true;
+
+      const prevHTML = generatedHTML;
+      generatedHTML  = '';
+
+      applyEditBtn.disabled    = true;
+      editBtnIcon.className    = 'fas fa-spinner fa-spin';
+      editBtnLabel.textContent = 'Applying…';
+      editStat.textContent     = 'Sending to AI…';
+      editStat.className       = 'ws-edit-stat go';
+
+      iframeWrap.style.display = 'block';
+      emptyState.style.display = 'none';
+      loadingOv.classList.add('on');
+      loadingLabel.textContent = 'Applying your changes…';
+      loadingPct.textContent   = 'AI is rewriting…';
+      progressBar.style.width  = '4%';
+
+      let charsSeen = 0;
+      const estTotal = prevHTML.length;
+      let lastPreview = 0;
+
+      try {
+        const resp = await fetch(GROQ_WS_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${GROQ_WS_KEY}`
+          },
+          body: JSON.stringify({
+            model: GROQ_WS_MODEL,
+            messages: [
+              {
+                role: 'system',
+                content: `You are editing an existing HTML website. Apply the requested change and return the COMPLETE updated HTML document.
+
+ABSOLUTE RULES:
+1. Your ENTIRE response is the HTML document — nothing else, no explanation.
+2. Start immediately with <!DOCTYPE html>.
+3. NEVER use markdown code fences.
+4. Keep all existing content, styles, and JS unless the change specifically requires modifying them.
+5. Maintain the same high-quality design standards as the original.
+6. Return the COMPLETE HTML — do not truncate, summarize, or abbreviate. Never use "/* ... */" to skip CSS.
+7. The output must be a fully working standalone HTML file.
+8. NEVER add <img> tags with file paths (logo.png, hero.jpg, etc.) — they will be broken. Use CSS gradient divs and Font Awesome icons instead.
+9. Ensure body { background } and all section backgrounds remain explicitly set so nothing appears white or unstyled.`
+              },
+              {
+                role: 'user',
+                content: `CURRENT HTML:\n${sanitizeHTML(prevHTML)}\n\nREQUESTED CHANGE:\n${request}`
+              }
+            ],
+            temperature: 0.5,
+            max_tokens: 12000,
+            stream: true
+          })
+        });
+
+        if (!resp.ok) {
+          const e = await resp.json().catch(() => ({}));
+          throw new Error(e.error?.message || `HTTP ${resp.status}`);
+        }
+
+        const reader  = resp.body.getReader();
+        const decoder = new TextDecoder();
+        editStat.textContent = 'Streaming changes…';
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          const chunk = decoder.decode(value, { stream: true });
+          for (const line of chunk.split('\n')) {
+            if (!line.startsWith('data: ')) continue;
+            const payload = line.slice(6).trim();
+            if (payload === '[DONE]') break;
+            try {
+              const parsed = JSON.parse(payload);
+              const delta  = parsed.choices?.[0]?.delta?.content || '';
+              if (!delta) continue;
+              generatedHTML += delta;
+              charsSeen     += delta.length;
+              const pct = Math.min(92, Math.round((charsSeen / Math.max(estTotal, 1)) * 100));
+              progressBar.style.width = pct + '%';
+              loadingPct.textContent  = `${pct}% — rewriting…`;
+              if (charsSeen - lastPreview >= 350) {
+                lastPreview = charsSeen;
+                updatePreview(generatedHTML);
+              }
+            } catch { /* ignore parse errors on partial SSE chunks */ }
+          }
+        }
+
+        progressBar.style.width  = '100%';
+        loadingLabel.textContent = 'Changes applied!';
+        loadingPct.textContent   = `${(charsSeen / 1000).toFixed(1)}k characters`;
+
+        setTimeout(() => {
+          loadingOv.classList.remove('on');
+          updatePreview(generatedHTML);
+          showCodePanel(sanitizeHTML(generatedHTML));
+          setStatus(`Edit applied — ${charsSeen.toLocaleString()} chars`, 'done');
+          editStat.textContent = 'Change applied successfully!';
+          editStat.className   = 'ws-edit-stat ok';
+          editInput.value      = '';
+        }, 400);
+
+      } catch (err) {
+        generatedHTML = prevHTML;
+        loadingOv.classList.remove('on');
+        updatePreview(generatedHTML);
+        editStat.textContent = `Error: ${err.message}`;
+        editStat.className   = 'ws-edit-stat fail';
+        setStatus(`Edit failed: ${err.message}`, 'error');
+      } finally {
+        busy = false;
+        applyEditBtn.disabled    = false;
+        editBtnIcon.className    = 'fas fa-wand-magic-sparkles';
+        editBtnLabel.textContent = 'Apply';
+      }
+    }
+
+    applyEditBtn.addEventListener('click', applyEdit);
+    editInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); applyEdit(); }
+    });
+
+    /* ===================================================
+       GENERATION LOGIC
+    =================================================== */
+    async function generate() {
+      const prompt = promptInput.value.trim();
+      if (!prompt) {
+        setStatus('Please describe your website first!', 'error');
+        promptInput.focus();
+        return;
+      }
+      if (busy) return;
+      busy = true;
+
+      generatedHTML = '';
+
+      genBtn.disabled      = true;
+      genIcon.className    = 'fas fa-spinner fa-spin';
+      genLabel.textContent = 'Generating…';
+      btnDl.disabled = btnCopy.disabled = btnOpen.disabled = true;
+      setStatus('Connecting to AI engine…', 'generating');
+
+      emptyState.style.display  = 'none';
+      iframeWrap.style.display  = 'block';
+      loadingOv.classList.add('on');
+      progressBar.style.width   = '0%';
+      loadingLabel.textContent  = 'Generating your website…';
+      loadingPct.textContent    = 'Starting up AI…';
+      codeEmpty.style.display   = 'flex';
+      codeScroll.style.display  = 'none';
+      codePre.textContent       = '';
+      editTrigger.style.display = 'none';
+      editPanel.style.display   = 'none';
+
+      const PHASES = [
+        'Analyzing your requirements…',
+        'Designing the layout…',
+        'Writing HTML structure…',
+        'Crafting premium CSS styles…',
+        'Adding interactivity & animations…',
+        'Polishing final details…'
+      ];
+      let phaseIdx = 0;
+      const phaseTimer = setInterval(() => {
+        if (phaseIdx < PHASES.length) loadingLabel.textContent = PHASES[phaseIdx++];
+      }, 2400);
+
+      let charsSeen  = 0;
+      const estTotal = plan.estTokens * 4;
+      let lastPreview = 0;
+
+      try {
+        const resp = await fetch(GROQ_WS_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${GROQ_WS_KEY}`
+          },
+          body: JSON.stringify({
+            model: GROQ_WS_MODEL,
+            messages: [
+              { role: 'system', content: buildSystemPrompt() },
+              { role: 'user',   content: prompt }
+            ],
+            temperature: 0.65,
+            max_tokens: 12000,
+            stream: true
+          })
+        });
+
+        if (!resp.ok) {
+          const e = await resp.json().catch(() => ({}));
+          throw new Error(e.error?.message || `HTTP ${resp.status}`);
+        }
+
+        const reader  = resp.body.getReader();
+        const decoder = new TextDecoder();
+        setStatus('Streaming AI output…', 'generating');
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          const chunk = decoder.decode(value, { stream: true });
+          for (const line of chunk.split('\n')) {
+            if (!line.startsWith('data: ')) continue;
+            const payload = line.slice(6).trim();
+            if (payload === '[DONE]') break;
+            try {
+              const parsed = JSON.parse(payload);
+              const delta  = parsed.choices?.[0]?.delta?.content || '';
+              if (!delta) continue;
+              generatedHTML += delta;
+              charsSeen     += delta.length;
+              const pct = Math.min(92, Math.round((charsSeen / estTotal) * 100));
+              progressBar.style.width = pct + '%';
+              loadingPct.textContent  = `${pct}% — ${(charsSeen / 1000).toFixed(1)}k chars`;
+              if (charsSeen - lastPreview >= 350) {
+                lastPreview = charsSeen;
+                updatePreview(generatedHTML);
+              }
+            } catch { /* ignore partial chunk parse errors */ }
+          }
+        }
+
+        clearInterval(phaseTimer);
+        progressBar.style.width  = '100%';
+        loadingLabel.textContent = 'Done!';
+        loadingPct.textContent   = `${(charsSeen / 1000).toFixed(1)}k characters generated`;
+
+        setTimeout(() => {
+          loadingOv.classList.remove('on');
+          updatePreview(generatedHTML);
+          showCodePanel(sanitizeHTML(generatedHTML));
+          btnDl.disabled = btnCopy.disabled = btnOpen.disabled = false;
+          setStatus(`Website ready — ${charsSeen.toLocaleString()} characters generated`, 'done');
+          editTrigger.style.display = 'flex';
+        }, 500);
+
+      } catch (err) {
+        clearInterval(phaseTimer);
+        loadingOv.classList.remove('on');
+        setStatus(`Error: ${err.message}`, 'error');
+        if (!generatedHTML) {
+          emptyState.style.display = 'flex';
+          iframeWrap.style.display = 'none';
+        }
+      } finally {
+        busy              = false;
+        genBtn.disabled   = false;
+        genIcon.className = 'fas fa-wand-magic-sparkles';
+        genLabel.textContent = generatedHTML ? 'Regenerate' : 'Generate Website';
+      }
+    }
+
+    /* ===================================================
+       ACTIONS: DOWNLOAD / COPY / OPEN
+    =================================================== */
+    btnDl.addEventListener('click', () => {
+      if (!generatedHTML) return;
+      const blob = new Blob([sanitizeHTML(generatedHTML)], { type: 'text/html' });
+      const url  = URL.createObjectURL(blob);
+      const a    = Object.assign(document.createElement('a'), { href: url, download: 'my-website.html' });
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    btnCopy.addEventListener('click', async () => {
+      if (!generatedHTML) return;
+      try {
+        await navigator.clipboard.writeText(sanitizeHTML(generatedHTML));
+        const orig = btnCopy.innerHTML;
+        btnCopy.innerHTML   = '<i class="fas fa-check"></i><span>Copied!</span>';
+        btnCopy.style.color = 'var(--green)';
+        setTimeout(() => { btnCopy.innerHTML = orig; btnCopy.style.color = ''; }, 2200);
+      } catch {
+        btnCopy.innerHTML = '<i class="fas fa-xmark"></i><span>Failed</span>';
+        setTimeout(() => { btnCopy.innerHTML = '<i class="fas fa-copy"></i><span>Copy</span>'; }, 1800);
+      }
+    });
+
+    btnOpen.addEventListener('click', () => {
+      if (!generatedHTML) return;
+      const blob = new Blob([sanitizeHTML(generatedHTML)], { type: 'text/html' });
+      window.open(URL.createObjectURL(blob), '_blank');
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      if (busy) return;
+      generatedHTML = '';
+      promptInput.value = '';
+      promptInput.dispatchEvent(new Event('input'));
+      emptyState.style.display  = 'flex';
+      iframeWrap.style.display  = 'none';
+      previewFrame.srcdoc       = '';
+      codeEmpty.style.display   = 'flex';
+      codeScroll.style.display  = 'none';
+      codePre.textContent       = '';
+      editTrigger.style.display = 'none';
+      editPanel.style.display   = 'none';
+      editStat.textContent      = '';
+      btnDl.disabled = btnCopy.disabled = btnOpen.disabled = true;
+      genLabel.textContent = 'Generate Website';
+      setStatus('Describe your website above, then click Generate');
+    });
+
+    /* ===================================================
+       KEYBOARD SHORTCUTS
+    =================================================== */
+    genBtn.addEventListener('click', generate);
+    document.addEventListener('keydown', e => {
+      if (e.ctrlKey && e.key === 'Enter')           { e.preventDefault(); generate(); }
+      if (e.ctrlKey && e.key === 'd')               { e.preventDefault(); btnDl.click(); }
+      if (e.ctrlKey && e.shiftKey && e.key === 'C') { e.preventDefault(); btnCopy.click(); }
+    });
+
+    /* ===================================================
+       INIT
+    =================================================== */
+    setStatus('Describe your website above, then click Generate');
+  </script>
+</body>
+</html>
